@@ -1,0 +1,10 @@
+Project Ideas
+
+- Shortcut Training application
+    - Lets user practice app shortcuts and help them learn
+    - Has common apps pre included (Excel, vscode, autocad)
+    - Lets user add other apps that aren't pre included 
+- Calander Manager
+    - Organises uni Calander and prioritises items
+    - changes calander based on newly added events and tasks and automaticly moves to maximise effectivness
+    - Alters users of upcoming task/events and of any schedule changes.

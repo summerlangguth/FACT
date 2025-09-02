@@ -1,0 +1,36 @@
+Research on Shortcut Learning Platforms, Plus Education Insights
+
+- Big productivity gains: one study estimated ~47 hours/year saved just by using Excel shortcuts instead of mouse.
+- Most people only know 2–5 shortcuts per program.
+- Experience doesn’t mean knowledge – even long-time users often never pick them up.
+- Problem = people don’t change habits easily; hard to discover, easy to forget.
+
+Competitors
+- ShortcutFoo = gamified drills, “ninja” ranks, timed practice, free basics but paid for full courses.
+- KeyCombiner = lets you build custom sets, spaced repetition, detailed stats, big library (VS Code, Excel, Notion, etc.).
+- CheatKeys = pop-up cheat sheet when holding Ctrl; shows shortcuts for current app.
+- KeyCue = similar cheat-sheet approach, with customizable palettes.
+- Keyboard Shortcut Coach = adaptive practice, mostly Mac ecosystem.
+
+Market gaps
+- Most tools either dump all shortcuts at once (overwhelming) or don’t help you apply them in real life.
+- Lack of personalization → people only need the 10–20% of shortcuts they’ll actually use.
+- Weak motivation loops → lots of apps just show flashcards, no streaks, no rewards, no habit building.
+- Few beginner-friendly, playful tools → most assume you’re already a “power user.”
+- Limited cross-platform coverage (some only on Mac, some only on Windows).
+
+Duolingo insights
+- Gamification works: XP, levels, streaks, leaderboards drive people to come back.
+- Daily streaks are huge → users with 7-day streaks are 3.6× more likely to stick around.
+- Short, daily practice beats long, rare sessions → fits into people’s routine.
+- Badges & progress tracking improve course completion by ~30%.
+- Showing “time saved” or “shortcuts mastered” gives people proof the effort is worth it.
+- Biggest pitfall = info overload + no reinforcement → people drop the app after a week.
+
+Ideas
+- Make it playful (Duolingo-style) → streaks, XP, progress bars.
+- Customizable courses → users pick shortcuts they want (huge gap KeyCombiner tapped into).
+- Practice both recognition & execution → flashcards + “try the keys yourself.”
+- Beginner-friendly default course (VS Code), with option for more (Excel, Photoshop).
+- Stats dashboard → track accuracy, time saved, shortcuts mastered.
+- Could even add a “suggested shortcuts” feature later (based on tasks the user does often).
