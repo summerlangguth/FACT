@@ -1,5 +1,9 @@
-package com.example.FACT;
+package com.example.FACT.controller;
 
+import com.example.FACT.HelloApplication;
+import com.example.FACT.model.IUserDAO;
+import com.example.FACT.model.SqliteUserDAO;
+import com.example.FACT.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +20,6 @@ import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class RegistrationController implements Initializable {
@@ -40,7 +42,7 @@ public class RegistrationController implements Initializable {
     private PasswordField setPasswordField;
     @FXML
     private PasswordField confirmPasswordField;
-
+    public IUserDAO model = new SqliteUserDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -55,7 +57,6 @@ public class RegistrationController implements Initializable {
     public void signUpButtonOnAction(ActionEvent event){
         if(setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
-
         }
         else{
             confirmPasswordLabel.setText("Passwords do not match");
@@ -63,26 +64,23 @@ public class RegistrationController implements Initializable {
     }
 
     public void registerUser(){
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
-
         String firstname = firstNameTextField.getText();
         String lastname = lastNameTextField.getText();
         String email = emailTextField.getText();
         String password = setPasswordField.getText();
+        User user = new User(firstname, lastname, email, password);
 
-        String insertFields = "INSERT INTO user_account(first_name, last_name, email, password) VALUES ('";
-        String insertValues = firstname + "','"+ lastname + "','"+ email + "','"+ password + "')";
-        String insertUser = insertFields + insertValues;
         try{
-            Statement statement = connectDB.createStatement();
-            statement.executeUpdate(insertUser);
-            registerMessageLabel.setText("Sign up successful");
+            if (model.addUser(user)) {
+                registerMessageLabel.setText("Sign up successful");
+            }
+            else{
+                registerMessageLabel.setText("Please ensure all details are valid");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
         }
-
     }
 
     public void loadLogin(){

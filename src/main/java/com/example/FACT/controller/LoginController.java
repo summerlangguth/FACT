@@ -1,5 +1,7 @@
-package com.example.FACT;
+package com.example.FACT.controller;
 
+import com.example.FACT.HelloApplication;
+import com.example.FACT.model.SqliteUserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +18,7 @@ import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -43,6 +43,8 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField passwordField;
 
+    public SqliteUserDAO model = new SqliteUserDAO();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         File brandingfile = new File("images/logo.png");
@@ -55,36 +57,48 @@ public class LoginController implements Initializable {
     }
     public void loginButtonOnAction(ActionEvent event){
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
-            validateLogin();
+            try{
+                if(model.isLogin(emailTextField.getText(), passwordField.getText())){
+                    loginMessageLabel.setText("valid login");
+                }
+               else {
+                    loginMessageLabel.setText("Email or password is incorrect");
+                }
+            }
+            catch(SQLException e){
+                loginMessageLabel.setText("Email or password is incorrect");
+                e.printStackTrace();
+            }
+
         }
         else{
             loginMessageLabel.setText("Please enter both email and password");
         }
     }
 
-    public void validateLogin(){
-        DatabaseConnection connectNow = new DatabaseConnection();
-        Connection connectDB = connectNow.getConnection();
-        String verifyLogin = "SELECT count(1) FROM user_account WHERE email = '" + emailTextField.getText() + "' AND password = '"+ passwordField.getText() + "'";
-
-        try{
-            Statement statement = connectDB.createStatement();
-            ResultSet queryResult = statement.executeQuery(verifyLogin);
-
-            while(queryResult.next()){
-                if(queryResult.getInt(1) == 1) {
-                    loginMessageLabel.setText("Correct Login");
-                }
-                else{
-                    loginMessageLabel.setText("Invalid Login. Try again or sign up");
-                }
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-    }
+//    public void validateLogin(){
+//        DatabaseConnection connectNow = new DatabaseConnection();
+//        Connection connectDB = connectNow.getConnection();
+//        String verifyLogin = "SELECT count(1) FROM user_account WHERE email = '" + emailTextField.getText() + "' AND password = '"+ passwordField.getText() + "'";
+//
+//        try{
+//            Statement statement = connectDB.createStatement();
+//            ResultSet queryResult = statement.executeQuery(verifyLogin);
+//
+//            while(queryResult.next()){
+//                if(queryResult.getInt(1) == 1) {
+//                    loginMessageLabel.setText("Correct Login");
+//                }
+//                else{
+//                    loginMessageLabel.setText("Invalid Login. Try again or sign up");
+//                }
+//            }
+//        }
+//        catch(Exception e){
+//            e.printStackTrace();
+//            e.getCause();
+//        }
+//    }
 
     public void createAccountForm(){
         try{
