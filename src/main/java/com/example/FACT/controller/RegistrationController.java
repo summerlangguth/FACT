@@ -29,6 +29,8 @@ public class RegistrationController implements Initializable {
     @FXML
     private Button loginButton;
     @FXML
+    private Button signUpButton;
+    @FXML
     private Label registerMessageLabel;
     @FXML
     private Label confirmPasswordLabel;
