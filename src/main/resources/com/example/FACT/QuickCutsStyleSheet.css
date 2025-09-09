@@ -1,0 +1,308 @@
+/****************************************************
+ * quickcuts.css — JavaFX stylesheet for Quick Cuts
+ * Font: Helvetica
+ * Palette: #658ECA, #2D66AC, #0F2239, #FFFFFF, #000000
+ * Logo: set in .app-logo below (adjust path if needed)
+ ****************************************************/
+
+/* ---------- Theme Tokens (looked-up colors & sizes) ---------- */
+.root {
+    /* Brand colors */
+    -qc-primary:      #2D66AC;   /* strong blue */
+    -qc-primary-200:  #658ECA;   /* light blue */
+    -qc-ink:          #0F2239;   /* deep navy for headings */
+    -qc-bg:           #FFFFFF;   /* surfaces */
+    -qc-text:         #0F2239;   /* body text */
+    -qc-text-invert:  #FFFFFF;   /* on-primary text */
+    -qc-border:       rgba(15,34,57,0.15);
+    -qc-muted:        rgba(15,34,57,0.60);
+    -qc-shadow:       rgba(0,0,0,0.12);
+
+    /* State colors (derived) */
+    -qc-focus:        -qc-primary;
+    -qc-hover:        #3171BF;   /* slightly brighter primary */
+    -qc-pressed:      #25528B;   /* slightly darker primary */
+    -qc-selection:    #E8F0FB;   /* light selection fill */
+
+    /* Radii & spacing */
+    -qc-radius:       10px;
+    -qc-radius-sm:    8px;
+    -qc-radius-lg:    16px;
+    -qc-pad:          10px;
+    -qc-gap:          8px;
+
+    /* Typography */
+    -fx-font-family: "Helvetica";
+    -fx-font-size: 14px;           /* base */
+    -qc-h1: 28px;
+    -qc-h2: 22px;
+    -qc-h3: 18px;
+}
+
+/* ---------- App background ---------- */
+.root {
+    -fx-background-color: -qc-bg;
+}
+
+/* ---------- Global text & headings ---------- */
+.label {
+    -fx-text-fill: -qc-text;
+}
+
+.heading-1 {
+    -fx-font-size: -qc-h1;
+    -fx-font-weight: bold;
+    -fx-text-fill: -qc-ink;
+}
+
+.heading-2 {
+    -fx-font-size: -qc-h2;
+    -fx-font-weight: bold;
+    -fx-text-fill: -qc-ink;
+}
+
+.heading-3 {
+    -fx-font-size: -qc-h3;
+    -fx-font-weight: semi-bold;
+    -fx-text-fill: -qc-ink;
+}
+
+/* ---------- Hyperlinks ---------- */
+.hyperlink {
+    -fx-text-fill: -qc-primary;
+    -fx-underline: false;
+}
+.hyperlink:hover {
+    -fx-text-fill: -qc-hover;
+    -fx-underline: true;
+}
+
+/* ---------- Buttons ---------- */
+.button {
+    -fx-background-color: linear-gradient(to bottom, -qc-primary, -qc-pressed);
+    -fx-text-fill: -qc-text-invert;
+    -fx-background-radius: -qc-radius;
+    -fx-padding: 8px 14px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, -qc-shadow, 8, 0.15, 0, 2);
+    -fx-font-weight: bold;
+}
+.button:hover {
+    -fx-background-color: -qc-hover;
+}
+.button:pressed {
+    -fx-background-color: -qc-pressed;
+}
+.button:focused {
+    -fx-effect: dropshadow(gaussian, -qc-focus, 8, 0.25, 0, 0);
+    -fx-background-insets: 0, 1;
+}
+
+/* Outline / Secondary button */
+.button.outline, .btn-outline {
+    -fx-background-color: transparent;
+    -fx-text-fill: -qc-primary;
+    -fx-border-color: -qc-primary;
+    -fx-border-radius: -qc-radius;
+    -fx-border-width: 1px;
+    -fx-effect: none;
+}
+.button.outline:hover, .btn-outline:hover {
+    -fx-background-color: -qc-selection;
+}
+
+/* Text-only button */
+.button.text, .btn-text {
+    -fx-background-color: transparent;
+    -fx-text-fill: -qc-primary;
+    -fx-effect: none;
+    -fx-padding: 6px 8px;
+}
+.button.text:hover, .btn-text:hover {
+    -fx-background-color: -qc-selection;
+}
+
+/* Toggle buttons */
+.toggle-button {
+    -fx-background-radius: -qc-radius;
+    -fx-background-color: transparent;
+    -fx-text-fill: -qc-text;
+    -fx-border-color: -qc-border;
+    -fx-border-radius: -qc-radius;
+}
+.toggle-button:selected {
+    -fx-background-color: -qc-primary-200;
+    -fx-text-fill: -qc-text-invert;
+    -fx-border-color: transparent;
+}
+
+/* ---------- Inputs ---------- */
+.text-field, .password-field, .text-area, .combo-box-base, .date-picker {
+    -fx-background-color: -qc-bg;
+    -fx-text-fill: -qc-text;
+    -fx-background-radius: -qc-radius;
+    -fx-border-radius: -qc-radius;
+    -fx-border-color: -qc-border;
+    -fx-prompt-text-fill: -qc-muted;
+}
+.text-field:focused, .password-field:focused,
+.text-area:focused, .combo-box-base:focused, .date-picker:focused {
+    -fx-border-color: -qc-focus;
+    -fx-effect: dropshadow(gaussian, -qc-shadow, 6, 0.2, 0, 1);
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+    -fx-padding: 8px;
+    -fx-background-radius: -qc-radius;
+}
+
+.check-box, .radio-button {
+    -fx-text-fill: -qc-text;
+}
+.check-box:selected > .box, .radio-button:selected > .radio  {
+    -fx-background-color: -qc-primary;
+    -fx-border-color: -qc-primary;
+}
+
+/* ---------- Sliders & Progress ---------- */
+.slider .track {
+    -fx-background-color: -qc-border;
+    -fx-background-radius: 4px;
+}
+.slider .thumb {
+    -fx-background-color: -qc-primary;
+    -fx-background-radius: 10px;
+}
+.progress-bar > .bar {
+    -fx-background-color: -qc-primary;
+}
+.progress-bar > .track {
+    -fx-background-color: -qc-selection;
+}
+
+/* ---------- Menus ---------- */
+.menu-bar, .context-menu {
+    -fx-background-color: -qc-bg;
+}
+.menu-bar .label {
+    -fx-text-fill: -qc-text;
+}
+.menu-item:focused {
+    -fx-background-color: -qc-selection;
+}
+
+/* ---------- Tabs ---------- */
+.tab-pane .tab-header-area {
+    -fx-background-color: transparent;
+}
+.tab-pane .tab-header-background {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #F7F9FC);
+    -fx-border-color: -qc-border;
+}
+.tab-pane .tab {
+    -fx-background-insets: 0;
+    -fx-background-radius: -qc-radius-sm -qc-radius-sm 0 0;
+    -fx-padding: 8px 14px;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: -qc-bg;
+    -fx-border-color: -qc-border -qc-border transparent -qc-border;
+    -fx-border-width: 1px;
+}
+.tab-pane .tab-label {
+    -fx-text-fill: -qc-text;
+}
+.tab-pane:focused .tab:selected .focus-indicator {
+    -fx-border-color: -qc-focus;
+}
+
+/* ---------- Lists & Tables ---------- */
+.list-view, .table-view, .tree-view {
+    -fx-background-color: -qc-bg;
+    -fx-background-radius: -qc-radius;
+    -fx-border-radius: -qc-radius;
+    -fx-border-color: -qc-border;
+}
+.list-cell, .table-row-cell, .tree-cell {
+    -fx-text-fill: -qc-text;
+}
+.list-cell:filled:selected, .table-row-cell:filled:selected, .tree-cell:filled:selected {
+    -fx-background-color: -qc-selection;
+}
+.table-view .column-header-background {
+    -fx-background-color: #F3F6FA;
+    -fx-border-color: -qc-border;
+}
+.table-view .column-header, .table-view .filler {
+    -fx-size: 28px;
+}
+
+/* ---------- Tooltips ---------- */
+.tooltip {
+    -fx-background-color: -qc-ink;
+    -fx-text-fill: -qc-text-invert;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0.2, 0, 2);
+}
+
+/* ---------- Scrollbars ---------- */
+.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb {
+    -fx-background-color: -qc-primary-200;
+    -fx-background-radius: 8px;
+}
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+/* ---------- Cards & Surfaces ---------- */
+.surface, .card, .pane-elevated {
+    -fx-background-color: -qc-bg;
+    -fx-background-radius: -qc-radius;
+    -fx-padding: calc(-qc-pad * 1);
+    -fx-effect: dropshadow(gaussian, -qc-shadow, 14, 0.18, 0, 4);
+}
+
+/* ---------- Toolbar / Header ---------- */
+.toolbar, .header-bar {
+    -fx-background-color: -qc-primary;
+    -fx-padding: 10px 14px;
+}
+.toolbar .label, .header-bar .label {
+    -fx-text-fill: -qc-text-invert;
+    -fx-font-weight: bold;
+}
+
+/* ---------- App Logo block ----------
+   Place a Pane/Region and add style class 'app-logo' in Scene Builder. */
+.app-logo {
+    -fx-background-image: url("assets/quickcuts-logo.png"); /* <- update path if needed */
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left center;
+    -fx-background-size: contain;
+    -fx-min-height: 64px;
+}
+
+/* ---------- Accents & Pills ---------- */
+.pill {
+    -fx-background-color: -qc-selection;
+    -fx-text-fill: -qc-ink;
+    -fx-background-radius: 999px;
+    -fx-padding: 4px 10px;
+}
+
+/* ---------- Dark Mode (optional class on root) ----------
+   Add style class 'dark' to the Root to switch. */
+.dark {
+    -qc-bg:           #0F2239;
+    -qc-text:         #FFFFFF;
+    -qc-ink:          #FFFFFF;
+    -qc-border:       rgba(255,255,255,0.18);
+    -qc-selection:    rgba(101,142,202,0.22);
+    -qc-shadow:       rgba(0,0,0,0.60);
+}
+.dark .label, .dark .hyperlink { -fx-text-fill: -qc-text; }
+.dark .button {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.25, 0, 3);
+}
