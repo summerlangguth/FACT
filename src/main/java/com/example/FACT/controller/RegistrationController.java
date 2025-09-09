@@ -21,13 +21,17 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * A controller class handling methods related to user registration.
+ */
 public class RegistrationController implements Initializable {
 
     @FXML
     private ImageView brandingImageView;
     @FXML
     private Button loginButton;
+    @FXML
+    private Button signUpButton;
     @FXML
     private Label registerMessageLabel;
     @FXML
@@ -44,6 +48,7 @@ public class RegistrationController implements Initializable {
     private PasswordField confirmPasswordField;
     public IUserDAO model = new SqliteUserDAO();
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         File brandingfile = new File("images/logo.png");
@@ -51,9 +56,18 @@ public class RegistrationController implements Initializable {
         brandingImageView.setImage(brandingImage);
 
     }
+
+    /**
+     * loads the login page
+     */
     public void loginButtonOnAction(){
         loadLogin();
     }
+
+    /**
+     * validates user data and returns relevant message
+     * @param event click of the signup button
+     */
     public void signUpButtonOnAction(ActionEvent event){
         if(setPasswordField.getText().equals(confirmPasswordField.getText())){
             registerUser();
@@ -63,6 +77,9 @@ public class RegistrationController implements Initializable {
         }
     }
 
+    /**
+     * creates a new user object from the input data and calls addUser to validate
+     */
     public void registerUser(){
         String firstname = firstNameTextField.getText();
         String lastname = lastNameTextField.getText();
@@ -83,6 +100,9 @@ public class RegistrationController implements Initializable {
         }
     }
 
+    /**
+     * closes the current stage and opens a new one with the login content
+     */
     public void loadLogin(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));

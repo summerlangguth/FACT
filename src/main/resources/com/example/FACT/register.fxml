@@ -86,12 +86,12 @@
                               <Font size="25.0" />
                            </font>
                         </PasswordField>
-                        <Button fx:id="signUpButton" layoutX="429.0" layoutY="511.0" mnemonicParsing="false" onAction="#signUpButtonOnAction" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #2E40F5;" text="SIGN UP" textFill="WHITE">
+                        <Button fx:id="signUpButton" layoutX="429.0" layoutY="511.0" mnemonicParsing="false" onAction="#signUpButtonOnAction" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="SIGN UP" textFill="WHITE">
                            <font>
                               <Font name="Helvetica Bold" size="25.0" />
                            </font>
                         </Button>
-                        <Button fx:id="loginButton" layoutX="432.0" layoutY="589.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #2E40F5;" text="LOG IN" textFill="WHITE">
+                        <Button fx:id="loginButton" layoutX="432.0" layoutY="589.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="LOG IN" textFill="WHITE">
                            <font>
                               <Font name="Helvetica Bold" size="25.0" />
                            </font>
