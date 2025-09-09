@@ -52,9 +52,19 @@ public class LoginController implements Initializable {
         brandingImageView.setImage(brandingImage);
 
     }
+
+    /**
+     * creates the registration form
+     * @param event signup button click
+     */
     public void signButtonOnAction(ActionEvent event){
         createAccountForm();
     }
+
+    /**
+     * validates user credentials and calls isLogin to check.
+     * @param event login bytton click
+     */
     public void loginButtonOnAction(ActionEvent event){
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
@@ -100,6 +110,9 @@ public class LoginController implements Initializable {
 //        }
 //    }
 
+    /**
+     * closes the current stage and loads a new stage with the registration content
+     */
     public void createAccountForm(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register.fxml"));
