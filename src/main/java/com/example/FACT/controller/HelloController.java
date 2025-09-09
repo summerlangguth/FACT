@@ -1,4 +1,4 @@
-package com.example.fact;
+package com.example.FACT.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
