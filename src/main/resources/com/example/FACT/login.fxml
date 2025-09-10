@@ -32,7 +32,7 @@
             </AnchorPane>
          </top>
          <bottom>
-            <AnchorPane BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="615.0" prefWidth="1204.0" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="126.0" layoutY="54.0" text="Email">
                      <font>
@@ -68,6 +68,13 @@
                         <Font name="Helvetica Neue Bold" size="48.0" />
                      </font>
                   </Label>
+                  <Button fx:id="TempButton" layoutX="400.0" layoutY="550.0" mnemonicParsing="false" onAction="#TempButtonAction" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: #2E40F5;" text="Temp Button" textFill="WHITE">
+                     <font>
+                        <Font name="Helvetica Bold" size="30.0" />
+                     </font>
+                  </Button>
+
+
                </children>
             </AnchorPane>
          </bottom>

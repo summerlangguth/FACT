@@ -38,6 +38,11 @@ public class LoginController implements Initializable {
     private Button signButton;
 
     @FXML
+    private Button TempButton;
+
+
+
+    @FXML
     private TextField emailTextField;
 
     @FXML
@@ -55,6 +60,9 @@ public class LoginController implements Initializable {
     public void signButtonOnAction(ActionEvent event){
         createAccountForm();
     }
+
+    public void TempButtonAction(ActionEvent event){ ChangeToTempPage();}
+
     public void loginButtonOnAction(ActionEvent event){
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
@@ -117,6 +125,24 @@ public class LoginController implements Initializable {
             e.getCause();
         }
 
+    }
+
+    public void ChangeToTempPage(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("createSet.fxml"));
+            Stage CreateSetStage = new Stage();
+            Stage currentStage = (Stage) TempButton.getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load());
+            CreateSetStage.initStyle(StageStyle.UNDECORATED);
+            CreateSetStage.setTitle("Create Set");
+            CreateSetStage.setScene(scene);
+            CreateSetStage.show();
+            currentStage.hide();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
     }
 
 }
