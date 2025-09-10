@@ -5,7 +5,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<!--
 <?import javafx.scene.media.MediaView?>
+-->
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="root"
@@ -18,7 +20,7 @@
       <URL value="@styles/gameplay.css"/>
    </stylesheets>
 
-   <!-- TOP: Logo + Title -->
+   <!-- Title and logo at the top header -->
    <top>
       <HBox spacing="12" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
          <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
@@ -32,11 +34,9 @@
       </HBox>
    </top>
 
-   <!-- CENTER: Gameplay content moved further down -->
    <center>
       <VBox alignment="TOP_CENTER">
          <padding>
-            <!-- Adjust this top value to control how far down it starts -->
             <Insets top="50"/>
          </padding>
 
@@ -46,7 +46,7 @@
                <ColumnConstraints percentWidth="50" hgrow="SOMETIMES"/>
             </columnConstraints>
 
-            <!-- MIDDLE: Title + Description + Keys -->
+            <!-- LEFT SIDE: shortcut title, shortcut description and the keys needed to be pressed -->
             <VBox GridPane.columnIndex="0" spacing="10">
                <Label fx:id="shortcutTitleLabel"
                       text="Shortcut Name"
@@ -58,7 +58,6 @@
 
                <Label text="Keys to Press" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
                <FlowPane fx:id="keysPane" hgap="8" vgap="8">
-                  <!-- placeholders -->
                   <Label text="⌘" style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
                   <Label text="⇧" style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
                   <Label text="S"  style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
@@ -70,7 +69,7 @@
                       style="-fx-text-fill: #6b6b6b; -fx-font-size: 11px;"/>
             </VBox>
 
-            <!-- RIGHT: Media player -->
+            <!-- MEDIA PLAYER
             <VBox GridPane.columnIndex="1" spacing="8">
                <Label text="Demo" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
                <StackPane style="-fx-background-color: #0e0e0e; -fx-background-radius: 8;">
@@ -83,11 +82,11 @@
                   <Label fx:id="timeLabel" text="00:00 / 00:00" style="-fx-text-fill: #666;"/>
                </HBox>
             </VBox>
+            -->
          </GridPane>
       </VBox>
    </center>
 
-   <!-- BOTTOM: Tip -->
    <bottom>
       <Label text="Tip: Don’t click—just press the keys."
              BorderPane.alignment="CENTER"
