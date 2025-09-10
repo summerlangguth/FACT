@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,6 +28,14 @@
                            </viewport>
                            <Image url="@../../../../../../images/logo.png" />
                         </ImageView>
+                        <Button fx:id="closeButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #3578C9; -fx-border-width: 3; -fx-border-radius: 7;" text="X" textAlignment="CENTER" textFill="#3578c9" AnchorPane.leftAnchor="-50.0" AnchorPane.topAnchor="-10.0">
+                           <font>
+                              <Font name="Helvetica Bold" size="24.0" />
+                           </font>
+                           <effect>
+                              <Blend />
+                           </effect>
+                        </Button>
                      </children>
                      <padding>
                         <Insets bottom="25.0" />

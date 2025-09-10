@@ -33,6 +33,8 @@ public class RegistrationController implements Initializable {
     @FXML
     private Button signUpButton;
     @FXML
+    private Button closeButton;
+    @FXML
     private Label registerMessageLabel;
     @FXML
     private Label confirmPasswordLabel;
@@ -69,12 +71,26 @@ public class RegistrationController implements Initializable {
      * @param event click of the signup button
      */
     public void signUpButtonOnAction(ActionEvent event){
-        if(setPasswordField.getText().equals(confirmPasswordField.getText())){
-            registerUser();
+        registerMessageLabel.setText("");
+        confirmPasswordLabel.setText("");
+        if(!emailTextField.getText().isBlank() && !setPasswordField.getText().isBlank() && !firstNameTextField.getText().isBlank() && !lastNameTextField.getText().isBlank()){
+            if(setPasswordField.getText().equals(confirmPasswordField.getText())){
+                registerUser();
+            }
+            else{
+                confirmPasswordLabel.setText("Passwords do not match");
+            }
         }
         else{
-            confirmPasswordLabel.setText("Passwords do not match");
+            registerMessageLabel.setText("Please enter all fields");
         }
+    }
+    /**
+     * method to close the application
+     */
+    public void closeButtonAction(){
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
     /**
@@ -86,7 +102,6 @@ public class RegistrationController implements Initializable {
         String email = emailTextField.getText();
         String password = setPasswordField.getText();
         User user = new User(firstname, lastname, email, password);
-
         try{
             if (model.addUser(user)) {
                 registerMessageLabel.setText("Sign up successful");
