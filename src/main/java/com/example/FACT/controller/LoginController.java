@@ -38,6 +38,9 @@ public class LoginController implements Initializable {
     private Button signButton;
 
     @FXML
+    private Button closeButton;
+
+    @FXML
     private TextField emailTextField;
 
     @FXML
@@ -66,6 +69,7 @@ public class LoginController implements Initializable {
      * @param event login bytton click
      */
     public void loginButtonOnAction(ActionEvent event){
+        loginMessageLabel.setText("");
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
                 if(model.isLogin(emailTextField.getText(), passwordField.getText())){
@@ -84,6 +88,14 @@ public class LoginController implements Initializable {
         else{
             loginMessageLabel.setText("Please enter both email and password");
         }
+    }
+
+    /**
+     * method to close the application
+     */
+    public void closeButtonAction(){
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
 //    public void validateLogin(){
