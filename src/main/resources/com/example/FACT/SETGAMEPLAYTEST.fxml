@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<!--
+<?import javafx.scene.media.MediaView?>
+-->
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="root"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="880" prefHeight="560">
+
+   <!-- Title and logo at the top header -->
+   <top>
+      <HBox spacing="12" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+         <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+
+         <ImageView fx:id="logoImageView" fitHeight="28" preserveRatio="true" pickOnBounds="true">
+            <image><Image url="VS_code_logo.png"/></image>
+         </ImageView>
+
+         <Label fx:id="appTitleLabel" text="VS Studio Code"
+                style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+      </HBox>
+   </top>
+
+   <center>
+      <VBox alignment="TOP_CENTER">
+         <padding>
+            <Insets top="50"/>
+         </padding>
+
+         <GridPane hgap="16" vgap="10" maxWidth="820">
+            <columnConstraints>
+               <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+               <ColumnConstraints percentWidth="50" hgrow="SOMETIMES"/>
+            </columnConstraints>
+
+            <!-- LEFT SIDE: shortcut title, shortcut description and the keys needed to be pressed -->
+            <VBox GridPane.columnIndex="0" spacing="10">
+               <Label fx:id="shortcutTitleLabel"
+                      text="Shortcut Name"
+                      style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+               <Text fx:id="shortcutDescText"
+                     wrappingWidth="380"
+                     text="Brief description of what this shortcut does and when to use it."/>
+
+               <Label text="Keys to Press" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+               <FlowPane fx:id="keysPane" hgap="8" vgap="8">
+                  <Label text="⌘" style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
+                  <Label text="⇧" style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
+                  <Label text="S"  style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
+               </FlowPane>
+
+               <Label fx:id="keysHintLabel"
+                      text="(Adapts to platform: ⌘ on macOS / Ctrl on Windows)"
+                      wrapText="true"
+                      style="-fx-text-fill: #6b6b6b; -fx-font-size: 11px;"/>
+            </VBox>
+
+            <!-- MEDIA PLAYER
+            <VBox GridPane.columnIndex="1" spacing="8">
+               <Label text="Demo" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+               <StackPane style="-fx-background-color: #0e0e0e; -fx-background-radius: 8;">
+                  <MediaView fx:id="mediaView" fitWidth="360" fitHeight="220" preserveRatio="true"/>
+               </StackPane>
+               <HBox spacing="8">
+                  <Button fx:id="playBtn"   text="Play"/>
+                  <Button fx:id="pauseBtn"  text="Pause"/>
+                  <Button fx:id="replayBtn" text="Replay"/>
+                  <Label fx:id="timeLabel" text="00:00 / 00:00" style="-fx-text-fill: #666;"/>
+               </HBox>
+            </VBox>
+            -->
+         </GridPane>
+      </VBox>
+   </center>
+
+   <bottom>
+      <Label text="Tip: Don’t click—just press the keys."
+             BorderPane.alignment="CENTER"
+             style="-fx-text-fill: #7a7a7a; -fx-padding: 10;"/>
+   </bottom>
+</BorderPane>
