@@ -16,10 +16,10 @@ public class User {
      * @param password The phone number of the user
      */
     public User(String firstName, String lastName, String email, String password){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        setPassword(password);
     }
 
     /**
@@ -28,14 +28,6 @@ public class User {
      */
     public int getId(){
         return id;
-    }
-
-    /**
-     * sets the users id to the value given
-     * @param id the user's id
-     */
-    public void setId(int id){
-        this.id = id;
     }
 
     /**
