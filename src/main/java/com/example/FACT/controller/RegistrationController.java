@@ -21,6 +21,8 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
+
 /**
  * A controller class handling methods related to user registration.
  */
@@ -49,7 +51,7 @@ public class RegistrationController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     public IUserDAO model = new SqliteUserDAO();
-
+    private String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -74,16 +76,24 @@ public class RegistrationController implements Initializable {
         registerMessageLabel.setText("");
         confirmPasswordLabel.setText("");
         if(!emailTextField.getText().isBlank() && !setPasswordField.getText().isBlank() && !firstNameTextField.getText().isBlank() && !lastNameTextField.getText().isBlank()){
-            if(setPasswordField.getText().equals(confirmPasswordField.getText())){
-                registerUser();
+            if(patternMatches(emailTextField.getText(), regex)){
+                if (setPasswordField.getText().equals(confirmPasswordField.getText())) {
+                    registerUser();
+                } else {
+                    confirmPasswordLabel.setText("Passwords do not match");
+                }
             }
             else{
-                confirmPasswordLabel.setText("Passwords do not match");
+                registerMessageLabel.setText("Please enter a valid email");
             }
+
         }
         else{
             registerMessageLabel.setText("Please enter all fields");
         }
+    }
+    public static boolean patternMatches(String emailAddress, String regex) {
+        return Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(emailAddress).matches();
     }
     /**
      * method to close the application
