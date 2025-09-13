@@ -15,6 +15,14 @@ public class SqliteUserDAO implements IUserDAO{
         createTable();
 
     }
+
+    /**
+     * used for testing
+     * @param connection connection instance
+     */
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
     private void createTable() {
         // Create table if not exists
         try {
@@ -40,8 +48,8 @@ public class SqliteUserDAO implements IUserDAO{
      * @throws SQLException
      */
     public boolean isLogin(String email, String password) throws SQLException {
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
         String query = "SELECT * FROM userDetails WHERE email = ? AND password = ?";
         try{
             preparedStatement = connection.prepareStatement(query);
@@ -58,9 +66,6 @@ public class SqliteUserDAO implements IUserDAO{
         catch(Exception e){
             return false;
             //TODO
-        } finally {
-            preparedStatement.close();
-            resultSet. close();
         }
     }
     @Override

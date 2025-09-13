@@ -51,6 +51,7 @@ public class RegistrationController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     public IUserDAO model = new SqliteUserDAO();
+    private String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -75,7 +76,7 @@ public class RegistrationController implements Initializable {
         registerMessageLabel.setText("");
         confirmPasswordLabel.setText("");
         if(!emailTextField.getText().isBlank() && !setPasswordField.getText().isBlank() && !firstNameTextField.getText().isBlank() && !lastNameTextField.getText().isBlank()){
-            if(patternMatches(emailTextField.getText())){
+            if(patternMatches(emailTextField.getText(), regex)){
                 if (setPasswordField.getText().equals(confirmPasswordField.getText())) {
                     registerUser();
                 } else {
@@ -91,10 +92,8 @@ public class RegistrationController implements Initializable {
             registerMessageLabel.setText("Please enter all fields");
         }
     }
-    public static boolean patternMatches(String emailAddress) {
-        return Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$")
-                .matcher(emailAddress)
-                .matches();
+    public static boolean patternMatches(String emailAddress, String regex) {
+        return Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(emailAddress).matches();
     }
     /**
      * method to close the application
