@@ -38,9 +38,9 @@
                      <Font size="22.0" />
                   </font></Label>
                     <FlowPane fx:id="keysPane" alignment="CENTER" columnHalignment="CENTER" hgap="8" vgap="8">
-                        <Label prefWidth="36.0" style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;" text="⌘" />
-                        <Label style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;" text="⇧" />
-                        <Label style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;" text="S" />
+                        <Label prefWidth="36.0" style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
+                        <Label style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
+                        <Label style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;"/>
                     </FlowPane>
                     <!-- SHORTCUT DESCRIPTION-->
                     <Text fx:id="shortcutDescText" text="Brief description of what this shortcut does and when to use it." textAlignment="CENTER" wrappingWidth="700.0">
