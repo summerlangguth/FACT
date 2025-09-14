@@ -3,4 +3,7 @@ import java.util.List;
 public interface ICreateSetDAO {
     public boolean addKeySet(KeySets keysets);
 
+    List<String> listApplications();
+    boolean addApplication(String name);
+
 }
