@@ -36,3 +36,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.idea/material_theme_project_new.xml

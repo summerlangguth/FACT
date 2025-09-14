@@ -33,7 +33,7 @@ public class MainApp extends Application {
 
         GameEngine engine = new GameEngine(demoShortcuts);
         controller.setEngine(engine);
-        stage.setScene(new Scene(root, 720, 420));
+        stage.setScene(new Scene(root, 1200, 800));
         stage.setTitle("Shortcut Trainer");
         stage.show();
     }
