@@ -19,7 +19,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/FACT/setGameplay.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/FACT/gameplay.fxml"));
         Parent root = loader.load();
 
         GameplayController controller = loader.getController();
