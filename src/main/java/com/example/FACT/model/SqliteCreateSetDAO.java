@@ -15,29 +15,24 @@ public class SqliteCreateSetDAO implements ICreateSetDAO {
         initSchema();
     }
 
-    // ----- Schema -----
     private void initSchema() {
-        // Enable FK (no harm even if none yet)
         try (Statement s = connection.createStatement()) {
             s.execute("PRAGMA foreign_keys = ON");
         } catch (SQLException ignored) {}
 
-        // KeySets table
         final String createKeySets = """
             CREATE TABLE IF NOT EXISTS KeySets (
-                ID          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                Application TEXT    NOT NULL,
-                Category    TEXT    NOT NULL,
-                Difficulty  TEXT    NOT NULL,
-                Description TEXT    NOT NULL,
-                KeyBind     TEXT    NOT NULL
+                ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Application TEXT NOT NULL,
+                Category TEXT NOT NULL,
+                Difficulty TEXT NOT NULL,
+                Description TEXT NOT NULL,
+                KeyBind TEXT NOT NULL
             );
         """;
-
-        // Applications table (for the ComboBox)
         final String createApplications = """
             CREATE TABLE IF NOT EXISTS applications (
-                id   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 name TEXT NOT NULL UNIQUE
             );
         """;
@@ -49,12 +44,10 @@ public class SqliteCreateSetDAO implements ICreateSetDAO {
             e.printStackTrace();
         }
 
-        // Optionally seed a few common apps on first run
         seedDefaultApplications();
     }
 
     private void seedDefaultApplications() {
-        // Insert a few if the table is empty
         final String countSql = "SELECT COUNT(*) FROM applications";
         try (Statement st = connection.createStatement();
              ResultSet rs = st.executeQuery(countSql)) {
@@ -69,7 +62,60 @@ public class SqliteCreateSetDAO implements ICreateSetDAO {
         }
     }
 
-    // ----- ICreateSetDAO -----
+    @Override
+    public java.util.List<KeySets> listKeySetsByApplication(String application) {
+        final String sql = """
+        SELECT ID, Application, Category, Difficulty, Description, KeyBind
+        FROM KeySets WHERE Application = ? ORDER BY Category, Description
+    """;
+        java.util.List<KeySets> list = new java.util.ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, application);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    KeySets k = new KeySets(
+                            rs.getInt("ID"),
+                            rs.getString("Application"),
+                            rs.getString("Category"),
+                            rs.getString("Difficulty"),
+                            rs.getString("Description"),
+                            rs.getString("KeyBind")
+                    );
+                    list.add(k);
+                }
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return list;
+    }
+
+    @Override
+    public boolean updateKeySet(KeySets ks) {
+        final String sql = """
+        UPDATE KeySets SET
+            Application = ?, Category = ?, Difficulty = ?, Description = ?, KeyBind = ?
+        WHERE ID = ?
+    """;
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, ks.getApplication());
+            ps.setString(2, ks.getCategory());
+            ps.setString(3, ks.getDifficulty());
+            ps.setString(4, ks.getDescription());
+            ps.setString(5, ks.getKeyBind());
+            ps.setInt(6, ks.getId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) { e.printStackTrace(); return false; }
+    }
+
+    @Override
+    public boolean deleteKeySet(int id) {
+        final String sql = "DELETE FROM KeySets WHERE ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) { e.printStackTrace(); return false; }
+    }
+
+
     @Override
     public boolean addKeySet(KeySets keyset) {
         final String sql = """
@@ -90,7 +136,6 @@ public class SqliteCreateSetDAO implements ICreateSetDAO {
         }
     }
 
-    // NEW: list existing applications (for ComboBox)
     @Override
     public List<String> listApplications() {
         final String sql = "SELECT name FROM applications ORDER BY LOWER(name)";
@@ -105,8 +150,6 @@ public class SqliteCreateSetDAO implements ICreateSetDAO {
         }
         return apps;
     }
-
-    // NEW: add a new application (used by “➕ Add application…”)
     @Override
     public boolean addApplication(String name) {
         if (name == null || name.isBlank()) return false;
@@ -114,7 +157,7 @@ public class SqliteCreateSetDAO implements ICreateSetDAO {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, name.trim());
             int changed = ps.executeUpdate();
-            return changed > 0; // false if duplicate due to UNIQUE
+            return changed > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

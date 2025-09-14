@@ -1,15 +1,20 @@
 package com.example.FACT.controller;
 
+import com.example.FACT.HelloApplication;
 import com.example.FACT.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -87,8 +92,6 @@ public class CreateSetController {
         ApplicationComboBox.getSelectionModel().clearSelection();
         DifficultyComboBox.getSelectionModel().clearSelection();
 
-
-
         ApplicationComboBox.setCellFactory(cb -> new ListCell<>() {
             @Override protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -118,6 +121,25 @@ public class CreateSetController {
     private void ClearForm(ActionEvent e) {
         clearForm(false);          // false = clear application too
         CreateMessageLabel.setText("");
+    }
+
+    @FXML
+    private void EditSetAction() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EditSetView.fxml"));
+            Stage CreateSetStage = new Stage();
+            Stage currentStage = (Stage) EditSetsButton.getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load());
+            CreateSetStage.initStyle(StageStyle.UNDECORATED);
+            CreateSetStage.setTitle("Edit Sets");
+            CreateSetStage.setScene(scene);
+            CreateSetStage.show();
+            currentStage.hide();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
     }
 
     private void loadApplications() {
@@ -262,10 +284,10 @@ public class CreateSetController {
                 e.consume();
                 return;
             }
-            boolean ctrl  = e.isControlDown() || e.getCode() == KeyCode.CONTROL;
-            boolean alt   = e.isAltDown()     || e.getCode() == KeyCode.ALT;
-            boolean shift = e.isShiftDown()   || e.getCode() == KeyCode.SHIFT;
-            boolean meta  = e.isMetaDown()    || e.getCode() == KeyCode.META;
+            boolean ctrl = e.isControlDown() || e.getCode() == KeyCode.CONTROL;
+            boolean alt = e.isAltDown() || e.getCode() == KeyCode.ALT;
+            boolean shift = e.isShiftDown() || e.getCode() == KeyCode.SHIFT;
+            boolean meta = e.isMetaDown() || e.getCode() == KeyCode.META;
 
             KeyCode code = e.getCode();
             if (code.isModifierKey()) {
