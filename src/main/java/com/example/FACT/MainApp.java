@@ -15,24 +15,24 @@ import javafx.stage.Stage;
 import java.util.List;
 
 public class MainApp extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/example/FACT/setGameplay.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/FACT/setGameplay.fxml"));
         Parent root = loader.load();
 
         GameplayController controller = loader.getController();
 
         // DEMO SHORTCUTS
         List<Shortcut> demoShortcuts = List.of(
-                new Shortcut("Copy",
-                        new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN)),
-                new Shortcut("Paste",
-                        new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN))
+                new Shortcut("Copy", new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN)),
+                new Shortcut("Paste", new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN))
         );
 
         GameEngine engine = new GameEngine(demoShortcuts);
         controller.setEngine(engine);
+
         stage.setScene(new Scene(root, 1200, 800));
         stage.setTitle("Shortcut Trainer");
         stage.show();

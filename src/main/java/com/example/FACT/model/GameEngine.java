@@ -12,12 +12,9 @@ public class GameEngine {
      */
     private List<Shortcut> shortcuts = Collections.emptyList();
     /**
-     * An integer representing the shortcut we are on, and the number correct. This
-     * can be used at the end to also identify how many were answered wrongly.
+     * An integer representing the shortcut we are on. This can be used at the end to also identify how many were answered wrongly.
      */
     private int index = 0;
-    private int correct = 0;
-
 
     public GameEngine(List<Shortcut> shortcuts) {
         setShortcuts(shortcuts);
@@ -37,7 +34,6 @@ public class GameEngine {
      */
     public void reset() {
         index = 0;
-        correct = 0;
     }
 
     /**
@@ -57,49 +53,27 @@ public class GameEngine {
     }
 
     /**
-     * Size of shortcut lists.
-     * @return integer.
-     */
-    public int size() {
-        return shortcuts.size();
-    }
-
-    /**
-     * Checks position of shortcut within the List index.
-     * @return position index.
-     */
-    public int position() {
-        return isFinished() ? shortcuts.size() : (index + 1);
-    }
-
-    /**
-     * Checks number of correct responses.
-     * @return correct integer.
-     */
-    public int correctCount() {
-        return correct;
-    }
-
-    /**
      * Checks to see if user input matches the expected key event combo. If able to move on, will increase correct
      * and index respectively.
      * @param e key combination entered
      * @return returns boolean value to see if the next shortcut can be loaded,
      */
     public boolean checkAndAdvance(KeyEvent e) {
-        if (isFinished()) return false;
-
         switch (e.getCode()) {
-            case SHIFT, CONTROL, META, ALT -> { return false; }
+            case SHIFT, CONTROL, META, ALT -> {
+                return false;
+            }
             default -> {}
         }
+
+        if (isFinished())
+            return false;
 
         Shortcut cur = current();
         KeyCombination expected = cur.getCombo();
         boolean ok = expected.match(e);
 
         if (ok) {
-            correct++;
             index++;
             return true;
         }

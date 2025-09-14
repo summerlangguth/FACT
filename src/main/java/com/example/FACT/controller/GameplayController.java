@@ -30,7 +30,6 @@ public class GameplayController {
     @FXML private FlowPane keysPane;
     @FXML private Label statusLabel;
     private GameEngine engine;
-
     private boolean acceptingInput = true;
     private final String appTitleDefault = "VS Studio Code";
 
@@ -64,8 +63,6 @@ public class GameplayController {
      * @param e refers to the key event (user input)
      */
     private void onKeyPressed(KeyEvent e) {
-        if (engine == null || !acceptingInput) return;
-
         if (isModifierOnly(e)) {
             e.consume();
             return;
@@ -99,17 +96,15 @@ public class GameplayController {
      * Refreshes the UI to reflect the state of the GameEngine.
      */
     private void refreshUI() {
-        if (engine == null) return;
-
-        Shortcut cur = engine.current();
-        if (cur == null) {
+        Shortcut currentShortcut = engine.current();
+        if (currentShortcut == null) {
             shortcutDescText.setText("All shortcuts complete!");
             keysPane.getChildren().clear();
             return;
         }
 
-        shortcutDescText.setText(cur.getDescription());
-        keysPane.getChildren().setAll(makeKeycaps(cur.getCombo()));
+        shortcutDescText.setText(currentShortcut.getDescription());
+        keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
     }
 
     /**
