@@ -80,8 +80,6 @@ public class GameplayController {
                     refreshUI();
                 });
                 pause.play();
-            } else {
-                showStatus("INCORRECT", "#c62828");
             }
         }
     }

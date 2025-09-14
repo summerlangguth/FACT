@@ -66,8 +66,7 @@ public class GameEngine {
      * @return returns boolean value to see if the next shortcut can be loaded,
      */
     public boolean checkAndAdvance(KeyEvent e) {
-        Shortcut currentCombo = current();
-        KeyCombination expected = currentCombo.getCombo();
+        KeyCombination expected = current().getCombo();
         boolean currentInput = expected.match(e);
 
         if (currentInput) {
