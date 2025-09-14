@@ -19,15 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The GameplayController is responsible for managing the user interface and
- * handling gameplay mechanics related to keyboard shortcuts. It interacts
- * with the GameEngine to provide feedback to the user about their performance
- * and updates the UI accordingly.
- *
- * The class listens to key events to evaluate user input, provides real-time
- * feedback (such as "CORRECT" or "INCORRECT"), and updates the display to
- * reflect the next shortcut or the completion status when all shortcuts
- * are done.
+ * The GameplayController manages the FMXL file and links it to the logic ran by the GameEngine.
  */
 public class GameplayController {
 
@@ -43,13 +35,8 @@ public class GameplayController {
     private final String appTitleDefault = "VS Studio Code";
 
     /**
-     * Sets the GameEngine instance to be used by the GameplayController.
-     * This method updates the internal reference to the provided engine and
-     * ensures the user interface is refreshed to reflect the current state
-     * of the engine.
-     *
-     * @param engine the GameEngine instance to be set. This object manages the
-     *               game logic, including shortcuts and key input handling.
+     * Creates a new instance of GameEngone, which will now be used to calculate the logic for the gameplay.
+     * @param engine Passes in the GameEngine instance that will be used for the program.
      */
     public void setEngine(GameEngine engine) {
         this.engine = engine;
@@ -57,17 +44,8 @@ public class GameplayController {
     }
 
     /**
-     * Initializes the controller after its root element has been completely loaded.
-     * This method is automatically invoked by the JavaFX runtime.
-     *
-     * Behavior:
-     * - Attaches a key listener to the Scene once it becomes available. The key
-     *   listener processes key press events through the `onKeyPressed` method.
-     * - Updates the application title label with the default title text upon
-     *   initialization.
-     *
-     * This method sets up essential functionality for the gameplay session by
-     * ensuring proper event handling and interface readiness.
+     * Once the root has been loaded, the program begins listening for the next key event (user input).
+     * Also sets the top left title, matching the correct application.
      */
     @FXML
     private void initialize() {
@@ -78,18 +56,12 @@ public class GameplayController {
     }
 
     /**
-     * Handles the key press event triggered during the gameplay session. The method processes
-     * the KeyEvent to determine if it matches the expected key combination, updates the game
-     * state accordingly, and manages the user interface to provide feedback on correctness.
-     *
-     * Behavior:
-     * - Ignores events if the game engine is null or input is not currently accepted.
-     * - Does not process key events for modifier-only keys (e.g., SHIFT, CONTROL).
-     * - If the engine signals that the game is finished, displays a completion status.
-     * - Checks the input key against the expected key combination, provides visual feedback
-     *   for correct or incorrect input, and pauses input briefly after correct input.
-     *
-     * @param e the KeyEvent corresponding to a user's key press
+     * When a key is pressed, this method runs.
+     * Checks if the input matches the required key combination.
+     * Will ignore if there is no GameEngine.
+     * If only a modifier key (e.g. shift, command) has been pressed, is ignored.
+     * Will display COMPLETE if finished, as signed by the GameEngine.
+     * @param e refers to the key event (user input)
      */
     private void onKeyPressed(KeyEvent e) {
         if (engine == null || !acceptingInput) return;
@@ -99,6 +71,7 @@ public class GameplayController {
             return;
         }
 
+        // If the current shortcut index is higher than the length of the Shortcut list, it displays COMPLETE.
         if (engine.isFinished()) {
             showStatus("COMPLETE", "#2e7d32");
             return;
@@ -123,19 +96,7 @@ public class GameplayController {
     }
 
     /**
-     * Updates the user interface to reflect the current state of the `engine`.
-     * The method retrieves the current shortcut from the engine, updates the
-     * descriptive text for the shortcut, and displays the corresponding key
-     * combination as a set of styled labels. If no shortcuts remain, a completion
-     * message is shown and the key combination display is cleared.
-     *
-     * Behavior:
-     * - If `engine` is null, the method returns without making changes.
-     * - If there is no current shortcut (i.e., engine returns null), the user
-     *   interface displays a message indicating that all shortcuts are complete.
-     * - If a valid shortcut exists, the description of the shortcut is displayed
-     *   and the associated key combination is rendered visually in the `keysPane`
-     *   using styled labels generated by the `makeKeycaps` method.
+     * Refreshes the UI to reflect the state of the GameEngine.
      */
     private void refreshUI() {
         if (engine == null) return;
@@ -152,12 +113,9 @@ public class GameplayController {
     }
 
     /**
-     * Updates the status text and applies a specific color for the text using the provided
-     * parameters. The updated status is displayed using the `appTitleLabel` label.
-     *
-     * @param text     the status text to be displayed in the label.
-     * @param colorHex the color to apply to the text, specified in hexadecimal format
-     *                 (e.g., "#FFFFFF" for white).
+     * Updates the status Label text at the bottom of the screen.
+     * @param text text to be inputted.
+     * @param colorHex color of the text.
      */
     private void showStatus(String text, String colorHex) {
         statusLabel.setText(text);
@@ -165,11 +123,9 @@ public class GameplayController {
     }
 
     /**
-     * Determines if the given key event corresponds solely to a modifier key.
-     *
-     * @param e the KeyEvent to be checked
-     * @return true if the key associated with the event is a modifier key
-     *         (SHIFT, CONTROL, META, or ALT); false otherwise
+     * Checks if the key event is ONLY a modifier key.
+     * @param e the key event getting checked
+     * @return returns True if a key event matches a modifier key
      */
     private static boolean isModifierOnly(KeyEvent e) {
         KeyCode c = e.getCode();
@@ -177,12 +133,9 @@ public class GameplayController {
     }
 
     /**
-     * Generates a list of styled Label elements representing the key combination provided.
-     * This method formats the key combination into human-readable labels with platform-specific modifiers.
-     *
-     * @param combo the key combination to be transformed into styled label elements.
-     *              It can be an instance of KeyCodeCombination or any other implementation of KeyCombination.
-     * @return a list of Label objects representing the key combination with appropriate styles and platform-specific symbols.
+     * Replaces modifier keys with their associated symbol.
+     * @param combo the key event to be replaced.
+     * @return
      */
     private List<Label> makeKeycaps(KeyCombination combo) {
         List<Label> out = new ArrayList<>();
@@ -209,12 +162,9 @@ public class GameplayController {
     }
 
     /**
-     * Creates a styled Label with the provided text.
-     * The label is styled with specific padding, background color, rounded corners,
-     * and bold font weight for a consistent visual appearance.
      *
-     * @param text the content to be displayed on the created Label.
-     * @return a Label instance with the specified text and applied styles.
+     * @param text
+     * @return
      */
     private Label cap(String text) {
         Label l = new Label(text);

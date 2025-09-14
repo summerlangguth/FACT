@@ -8,9 +8,8 @@ public class Shortcut {
 
     /**
      * Constructs a new Shortcut instance with the specified description and key combination.
-     *
-     * @param description a string describing the purpose or function of the shortcut
-     * @param combo the KeyCombination associated with this shortcut
+     * @param description String describing the shortcut.
+     * @param combo the key combination used to activate the shortcut.
      */
     public Shortcut(String description, KeyCombination combo) {
         this.description = description;
@@ -19,8 +18,7 @@ public class Shortcut {
 
     /**
      * Retrieves the description associated with the shortcut.
-     *
-     * @return the description of the shortcut as a String.
+     * @return the description of the shortcut as a string.
      */
     public String getDescription() {
         return description;
@@ -28,8 +26,7 @@ public class Shortcut {
 
     /**
      * Retrieves the key combination associated with the shortcut.
-     *
-     * @return the KeyCombination of the shortcut.
+     * @return the key combination of the shortcut.
      */
     public KeyCombination getCombo() {
         return combo;
