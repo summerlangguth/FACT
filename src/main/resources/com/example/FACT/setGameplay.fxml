@@ -93,7 +93,7 @@
                </padding>
             </Label>
             <Region prefHeight="38.0" prefWidth="503.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" text="Exit">
+            <Button fx:id="exit" mnemonicParsing="false" onAction="#exitGameplay" text="Exit">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

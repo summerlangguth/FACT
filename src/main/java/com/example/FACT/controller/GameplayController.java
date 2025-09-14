@@ -4,7 +4,13 @@ import com.example.FACT.model.GameEngine;
 import com.example.FACT.model.Shortcut;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -14,10 +20,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * The GameplayController manages the FMXL file and links it to the logic ran by the GameEngine.
  */
@@ -30,6 +38,10 @@ public class GameplayController {
     @FXML private FlowPane keysPane;
     @FXML private Label statusLabel;
     @FXML private Label progress;
+    @FXML private Button exit;
+    private Stage stage;
+    private Scene scene;
+    private Parent parentRoot;
     private GameEngine engine;
     private final String appTitleDefault = "VS Studio Code";
 
@@ -148,5 +160,13 @@ public class GameplayController {
         Label l = new Label(text);
         l.setStyle("-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;");
         return l;
+    }
+
+    public void exitGameplay(ActionEvent event) throws IOException {
+        Parent parentRoot =  FXMLLoader.load(getClass().getResource("/com/example/FACT/login.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(parentRoot);
+        stage.setScene(scene);
+        stage.show();
     }
 }
