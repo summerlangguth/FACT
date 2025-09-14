@@ -63,7 +63,7 @@
                         <Font name="Helvetica Bold" size="30.0" />
                      </font>
                   </Button>
-                  <Button fx:id="EditSetsButton" layoutX="688.0" layoutY="480.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="149.0" style="-fx-background-color: #2E40F5;" text="Edit Set" textFill="WHITE">
+                  <Button fx:id="EditSetsButton" layoutX="688.0" layoutY="480.0" onAction="#EditSetAction" mnemonicParsing="false" prefHeight="60.0" prefWidth="149.0" style="-fx-background-color: #2E40F5;" text="Edit Set" textFill="WHITE">
                      <font>
                         <Font name="Helvetica Bold" size="30.0" />
                      </font>

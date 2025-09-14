@@ -6,4 +6,7 @@ public interface ICreateSetDAO {
     List<String> listApplications();
     boolean addApplication(String name);
 
+    List<KeySets> listKeySetsByApplication(String application);
+    boolean updateKeySet(KeySets ks);
+    boolean deleteKeySet(int id);
 }
