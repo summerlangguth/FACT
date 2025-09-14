@@ -1,5 +1,6 @@
 package com.example.FACT.model;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import java.util.Collections;
@@ -44,6 +45,12 @@ public class GameEngine {
         return (index < shortcuts.size()) ? shortcuts.get(index) : null;
     }
 
+    public String progress(){
+        int position = index +1;
+        int total = shortcuts.size();
+        return position + "/" + total;
+    }
+
     /**
      * Compares shortcut number to size of list, if equal or bigger, the course is finished.
      * @return boolean value.
@@ -59,21 +66,11 @@ public class GameEngine {
      * @return returns boolean value to see if the next shortcut can be loaded,
      */
     public boolean checkAndAdvance(KeyEvent e) {
-        switch (e.getCode()) {
-            case SHIFT, CONTROL, META, ALT -> {
-                return false;
-            }
-            default -> {}
-        }
+        Shortcut currentCombo = current();
+        KeyCombination expected = currentCombo.getCombo();
+        boolean currentInput = expected.match(e);
 
-        if (isFinished())
-            return false;
-
-        Shortcut cur = current();
-        KeyCombination expected = cur.getCombo();
-        boolean ok = expected.match(e);
-
-        if (ok) {
+        if (currentInput) {
             index++;
             return true;
         }

@@ -57,7 +57,7 @@
    <bottom>
       <BorderPane prefHeight="69.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <right>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="52.0" text="Progress" textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT" />
+            <Label fx:id="progress" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="52.0" textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT" />
          </right>
          <center>
              <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="20.0" prefWidth="367.0" style="-fx-font-size: 16px;" BorderPane.alignment="CENTER">

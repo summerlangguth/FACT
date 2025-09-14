@@ -29,8 +29,8 @@ public class GameplayController {
     @FXML private Text shortcutDescText;
     @FXML private FlowPane keysPane;
     @FXML private Label statusLabel;
+    @FXML private Label progress;
     private GameEngine engine;
-    private boolean acceptingInput = true;
     private final String appTitleDefault = "VS Studio Code";
 
     /**
@@ -63,33 +63,27 @@ public class GameplayController {
      * @param e refers to the key event (user input)
      */
     private void onKeyPressed(KeyEvent e) {
-        if (isModifierOnly(e)) {
-            e.consume();
-            return;
-        }
-
-        // If the current shortcut index is higher than the length of the Shortcut list, it displays COMPLETE.
         if (engine.isFinished()) {
             showStatus("COMPLETE", "#2e7d32");
             return;
         }
 
-        boolean ok = engine.checkAndAdvance(e);
-        if (ok) {
-            acceptingInput = false; // pause input while we display CORRECT
-            showStatus("CORRECT", "#2e7d32");
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
-            pause.setOnFinished(ev -> {
-                statusLabel.setText(" ");
-                refreshUI();
-                acceptingInput = true;
-            });
-            pause.play();
+        if (e.getCode() == KeyCode.META) {
+            showStatus(" ", "#c62828");
         } else {
-            showStatus("INCORRECT", "#c62828");
+            boolean inputStatus = engine.checkAndAdvance(e);
+            if (inputStatus) {
+                showStatus("CORRECT", "#2e7d32");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(ev -> {
+                    statusLabel.setText(" ");
+                    refreshUI();
+                });
+                pause.play();
+            } else {
+                showStatus("INCORRECT", "#c62828");
+            }
         }
-
-        e.consume();
     }
 
     /**
@@ -105,6 +99,7 @@ public class GameplayController {
 
         shortcutDescText.setText(currentShortcut.getDescription());
         keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
+        progress.setText(engine.progress());
     }
 
     /**
@@ -115,16 +110,6 @@ public class GameplayController {
     private void showStatus(String text, String colorHex) {
         statusLabel.setText(text);
         statusLabel.setStyle("-fx-font-size: 23px; -fx-font-weight: bold; -fx-text-fill: " + colorHex + ";");
-    }
-
-    /**
-     * Checks if the key event is ONLY a modifier key.
-     * @param e the key event getting checked
-     * @return returns True if a key event matches a modifier key
-     */
-    private static boolean isModifierOnly(KeyEvent e) {
-        KeyCode c = e.getCode();
-        return c == KeyCode.SHIFT || c == KeyCode.CONTROL || c == KeyCode.META || c == KeyCode.ALT;
     }
 
     /**
