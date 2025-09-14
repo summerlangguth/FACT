@@ -119,7 +119,7 @@ public class GameplayController {
      */
     private void showStatus(String text, String colorHex) {
         statusLabel.setText(text);
-        statusLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + colorHex + ";");
+        statusLabel.setStyle("-fx-font-size: 23px; -fx-font-weight: bold; -fx-text-fill: " + colorHex + ";");
     }
 
     /**
