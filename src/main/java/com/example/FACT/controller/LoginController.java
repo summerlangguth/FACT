@@ -147,7 +147,7 @@ public class LoginController implements Initializable {
 
     public void loadHomePage(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("testHome.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));
             Stage homepageStage = new Stage();
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load());
