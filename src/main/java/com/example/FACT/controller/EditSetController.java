@@ -1,11 +1,14 @@
 package com.example.FACT.controller;
 
+import com.example.FACT.HelloApplication;
 import com.example.FACT.model.ICreateSetDAO;
 import com.example.FACT.model.KeySets;
 import com.example.FACT.model.SqliteCreateSetDAO;
 import javafx.beans.property.*;
 import javafx.collections.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.input.KeyCode;
@@ -13,6 +16,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,7 @@ public class EditSetController {
     @FXML private TableColumn<KeySets, String> colKeyBind;
     @FXML private TextField KeyBindCaptureField;
     @FXML private Label RowCountLabel;
+    @FXML private Button CreateSetButton;
 
     private final ICreateSetDAO dao = new SqliteCreateSetDAO();
     private final ObservableList<KeySets> items = FXCollections.observableArrayList();
@@ -103,10 +108,10 @@ public class EditSetController {
                 KeyBindCaptureField.clear();
                 e.consume(); return;
             }
-            boolean ctrl  = e.isControlDown() || e.getCode() == KeyCode.CONTROL;
-            boolean alt   = e.isAltDown()     || e.getCode() == KeyCode.ALT;
-            boolean shift = e.isShiftDown()   || e.getCode() == KeyCode.SHIFT;
-            boolean meta  = e.isMetaDown()    || e.getCode() == KeyCode.META;
+            boolean ctrl = e.isControlDown() || e.getCode() == KeyCode.CONTROL;
+            boolean alt = e.isAltDown() || e.getCode() == KeyCode.ALT;
+            boolean shift = e.isShiftDown() || e.getCode() == KeyCode.SHIFT;
+            boolean meta = e.isMetaDown() || e.getCode() == KeyCode.META;
 
             KeyCode code = e.getCode();
             if (code.isModifierKey()) {
@@ -115,10 +120,10 @@ public class EditSetController {
             }
 
             List<KeyCombination.Modifier> mods = new ArrayList<>();
-            if (ctrl)  mods.add(KeyCombination.CONTROL_DOWN);
-            if (alt)   mods.add(KeyCombination.ALT_DOWN);
+            if (ctrl) mods.add(KeyCombination.CONTROL_DOWN);
+            if (alt) mods.add(KeyCombination.ALT_DOWN);
             if (shift) mods.add(KeyCombination.SHIFT_DOWN);
-            if (meta)  mods.add(KeyCombination.META_DOWN);
+            if (meta) mods.add(KeyCombination.META_DOWN);
 
             KeyCodeCombination combo = new KeyCodeCombination(code, mods.toArray(new KeyCombination.Modifier[0]));
             capturedCombo.set(combo);
@@ -130,10 +135,10 @@ public class EditSetController {
 
     private String formatPartial(boolean ctrl, boolean alt, boolean shift, boolean meta) {
         List<String> parts = new ArrayList<>();
-        if (ctrl)  parts.add("Ctrl");
-        if (alt)   parts.add("Alt");
+        if (ctrl) parts.add("Ctrl");
+        if (alt) parts.add("Alt");
         if (shift) parts.add("Shift");
-        if (meta)  parts.add("Meta");
+        if (meta) parts.add("Meta");
         return String.join("+", parts) + (parts.isEmpty() ? "" : "+ …");
     }
 
@@ -164,7 +169,20 @@ public class EditSetController {
 
     @FXML
     private void onClose() {
-        Stage stage = (Stage) table.getScene().getWindow();
-        stage.close();
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CreateSet.fxml"));
+            Stage CreateSetStage = new Stage();
+            Stage currentStage = (Stage) CreateSetButton.getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load());
+            CreateSetStage.initStyle(StageStyle.UNDECORATED);
+            CreateSetStage.setTitle("Create Set");
+            CreateSetStage.setScene(scene);
+            CreateSetStage.show();
+            currentStage.hide();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
     }
 }
