@@ -43,17 +43,15 @@ public class CreateSetController {
 
     @FXML
     public void initialize() {
-        // ---- Key capture field from previous message ----
         setupKeyCaptureField();
 
-        // ---- ComboBox setup ----
         loadApplications();
         ApplicationComboBox.setItems(appItems);
         ApplicationComboBox.setButtonCell(new ListCell<>() {
             @Override protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
-                    setText("Select Application");           // placeholder
+                    setText("Select Application");
                 } else {
                     setText(item);
                 }
@@ -74,7 +72,7 @@ public class CreateSetController {
             @Override protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
-                    setText("Select Difficulty");            // placeholder
+                    setText("Select Difficulty");
                 } else {
                     setText(item);
                 }
@@ -119,7 +117,7 @@ public class CreateSetController {
 
     @FXML
     private void ClearForm(ActionEvent e) {
-        clearForm(false);          // false = clear application too
+        clearForm(false);
         CreateMessageLabel.setText("");
     }
 
@@ -207,7 +205,7 @@ public class CreateSetController {
 
     private void clearForm(boolean keepApplication) {
         if (!keepApplication) {
-            ApplicationComboBox.getSelectionModel().clearSelection(); // shows "Select Application"
+            ApplicationComboBox.getSelectionModel().clearSelection();
         }
         CategoryTextField.clear();
         DescriptionTextField.clear();
@@ -262,7 +260,7 @@ public class CreateSetController {
         try {
             if (model.addKeySet(keySets)) {
                 CreateMessageLabel.setText("Created Set successfully");
-                clearForm(true); // keepApplication = true
+                clearForm(true);
             } else {
                 CreateMessageLabel.setText("Please ensure all details are valid");
             }
@@ -273,7 +271,6 @@ public class CreateSetController {
 
     }
 
-    // ---- key-capture bits (same as before) ----
     private void setupKeyCaptureField() {
         KeyBindTextField.setPromptText("Click here and press a shortcut (e.g., Ctrl+C)");
         KeyBindTextField.addEventFilter(KeyEvent.KEY_TYPED, e -> e.consume());

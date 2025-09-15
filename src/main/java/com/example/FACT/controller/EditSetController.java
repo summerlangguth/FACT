@@ -160,7 +160,6 @@ public class EditSetController {
         for (KeySets ks : items) {
             dao.updateKeySet(ks);
         }
-        // optional: feedback snackbar/label
     }
 
     @FXML
