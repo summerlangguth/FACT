@@ -21,13 +21,21 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
+/**
+ * A controller class handling methods related to user registration.
+ */
 public class RegistrationController implements Initializable {
 
     @FXML
     private ImageView brandingImageView;
     @FXML
     private Button loginButton;
+    @FXML
+    private Button signUpButton;
+    @FXML
+    private Button closeButton;
     @FXML
     private Label registerMessageLabel;
     @FXML
@@ -43,6 +51,7 @@ public class RegistrationController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     public IUserDAO model = new SqliteUserDAO();
+    private String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -51,25 +60,58 @@ public class RegistrationController implements Initializable {
         brandingImageView.setImage(brandingImage);
 
     }
+
+    /**
+     * loads the login page
+     */
     public void loginButtonOnAction(){
         loadLogin();
     }
+
+    /**
+     * validates user data and returns relevant message
+     * @param event click of the signup button
+     */
     public void signUpButtonOnAction(ActionEvent event){
-        if(setPasswordField.getText().equals(confirmPasswordField.getText())){
-            registerUser();
+        registerMessageLabel.setText("");
+        confirmPasswordLabel.setText("");
+        if(!emailTextField.getText().isBlank() && !setPasswordField.getText().isBlank() && !firstNameTextField.getText().isBlank() && !lastNameTextField.getText().isBlank()){
+            if(patternMatches(emailTextField.getText(), regex)){
+                if (setPasswordField.getText().equals(confirmPasswordField.getText())) {
+                    registerUser();
+                } else {
+                    confirmPasswordLabel.setText("Passwords do not match");
+                }
+            }
+            else{
+                registerMessageLabel.setText("Please enter a valid email");
+            }
+
         }
         else{
-            confirmPasswordLabel.setText("Passwords do not match");
+            registerMessageLabel.setText("Please enter all fields");
         }
     }
+    public static boolean patternMatches(String emailAddress, String regex) {
+        return Pattern.compile(regex, Pattern.CASE_INSENSITIVE).matcher(emailAddress).matches();
+    }
+    /**
+     * method to close the application
+     */
+    public void closeButtonAction(){
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
 
+    /**
+     * creates a new user object from the input data and calls addUser to validate
+     */
     public void registerUser(){
         String firstname = firstNameTextField.getText();
         String lastname = lastNameTextField.getText();
         String email = emailTextField.getText();
         String password = setPasswordField.getText();
         User user = new User(firstname, lastname, email, password);
-
         try{
             if (model.addUser(user)) {
                 registerMessageLabel.setText("Sign up successful");
@@ -83,6 +125,9 @@ public class RegistrationController implements Initializable {
         }
     }
 
+    /**
+     * closes the current stage and opens a new one with the login content
+     */
     public void loadLogin(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));

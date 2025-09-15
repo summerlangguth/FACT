@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * model class that initialises the connection to the database
+ */
 public class SqliteConnection {
     private static Connection instance = null;
 
@@ -15,6 +18,10 @@ public class SqliteConnection {
         }
     }
 
+    /**
+     * creates or returns an instance of database connection
+     * @return the instance of database connection
+     */
     public static Connection getInstance() {
         if (instance == null) {
             new SqliteConnection();
