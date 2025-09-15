@@ -73,7 +73,8 @@ public class LoginController implements Initializable {
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
                 if(model.isLogin(emailTextField.getText(), passwordField.getText())){
-                    loginMessageLabel.setText("valid login");
+                    //loginMessageLabel.setText("valid login");
+                    loadHomePage();
                 }
                else {
                     loginMessageLabel.setText("Email or password is incorrect");
@@ -135,6 +136,25 @@ public class LoginController implements Initializable {
             registerStage.setTitle("Create Account");
             registerStage.setScene(scene);
             registerStage.show();
+            currentStage.hide();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
+
+    }
+
+    public void loadHomePage(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));
+            Stage homepageStage = new Stage();
+            Stage currentStage = (Stage) loginButton.getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load());
+            homepageStage.initStyle(StageStyle.UNDECORATED);
+            homepageStage.setTitle("HomePage");
+            homepageStage.setScene(scene);
+            homepageStage.show();
             currentStage.hide();
         }
         catch(Exception e){
