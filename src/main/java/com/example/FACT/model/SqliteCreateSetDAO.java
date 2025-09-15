@@ -8,11 +8,18 @@ public class SqliteCreateSetDAO implements ICreateSetDAO {
     private final Connection connection;
 
     public SqliteCreateSetDAO() {
-        this.connection = SqliteConnection.getInstance();
-        if (this.connection == null) {
-            throw new IllegalStateException("SQLite connection is null. Ensure SqliteConnection.getInstance() returns a valid Connection.");
-        }
+        this(SqliteConnection.getInstance(), true);
+    }
+
+    public SqliteCreateSetDAO(Connection connection) {
+        this(connection, false);
+    }
+
+    public SqliteCreateSetDAO(Connection connection, boolean seedDefaults) {
+        if (connection == null) throw new IllegalStateException("Null connection");
+        this.connection = connection;
         initSchema();
+        if (seedDefaults) seedDefaultApplications();
     }
 
     private void initSchema() {

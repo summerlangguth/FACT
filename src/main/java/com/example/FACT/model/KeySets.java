@@ -8,7 +8,6 @@ public class KeySets {
     private String description;
     private String keyBind;
 
-    // 6-arg constructor (used when reading from DB)
     public KeySets(int id, String application, String category,
                    String difficulty, String description, String keyBind) {
         this.id = id;
@@ -19,13 +18,11 @@ public class KeySets {
         this.keyBind = keyBind;
     }
 
-    // 5-arg constructor (used before insert; no ID yet)
     public KeySets(String application, String category,
                    String difficulty, String description, String keyBind) {
         this(-1, application, category, difficulty, description, keyBind);
     }
 
-    // Getters & setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
