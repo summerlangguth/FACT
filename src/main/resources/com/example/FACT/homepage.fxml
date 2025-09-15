@@ -20,7 +20,7 @@
          <top>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="brandingImageView1" fitHeight="175.0" fitWidth="600.0" layoutX="310.0" layoutY="-81.0" pickOnBounds="true">
+                  <ImageView fx:id="brandingImageView" fitHeight="175.0" fitWidth="600.0" layoutX="310.0" layoutY="-81.0" pickOnBounds="true">
                      <viewport>
                         <Rectangle2D />
                      </viewport>
