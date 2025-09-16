@@ -93,4 +93,11 @@ public class User {
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
+    /**
+     * sets the user's streak
+     * @param streak the users streak
+     */
+
+
 }
