@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -124,14 +125,24 @@ public class CreateSetController {
     @FXML
     private void EditSetAction() {
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EditSetView.fxml"));
-            Stage CreateSetStage = new Stage();
+
+            // Load homebase layout
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
+            Parent root = baseLoader.load();
+
+            // Get controller of homebase
+            HomeBaseController baseController = baseLoader.getController();
+
+            // Load homepage.fxml into the content area
+            baseController.setContent("/com/example/FACT/EditSetView.fxml");
+
+            // Get current stage from the login button
+            Stage newStage = new Stage();
             Stage currentStage = (Stage) EditSetsButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            CreateSetStage.initStyle(StageStyle.UNDECORATED);
-            CreateSetStage.setTitle("Edit Sets");
-            CreateSetStage.setScene(scene);
-            CreateSetStage.show();
+            // Set the new scene with the base layout
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
             currentStage.hide();
         }
         catch(Exception e){

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,14 +34,23 @@ public class HomePageController {
 
     public void onHomePracButton(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("gameplay.fxml"));
-            Stage practiceStage = new Stage();
+            // Load homebase layout
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
+            Parent root = baseLoader.load();
+
+            // Get controller of homebase
+            HomeBaseController baseController = baseLoader.getController();
+
+            // Load homepage.fxml into the content area
+            baseController.setContent("/com/example/FACT/gameplay.fxml");
+
+            // Get current stage from the login button
+            Stage newStage = new Stage();
             Stage currentStage = (Stage) homepagePracButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            practiceStage.initStyle(StageStyle.UNDECORATED);
-            practiceStage.setTitle("Practice");
-            practiceStage.setScene(scene);
-            practiceStage.show();
+            // Set the new scene with the base layout
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
             currentStage.hide();
         }
         catch(Exception e){
@@ -71,14 +81,23 @@ public class HomePageController {
 
     public void onCreateButton(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("createset.fxml"));
-            Stage createStage = new Stage();
+            // Load homebase layout
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
+            Parent root = baseLoader.load();
+
+            // Get controller of homebase
+            HomeBaseController baseController = baseLoader.getController();
+
+            // Load homepage.fxml into the content area
+            baseController.setContent("/com/example/FACT/createSet.fxml");
+
+            // Get current stage from the login button
+            Stage newStage = new Stage();
             Stage currentStage = (Stage) createButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            createStage.initStyle(StageStyle.UNDECORATED);
-            createStage.setTitle("Create");
-            createStage.setScene(scene);
-            createStage.show();
+            // Set the new scene with the base layout
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
             currentStage.hide();
         }
         catch(Exception e){
