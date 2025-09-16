@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomePageController">
     <children>
         <fx:include source="homebase.fxml" />
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
@@ -33,23 +33,26 @@
                         <Font name="Helvetica Neue Bold" size="36.0" />
                      </font>
                   </Label>
-                  <Label fx:id="confirmPasswordLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="418.0" textFill="RED">
+                  <Label fx:id="confirmPasswordLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="318.0" textFill="RED">
                      <font>
                         <Font name="Helvetica Neue Light" size="25.0" />
                      </font>
                   </Label>
-                    <Button fx:id="homepagePracButton" layoutX="432.0" layoutY="511.0" onAction="#onHomePracButton" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="PRACTICE" textFill="WHITE">
-
+                    <Button fx:id="homepagePracButton" layoutX="432.0" layoutY="437.0" onAction="#onHomePracButton" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="PRACTICE" textFill="WHITE">
                         <font>
                             <Font name="Helvetica Bold" size="30.0" />
                         </font>
                     </Button>
                     <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="LOGOUT" textFill="WHITE">
-
                         <font>
                             <Font name="Helvetica Bold" size="30.0" />
                         </font>
                     </Button>
+                   <Button fx:id="createButton" layoutX="432.0" layoutY="511.0" onAction="#onCreateButton" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="CREATE" textFill="WHITE">
+                       <font>
+                           <Font name="Helvetica Bold" size="30.0" />
+                       </font>
+                   </Button>
                </children>
                <padding>
                   <Insets bottom="25.0" />

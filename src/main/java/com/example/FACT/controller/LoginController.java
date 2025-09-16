@@ -48,12 +48,6 @@ public class LoginController implements Initializable {
 
     public SqliteUserDAO model = new SqliteUserDAO();
 
-    @FXML
-    private Button homepagePracButton;
-
-    @FXML
-    private Button logoutButton;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         File brandingfile = new File("images/logo.png");
@@ -161,44 +155,6 @@ public class LoginController implements Initializable {
             homepageStage.setTitle("HomePage");
             homepageStage.setScene(scene);
             homepageStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-
-    }
-
-    public void onHomePracButton(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("gameplay.fxml"));
-            Stage practiceStage = new Stage();
-            Stage currentStage = (Stage) homepagePracButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            practiceStage.initStyle(StageStyle.UNDECORATED);
-            practiceStage.setTitle("Practice");
-            practiceStage.setScene(scene);
-            practiceStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-
-    }
-
-    public void onLogout(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
-            Stage logoutStage = new Stage();
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            logoutStage.initStyle(StageStyle.UNDECORATED);
-            logoutStage.setTitle("Login");
-            logoutStage.setScene(scene);
-            logoutStage.show();
             currentStage.hide();
         }
         catch(Exception e){
