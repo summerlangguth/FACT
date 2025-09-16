@@ -10,7 +10,6 @@
 
 <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomePageController">
     <children>
-        <fx:include source="homebase.fxml" />
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <padding>
             <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
