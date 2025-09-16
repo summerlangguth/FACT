@@ -105,11 +105,15 @@ public class User {
 
     /**
      * retrieves the users streak
-     * @param streak the users streak
+     * @return the users streak the users streak
      */
     public Integer getStreak() {
         return streak;
     }
 
+    /**
+     * sets the users accuracy
+     *
+     */
 
 }
