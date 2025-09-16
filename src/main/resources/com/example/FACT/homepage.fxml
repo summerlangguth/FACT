@@ -52,12 +52,12 @@
                         <Font name="Helvetica Neue Light" size="25.0" />
                      </font>
                   </Label>
-                    <Button layoutX="432.0" layoutY="511.0" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="PRACTICE" textFill="WHITE">
+                    <Button fx:id="homepagePracButton" layoutX="432.0" layoutY="511.0" onAction="#onHomePracButton" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="PRACTICE" textFill="WHITE">
                         <font>
                             <Font name="Helvetica Bold" size="30.0" />
                         </font>
                     </Button>
-                    <Button layoutX="432.0" layoutY="589.0" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="LOGOUT" textFill="WHITE">
+                    <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="LOGOUT" textFill="WHITE">
                         <font>
                             <Font name="Helvetica Bold" size="30.0" />
                         </font>
