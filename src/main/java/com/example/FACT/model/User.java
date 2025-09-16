@@ -8,6 +8,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private Integer streak;
     /**
      * Constructs a new user with the specified first name, last name, email, and password.
      * @param firstName The first name of the user
@@ -98,6 +99,17 @@ public class User {
      * sets the user's streak
      * @param streak the users streak
      */
+    public void setStreak(int streak) {
+        this.streak = streak;
+    }
+
+    /**
+     * retrieves the users streak
+     * @param streak the users streak
+     */
+    public Integer getStreak() {
+        return streak;
+    }
 
 
 }
