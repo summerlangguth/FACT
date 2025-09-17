@@ -54,6 +54,8 @@ public class GameplayController {
         Platform.runLater(this::refreshUI);
     }
 
+
+
     /**
      * Once the root has been loaded, the program begins listening for the next key event (user input).
      * Also sets the top left title, matching the correct application.
@@ -61,7 +63,7 @@ public class GameplayController {
     @FXML
     private void initialize() {
         Platform.runLater(() -> {
-            root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, this::onKeyPressed);
+            root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
             appTitleLabel.setText(appTitleDefault);
         });
     }
@@ -80,12 +82,22 @@ public class GameplayController {
             return;
         }
 
-        if (e.getCode() == KeyCode.META) {
+        if ((e.getCode() == KeyCode.CONTROL)||(e.getCode() == KeyCode.SHIFT)||(e.getCode() == KeyCode.ALT)||(e.getCode() == KeyCode.TAB)){
             showStatus(" ", "#c62828");
-        } else {
+        }
+        else {
             boolean inputStatus = engine.checkAndAdvance(e);
             if (inputStatus) {
                 showStatus("CORRECT", "#2e7d32");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(ev -> {
+                    statusLabel.setText(" ");
+                    refreshUI();
+                });
+                pause.play();
+            }
+            else{
+                showStatus("INCORRECT", "ED2A00");
                 PauseTransition pause = new PauseTransition(Duration.seconds(2));
                 pause.setOnFinished(ev -> {
                     statusLabel.setText(" ");

@@ -9,6 +9,9 @@ public class User {
     private String email;
     private String password;
     private Integer streak;
+    private Float accuracy;
+    private Integer numIncorrect;
+    private Integer numCorrect;
     /**
      * Constructs a new user with the specified first name, last name, email, and password.
      * @param firstName The first name of the user
@@ -22,6 +25,8 @@ public class User {
         setEmail(email);
         setPassword(password);
         setStreak(0);
+        setNumCorrect(1);
+        setNumIncorrect(1);
     }
 
     /**
@@ -106,7 +111,7 @@ public class User {
 
     /**
      * retrieves the users streak
-     * @return the users streak the users streak
+     * @return the users streak
      */
     public Integer getStreak() {
         return streak;
@@ -114,11 +119,62 @@ public class User {
 
     /**
      * increments the users streak
-     *
      */
-    public Integer incrementStreak() {
+    public void incrementStreak() {
         streak++;
-        return streak;
+    }
+
+    /**
+     * sets the users accuracy
+     * @param accuracy the users accuracy
+     */
+    public void setAccuracy(float accuracy){ this.accuracy = accuracy; }
+
+    /**
+     * gets the users accuracy
+     * @return the users accuracy
+     */
+    public Float getAccuracy(){return accuracy;}
+
+    /**
+     * sets the users correct answers
+     * @param numCorrect the users correct answers
+     */
+    public void setNumCorrect(int numCorrect){ this.numCorrect = numCorrect; }
+
+    /**
+     * gets the users number of correct answers
+     * @return the users number of correct answers
+     */
+    public Integer getNumCorrect(){return numCorrect;}
+
+    /**
+     * Increments the number of correct answers by 1
+     */
+    public void incrementCorrect(){numCorrect++;}
+
+    /**
+     * sets the users correct answers
+     * @param numIncorrect the users correct answers
+     */
+    public void setNumIncorrect(int numIncorrect){ this.numIncorrect = numIncorrect; }
+
+    /**
+     * gets the users number of correct answers
+     * @return the users number of correct answers
+     */
+    public Integer getNumIncorrect(){return numIncorrect;}
+
+    /**
+     * Increments the number of incorrect answers by 1
+     */
+    public void incrementIncorrect(){numIncorrect++;}
+
+    /**
+     * calculates the users accuracy
+     */
+    public Float calculateAccuracy(){
+        return (float)((numCorrect/numIncorrect)*100);
     }
 
 }

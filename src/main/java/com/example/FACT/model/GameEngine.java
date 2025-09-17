@@ -8,6 +8,8 @@ import java.util.List;
 
 public class GameEngine {
 
+    private User CurrentUser = UserManager.getInstance().getLoggedInUser();
+
     /**
      * List containing shortcut objects. Initialises an empty list.
      */
@@ -71,9 +73,14 @@ public class GameEngine {
 
         if (currentInput) {
             index++;
-            User.incrementStreak();
+            CurrentUser.incrementStreak();
+            CurrentUser.incrementCorrect();
             return true;
         }
-        return false;
+        else {
+            CurrentUser.setStreak(0);
+            CurrentUser.incrementIncorrect();
+            return false;
+        }
     }
 }
