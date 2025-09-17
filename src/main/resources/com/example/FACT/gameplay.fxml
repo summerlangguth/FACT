@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" prefHeight="503.0" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.GameplayController">
+<VBox alignment="TOP_CENTER" prefHeight="550.0" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.GameplayController">
     <children>
       <BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <padding>
@@ -39,6 +39,9 @@
                      </font>
                   </Label>
                </children>
+               <BorderPane.margin>
+                  <Insets top="150.0" />
+               </BorderPane.margin>
             </AnchorPane>
          </bottom>
          <center>

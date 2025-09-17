@@ -68,6 +68,7 @@ public class HomePageController {
             // Set the new scene with the base layout
             Scene scene = new Scene(root);
             newStage.setScene(scene);
+            newStage.initStyle(StageStyle.UNDECORATED);
             newStage.show();
             currentStage.hide();
 
@@ -116,6 +117,7 @@ public class HomePageController {
             // Set the new scene with the base layout
             Scene scene = new Scene(root);
             newStage.setScene(scene);
+            newStage.initStyle(StageStyle.UNDECORATED);
             newStage.show();
             currentStage.hide();
         }
