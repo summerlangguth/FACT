@@ -4,6 +4,7 @@ import com.example.FACT.HelloApplication;
 import com.example.FACT.model.GameEngine;
 import com.example.FACT.model.Shortcut;
 import com.example.FACT.model.SqliteUserDAO;
+import com.example.FACT.model.UserManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,8 @@ import java.util.ResourceBundle;
 
 public class HomePageController {
     @FXML
+    private Label welcomeMessage;
+    @FXML
     private Button homepagePracButton;
 
     @FXML
@@ -37,6 +40,7 @@ public class HomePageController {
 
     @FXML
     private Button createButton;
+
 
     public void onHomePracButton(){
         try{
