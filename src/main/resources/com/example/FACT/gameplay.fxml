@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -13,17 +18,38 @@
     <children>
       <BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <padding>
-            <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
+            <Insets bottom="100.0" left="125.0" right="125.0" top="30.0" />
          </padding>
-         <top>
-            <AnchorPane BorderPane.alignment="TOP_CENTER">
+         <HBox alignment="CENTER" prefHeight="52.0" prefWidth="880.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
+            <children>
+               <Region prefHeight="38.0" prefWidth="503.0" HBox.hgrow="ALWAYS" />
+            </children>
+         </HBox>
+         <bottom>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="500.0">
+                     <font>
+                        <Font name="Helvetica" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="progress" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1145.0" layoutY="2.0" prefHeight="17.0" prefWidth="52.0" textAlignment="RIGHT">
+                     <font>
+                        <Font name="Helvetica" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <AnchorPane BorderPane.alignment="CENTER">
                <children>
                     <Label layoutX="310.0" layoutY="97.0" text="Keys to Press" AnchorPane.leftAnchor="310.0" AnchorPane.topAnchor="97.0">
                         <font>
                             <Font name="Helvetica Neue Bold" size="96.0" />
                         </font>
                     </Label>
-                  <Label fx:id="registerMessageLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="1200.0">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="1200.0">
                      <font>
                         <Font name="Helvetica Neue Bold" size="36.0" />
                      </font>
@@ -45,23 +71,45 @@
                   <Insets bottom="60.0" />
                </BorderPane.margin>
             </AnchorPane>
-         </top>
-         <bottom>
-            <AnchorPane BorderPane.alignment="CENTER">
+         </center>
+         <top>
+            <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="500.0">
+                  <!-- APPLICATION IMAGE -->
+                  <ImageView fx:id="logoImageView" fitHeight="49.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@VS_code_logo.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <!-- APPLICATION TITLE -->
+                  <Label fx:id="appTitleLabel" prefHeight="33.0" prefWidth="183.0" text="VS Studio Code">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                      <font>
-                        <Font name="Helvetica" size="36.0" />
+                        <Font name="Helvetica Bold" size="20.0" />
                      </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets top="8.0" />
+                     </HBox.margin>
                   </Label>
-                  <Label fx:id="progress" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1145.0" layoutY="2.0" prefHeight="17.0" prefWidth="52.0" textAlignment="RIGHT">
+                  <Button fx:id="exit" mnemonicParsing="false" onAction="#exitGameplay" style="-fx-border-color: #3578C9; -fx-background-color: FFFFFF; -fx-border-radius: 5; -fx-border-width: 2;" text="EXIT" textFill="#3578c9">
+                     <HBox.margin>
+                        <Insets right="10.0" top="4.0" />
+                     </HBox.margin>
                      <font>
-                        <Font name="Helvetica" size="24.0" />
+                        <Font name="Helvetica Bold" size="18.0" />
                      </font>
-                  </Label>
+                  </Button>
                </children>
-            </AnchorPane>
-         </bottom>
+            </HBox>
+         </top>
       </BorderPane>
     </children>
 </VBox>
