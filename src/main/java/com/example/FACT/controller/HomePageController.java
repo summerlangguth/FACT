@@ -42,11 +42,15 @@ public class HomePageController {
         try{
 
             // Load homebase layout
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/FACT/gameplay.fxml"));
-            Parent root = loader.load();
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
+            FXMLLoader gameLoader = new FXMLLoader(HelloApplication.class.getResource("gameplay.fxml"));
+            Parent root = baseLoader.load();
 
             // Get controller of homebase
-            GameplayController controller = loader.getController();
+            HomeBaseController baseController = baseLoader.getController();
+
+            // Load homepage.fxml and get the controller
+            GameplayController gameController = baseController.setDemoContent("/com/example/FACT/gameplay.fxml");
 
             List<Shortcut> demoShortcuts = List.of(
                     new Shortcut("Copy", new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN)),
@@ -55,7 +59,7 @@ public class HomePageController {
 
             // Load homepage.fxml into the content area
             GameEngine engine = new GameEngine(demoShortcuts);
-            controller.setEngine(engine);
+            gameController.setEngine(engine);
 
             // Get current stage from the login button
             Stage newStage = new Stage();
@@ -67,28 +71,6 @@ public class HomePageController {
             newStage.show();
             currentStage.hide();
 
-
-            /*
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
-            baseController.setContent("/com/example/FACT/gameplay.fxml");
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) homepagePracButton.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.setResizable(false);
-            newStage.show();
-            currentStage.hide();
-            */
         }
         catch(Exception e){
             e.printStackTrace();

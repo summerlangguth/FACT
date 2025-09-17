@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -51,5 +50,17 @@ public class HomeBaseController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public <T> T setDemoContent(String fxmlFile){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Node node = loader.load();
+            contentArea.getChildren().setAll(node);
+            return loader.getController();// replace existing content
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
