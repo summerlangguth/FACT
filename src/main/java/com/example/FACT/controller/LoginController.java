@@ -38,9 +38,7 @@ public class LoginController implements Initializable {
     private Button signButton;
 
     @FXML
-    private Button TempButton;
-
-
+    private Button closeButton;
 
     @FXML
     private TextField emailTextField;
@@ -57,17 +55,26 @@ public class LoginController implements Initializable {
         brandingImageView.setImage(brandingImage);
 
     }
+
+    /**
+     * creates the registration form
+     * @param event signup button click
+     */
     public void signButtonOnAction(ActionEvent event){
         createAccountForm();
     }
 
-    public void TempButtonAction(ActionEvent event){ ChangeToTempPage();}
-
+    /**
+     * validates user credentials and calls isLogin to check.
+     * @param event login bytton click
+     */
     public void loginButtonOnAction(ActionEvent event){
+        loginMessageLabel.setText("");
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
                 if(model.isLogin(emailTextField.getText(), passwordField.getText())){
-                    loginMessageLabel.setText("valid login");
+                    //loginMessageLabel.setText("valid login");
+                    loadHomePage();
                 }
                else {
                     loginMessageLabel.setText("Email or password is incorrect");
@@ -82,6 +89,14 @@ public class LoginController implements Initializable {
         else{
             loginMessageLabel.setText("Please enter both email and password");
         }
+    }
+
+    /**
+     * method to close the application
+     */
+    public void closeButtonAction(){
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
 //    public void validateLogin(){
@@ -108,6 +123,9 @@ public class LoginController implements Initializable {
 //        }
 //    }
 
+    /**
+     * closes the current stage and loads a new stage with the registration content
+     */
     public void createAccountForm(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register.fxml"));
@@ -127,22 +145,22 @@ public class LoginController implements Initializable {
 
     }
 
-    public void ChangeToTempPage(){
+    public void loadHomePage(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("createSet.fxml"));
-            Stage CreateSetStage = new Stage();
-            Stage currentStage = (Stage) TempButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));
+            Stage homepageStage = new Stage();
+            Stage currentStage = (Stage) loginButton.getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load());
-            CreateSetStage.initStyle(StageStyle.UNDECORATED);
-            CreateSetStage.setTitle("Create Set");
-            CreateSetStage.setScene(scene);
-            CreateSetStage.show();
+            homepageStage.initStyle(StageStyle.UNDECORATED);
+            homepageStage.setTitle("HomePage");
+            homepageStage.setScene(scene);
+            homepageStage.show();
             currentStage.hide();
         }
         catch(Exception e){
             e.printStackTrace();
             e.getCause();
         }
-    }
 
+    }
 }
