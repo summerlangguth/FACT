@@ -30,7 +30,13 @@
     -qc-radius-lg:    16px;
     -qc-pad:          10px;
     -qc-gap:          8px;
+    -qc-success:          #22C55E;
+    -qc-success-hover:    #16A34A;
+    -qc-success-pressed:  #15803D;
 
+    -qc-danger:           #EF4444;
+    -qc-danger-hover:     #DC2626;
+    -qc-danger-pressed:   #B91C1C;
     /* Typography */
     -fx-font-family: "Helvetica";
     -fx-font-size: 14px;           /* base */
@@ -305,4 +311,20 @@
 .dark .label, .dark .hyperlink { -fx-text-fill: -qc-text; }
 .dark .button {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.25, 0, 3);
+}
+
+.button.btn-save {
+    -fx-background-color: linear-gradient(to bottom, -qc-success, -qc-success-pressed);
+}
+.button.btn-save:hover   { -fx-background-color: -qc-success-hover; }
+.button.btn-save:pressed { -fx-background-color: -qc-success-pressed; }
+
+.button.btn-cancel {
+    -fx-background-color: linear-gradient(to bottom, -qc-danger, -qc-danger-pressed);
+}
+.button.btn-cancel:hover   { -fx-background-color: -qc-danger-hover; }
+.button.btn-cancel:pressed { -fx-background-color: -qc-danger-pressed; }
+
+.button.btn-edit {
+    -fx-background-color: linear-gradient(to bottom, -qc-primary, -qc-pressed);
 }

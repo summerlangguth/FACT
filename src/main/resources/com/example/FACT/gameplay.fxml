@@ -17,15 +17,12 @@
 <?import javafx.scene.text.Text?>
 
 <!-- When UI loads, the FXML is linked to the GamePlay Controller -->
-
-<BorderPane fx:id="root" prefHeight="553.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.GameplayController">
-
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.GameplayController">
+<children>
+    <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" >
     <!-- This holds the description of the shortcut and shortcut buttons required. -->
     <center>
         <VBox alignment="TOP_CENTER">
-            <padding>
-            <Insets top="50" />
-         </padding>
             <GridPane hgap="16" vgap="10">
                 <columnConstraints>
                     <ColumnConstraints hgrow="ALWAYS" percentWidth="100" />
@@ -55,7 +52,7 @@
         </VBox>
     </center>
    <bottom>
-      <BorderPane prefHeight="69.0" prefWidth="880.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="69.0"  BorderPane.alignment="CENTER">
          <right>
             <Label fx:id="progress" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="52.0" textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT" />
          </right>
@@ -102,3 +99,5 @@
       </HBox>
    </top>
 </BorderPane>
+</children>
+</VBox>

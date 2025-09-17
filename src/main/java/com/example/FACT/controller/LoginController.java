@@ -2,10 +2,13 @@ package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
 import com.example.FACT.model.SqliteUserDAO;
+import com.example.FACT.model.User;
+import com.example.FACT.model.UserManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -72,8 +75,12 @@ public class LoginController implements Initializable {
         loginMessageLabel.setText("");
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
-                if(model.isLogin(emailTextField.getText(), passwordField.getText())){
+                String email = emailTextField.getText();
+                String password = passwordField.getText();
+                if(model.isLogin(email, password)){
                     //loginMessageLabel.setText("valid login");
+                    User loggedInUser = model.createUserObject(email, password);
+                    UserManager.getInstance().setLoggedInUser(loggedInUser);
                     loadHomePage();
                 }
                else {
@@ -147,14 +154,23 @@ public class LoginController implements Initializable {
 
     public void loadHomePage(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));
-            Stage homepageStage = new Stage();
+            // Load homebase layout
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
+            Parent root = baseLoader.load();
+
+            // Get controller of homebase
+            HomeBaseController baseController = baseLoader.getController();
+
+            // Load homepage.fxml into the content area
+            baseController.setContent("/com/example/FACT/homepage.fxml");
+
+            // Get current stage from the login button
+            Stage newStage = new Stage();
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            homepageStage.initStyle(StageStyle.UNDECORATED);
-            homepageStage.setTitle("HomePage");
-            homepageStage.setScene(scene);
-            homepageStage.show();
+            // Set the new scene with the base layout
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
             currentStage.hide();
         }
         catch(Exception e){
@@ -163,5 +179,4 @@ public class LoginController implements Initializable {
         }
 
     }
-
 }
