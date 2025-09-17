@@ -50,6 +50,7 @@ public class HomePageController {
             // Set the new scene with the base layout
             Scene scene = new Scene(root);
             newStage.setScene(scene);
+            newStage.setResizable(false);
             newStage.show();
             currentStage.hide();
         }
