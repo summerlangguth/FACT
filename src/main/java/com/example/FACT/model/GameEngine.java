@@ -71,6 +71,7 @@ public class GameEngine {
 
         if (currentInput) {
             index++;
+            User.incrementStreak();
             return true;
         }
         return false;

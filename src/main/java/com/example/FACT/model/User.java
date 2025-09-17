@@ -21,6 +21,7 @@ public class User {
         setLastName(lastName);
         setEmail(email);
         setPassword(password);
+        setStreak(0);
     }
 
     /**
@@ -112,8 +113,12 @@ public class User {
     }
 
     /**
-     * sets the users accuracy
+     * increments the users streak
      *
      */
+    public Integer incrementStreak() {
+        streak++;
+        return streak;
+    }
 
 }
