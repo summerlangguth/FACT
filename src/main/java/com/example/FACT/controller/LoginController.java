@@ -15,9 +15,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.Parent;
+
+import java.net.URL;
+import java.util.Objects;
 
 import java.io.File;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -145,22 +148,25 @@ public class LoginController implements Initializable {
 
     }
 
-    public void loadHomePage(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("homepage.fxml"));
-            Stage homepageStage = new Stage();
-            Stage currentStage = (Stage) loginButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            homepageStage.initStyle(StageStyle.UNDECORATED);
-            homepageStage.setTitle("HomePage");
-            homepageStage.setScene(scene);
-            homepageStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
+    public void loadHomePage() {
+        try {
+            // Load base shell
+            URL baseUrl = getClass().getResource("/com/example/FACT/homebase.fxml");
+            FXMLLoader baseLoader = new FXMLLoader(Objects.requireNonNull(baseUrl, "homebase.fxml not found"));
+            Parent baseRoot = baseLoader.load();
 
+            // Ask BaseController to show Home inside the center
+            com.example.FACT.controller.BaseController baseController = baseLoader.getController();
+            baseController.setContent("/com/example/FACT/homepage.fxml");
+
+            // Reuse the current stage
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene(baseRoot));
+            stage.show();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
+
 }
