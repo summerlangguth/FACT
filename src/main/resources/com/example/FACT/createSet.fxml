@@ -53,17 +53,12 @@
                   <ComboBox fx:id="ApplicationComboBox" layoutX="364.0" layoutY="85.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select Application">
                   </ComboBox>
 
-                  <Button fx:id="SaveButton" layoutX="501.0" layoutY="480.0" mnemonicParsing="false" onAction="#CreateSetAction" prefHeight="60.0" prefWidth="141.0" style="-fx-background-color:  #22C55E;" text="Save" textFill="WHITE">
+                  <Button fx:id="SaveButton" layoutX="623.0" layoutY="479.0" mnemonicParsing="false" onAction="#CreateSetAction" prefHeight="60.0" prefWidth="141.0" style="-fx-background-color:  #22C55E;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="Helvetica Bold" size="30.0" />
                      </font>
                   </Button>
-                  <Button fx:id="CancelButton" cancelButton="true" layoutX="295.0" layoutY="479.0" onAction="#ClearForm" mnemonicParsing="false" prefHeight="60.0" prefWidth="145.0" style="-fx-background-color: #EF4444;" text="Cancel" textFill="WHITE">
-                     <font>
-                        <Font name="Helvetica Bold" size="30.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="EditSetsButton" layoutX="688.0" layoutY="480.0" onAction="#EditSetAction" mnemonicParsing="false" prefHeight="60.0" prefWidth="149.0" style="-fx-background-color: #2E40F5;" text="Edit Set" textFill="WHITE">
+                  <Button fx:id="CancelButton" cancelButton="true" layoutX="365.0" layoutY="479.0" mnemonicParsing="false" onAction="#ClearForm" prefHeight="60.0" prefWidth="145.0" style="-fx-background-color: #EF4444;" text="Cancel" textFill="WHITE">
                      <font>
                         <Font name="Helvetica Bold" size="30.0" />
                      </font>
@@ -78,11 +73,7 @@
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <ComboBox fx:id="DifficultyComboBox"
-                            layoutX="367.0" layoutY="237.0"
-                            minHeight="60.0" minWidth="400.0"
-                            prefHeight="60.0" prefWidth="400.0"
-                            promptText="Select difficulty">
+                  <ComboBox fx:id="DifficultyComboBox" layoutX="367.0" layoutY="237.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select difficulty">
                   </ComboBox>
 
                   <TextField fx:id="DescriptionTextField" layoutX="368.0" layoutY="311.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Description">

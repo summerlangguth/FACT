@@ -69,7 +69,7 @@ public class BaseController {
     @FXML private void goHome()   { setContent("/com/example/FACT/homepage.fxml"); }
     @FXML private void goCreate() { setContent("/com/example/FACT/createSet.fxml"); } // adjust filename
     @FXML private void goPlay()   { setContent("/com/example/FACT/gameplay.fxml"); }   // adjust filename
-    @FXML private void goSettings(){ setContent("/com/example/FACT/settings.fxml"); }
+    @FXML private void goEdit(){ setContent("/com/example/FACT/EditSetView.fxml"); }
 
     // Window controls
     @FXML

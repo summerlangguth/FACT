@@ -43,9 +43,9 @@
 
          <!-- Add whatever buttons you want; wire them to navigate -->
          <Button text="Home"    onAction="#goHome"    maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
-         <Button text="Create"  onAction="#goCreate"  maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
+         <Button text="Create Set"  onAction="#goCreate"  maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
          <Button text="Play"    onAction="#goPlay"    maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
-         <Button text="Settings" onAction="#goSettings" maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
+         <Button text="Edit Sets" onAction="#goEdit" maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
       </VBox>
    </left>
 

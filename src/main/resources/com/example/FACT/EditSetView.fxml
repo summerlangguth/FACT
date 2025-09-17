@@ -61,19 +61,13 @@
                   </Button>
 
                   <!-- Bottom action buttons -->
-                  <Button layoutX="202.0" layoutY="530.0" mnemonicParsing="false" onAction="#onDeleteSelected" prefHeight="60.0" prefWidth="273.0" style="-fx-background-color: #EF4444;" text="Delete Selected" textFill="WHITE">
+                  <Button layoutX="202.0" layoutY="530.0" mnemonicParsing="false" onAction="#onDeleteSelected" prefHeight="60.0" prefWidth="212.0" style="-fx-background-color: #EF4444;" text="Delete Selected" textFill="WHITE">
                      <font>
                         <Font name="Helvetica Bold" size="24.0" />
                      </font>
                   </Button>
 
-                  <Button layoutX="584.0" layoutY="530.0" mnemonicParsing="false" onAction="#onSaveChanges" prefHeight="60.0" prefWidth="180.0" style="-fx-background-color: #22C55E;" text="Save Changes" textFill="WHITE">
-                     <font>
-                        <Font name="Helvetica Bold" size="24.0" />
-                     </font>
-                  </Button>
-
-                  <Button fx:id="CreateSetButton" layoutX="788.0" layoutY="530.0" mnemonicParsing="false" onAction="#onClose" prefHeight="60.0" prefWidth="214.0" style="-fx-background-color: #2E40F5;" text="Create Set" textFill="WHITE">
+                  <Button layoutX="790.0" layoutY="530.0" mnemonicParsing="false" onAction="#onSaveChanges" prefHeight="60.0" prefWidth="212.0" style="-fx-background-color: #22C55E;" text="Save Changes" textFill="WHITE">
                      <font>
                         <Font name="Helvetica Bold" size="24.0" />
                      </font>
