@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomePageController">
+<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.GameplayController">
     <children>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <padding>
@@ -29,11 +29,6 @@
                         <Font name="Helvetica Neue Bold" size="36.0" />
                      </font>
                   </Label>
-                    <Button layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: ffffff;" text="LOGOUT" textFill="WHITE">
-                        <font>
-                            <Font name="Helvetica Bold" size="30.0" />
-                        </font>
-                    </Button>
                   <FlowPane fx:id="keysPane" alignment="CENTER" columnHalignment="CENTER" hgap="30.0" layoutX="405.0" layoutY="268.0" vgap="30.0">
                      <children>
                         <Label minHeight="70.0" minWidth="70.0" style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;" />
