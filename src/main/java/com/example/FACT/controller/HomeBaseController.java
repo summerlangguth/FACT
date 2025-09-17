@@ -51,4 +51,16 @@ public class HomeBaseController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public <T> T setDemoContent(String fxmlFile){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Node node = loader.load();
+            contentArea.getChildren().setAll(node);
+            return loader.getController();// replace existing content
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

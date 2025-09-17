@@ -187,6 +187,7 @@ public class EditSetController {
             Scene scene = new Scene(root);
             newStage.setScene(scene);
             newStage.show();
+            newStage.initStyle(StageStyle.UNDECORATED);
             currentStage.close();
 
         }
