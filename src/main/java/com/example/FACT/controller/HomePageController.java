@@ -34,13 +34,20 @@ public class HomePageController {
     private Label welcomeMessage;
     @FXML
     private Button homepagePracButton;
-
+    @FXML
+    private Label activityStreak;
     @FXML
     private Button logoutButton;
 
     @FXML
     private Button createButton;
 
+
+    @FXML
+    private void initialize(){
+        String userName = UserManager.getInstance().getLoggedInUser().getFirstName();
+        welcomeMessage.setText("Welcome," + userName);
+    }
 
     public void onHomePracButton(){
         try{
