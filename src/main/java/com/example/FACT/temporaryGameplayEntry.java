@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,6 +36,7 @@ public class temporaryGameplayEntry extends Application {
         controller.setEngine(engine);
 
         stage.setScene(new Scene(root, 1200, 800));
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Shortcut Trainer");
         stage.show();
     }
