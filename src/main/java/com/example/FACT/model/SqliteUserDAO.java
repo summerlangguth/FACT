@@ -86,4 +86,28 @@ public class SqliteUserDAO implements IUserDAO{
         }
 
     }
+
+    public User createUserObject(String email, String password) throws SQLException{
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        String query = "SELECT * FROM userDetails WHERE email = ? AND password = ?";
+        try{
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                return new User(firstName, lastName, email, password);
+            }
+            else{
+                throw new SQLException();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

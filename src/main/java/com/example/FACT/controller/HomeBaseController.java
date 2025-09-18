@@ -28,6 +28,7 @@ public class HomeBaseController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+
         File brandingfile = new File("images/logo.png");
         Image brandingImage = new Image(brandingfile.toURI().toString());
         brandingImageView.setImage(brandingImage);

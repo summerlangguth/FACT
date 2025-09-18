@@ -2,6 +2,8 @@ package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
 import com.example.FACT.model.SqliteUserDAO;
+import com.example.FACT.model.User;
+import com.example.FACT.model.UserManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,8 +75,12 @@ public class LoginController implements Initializable {
         loginMessageLabel.setText("");
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
-                if(model.isLogin(emailTextField.getText(), passwordField.getText())){
+                String email = emailTextField.getText();
+                String password = passwordField.getText();
+                if(model.isLogin(email, password)){
                     //loginMessageLabel.setText("valid login");
+                    User loggedInUser = model.createUserObject(email, password);
+                    UserManager.getInstance().setLoggedInUser(loggedInUser);
                     loadHomePage();
                 }
                else {
