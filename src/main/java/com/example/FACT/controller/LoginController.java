@@ -170,6 +170,7 @@ public class LoginController implements Initializable {
             // Set the new scene with the base layout
             Scene scene = new Scene(root);
             newStage.setScene(scene);
+            newStage.initStyle(StageStyle.UNDECORATED);
             newStage.show();
             currentStage.hide();
         }

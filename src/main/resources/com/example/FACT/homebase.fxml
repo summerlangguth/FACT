@@ -19,7 +19,7 @@
          <children>
             <BorderPane prefHeight="590.0" prefWidth="1200.0">
                <top>
-                  <AnchorPane prefHeight="87.0" prefWidth="4081.0" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="87.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
                      <children>
                         <ButtonBar buttonMinWidth="35.0" prefHeight="40.0" prefWidth="200.0">
                           <buttons>
@@ -54,7 +54,7 @@
                   </AnchorPane>
                </top>
                <center>
-                  <StackPane fx:id="contentArea"/>
+                  <StackPane prefHeight="503.0" fx:id="contentArea"/>
                </center>
             </BorderPane>
          </children>
