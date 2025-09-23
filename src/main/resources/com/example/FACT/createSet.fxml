@@ -45,6 +45,14 @@
                <padding>
                   <Insets bottom="25.0" />
                </padding>
+               <Button fx:id="exit" mnemonicParsing="false" onAction="#exitCreate" style="-fx-border-color: #3578C9; -fx-background-color: FFFFFF; -fx-border-radius: 5; -fx-border-width: 2;" text="EXIT" textFill="#3578c9">
+                  <HBox.margin>
+                     <Insets right="10.0" top="4.0" />
+                  </HBox.margin>
+                  <font>
+                     <Font name="Helvetica Bold" size="18.0" />
+                  </font>
+               </Button>
             </AnchorPane>
          </top>
          <bottom>
@@ -95,7 +103,7 @@
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <Text layoutX="487.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Craete New Set" wrappingWidth="168.5390625">
+                  <Text layoutX="487.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Set" wrappingWidth="168.5390625">
                      <font>
                         <Font size="24.0" />
                      </font>

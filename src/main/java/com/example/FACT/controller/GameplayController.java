@@ -1,5 +1,6 @@
 package com.example.FACT.controller;
 
+import com.example.FACT.HelloApplication;
 import com.example.FACT.model.GameEngine;
 import com.example.FACT.model.Shortcut;
 import javafx.animation.PauseTransition;
@@ -21,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -175,10 +177,30 @@ public class GameplayController {
     }
 
     public void exitGameplay(ActionEvent event) throws IOException {
-        Parent parentRoot =  FXMLLoader.load(getClass().getResource("/com/example/FACT/login.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(parentRoot);
-        stage.setScene(scene);
-        stage.show();
+        try{
+            // Load homebase layout
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
+            Parent root = baseLoader.load();
+
+            // Get controller of homebase
+            HomeBaseController baseController = baseLoader.getController();
+
+            // Load homepage.fxml into the content area
+            baseController.setContent("/com/example/FACT/homepage.fxml");
+
+            // Get current stage from the login button
+            Stage newStage = new Stage();
+            Stage currentStage = (Stage) exit.getScene().getWindow();
+            // Set the new scene with the base layout
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.initStyle(StageStyle.UNDECORATED);
+            newStage.show();
+            currentStage.hide();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
     }
 }
