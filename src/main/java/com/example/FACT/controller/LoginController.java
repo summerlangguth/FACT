@@ -69,7 +69,7 @@ public class LoginController implements Initializable {
 
     /**
      * validates user credentials and calls isLogin to check.
-     * @param event login bytton click
+     * @param event login button click
      */
     public void loginButtonOnAction(ActionEvent event){
         loginMessageLabel.setText("");
