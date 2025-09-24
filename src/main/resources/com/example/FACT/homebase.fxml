@@ -6,10 +6,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:controller="com.example.FACT.controller.BaseController"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="1100.0" prefHeight="700.0"
-            >
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.BaseController" minWidth="0.0" minHeight="0.0" prefWidth="-1.0" prefHeight="-1.0" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308">
+
+
 
    <!-- TOP: Custom title bar -->
    <top>
