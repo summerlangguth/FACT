@@ -175,7 +175,7 @@ public class GameplayController {
     }
 
     public void exitGameplay(ActionEvent event) throws IOException {
-        Parent parentRoot =  FXMLLoader.load(getClass().getResource("/com/example/FACT/login.fxml"));
+        Parent parentRoot =  FXMLLoader.load(getClass().getResource("/com/example/FACT/homepage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(parentRoot);
         stage.setScene(scene);
