@@ -14,22 +14,22 @@
          <top>
             <AnchorPane BorderPane.alignment="TOP_CENTER">
                <children>
-                    <Label text="Welcome back, User!" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0">
+                    <Label fx:id="welcomeMessage" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0">
                         <font>
                             <Font name="Helvetica Neue Light" size="96.0" />
                         </font>
                     </Label>
-                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="452.0" layoutY="152.0" text="Streak: x" AnchorPane.leftAnchor="452.0" AnchorPane.topAnchor="152.0">
+                    <Label fx:id="activityStreak" alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="152.0">
                         <font>
                             <Font name="Helvetica Neue Light" size="72.0" />
                         </font>
                     </Label>
-                  <Label fx:id="registerMessageLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="1200.0">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="1200.0">
                      <font>
                         <Font name="Helvetica Neue Bold" size="36.0" />
                      </font>
                   </Label>
-                  <Label fx:id="confirmPasswordLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="318.0" textFill="RED">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="318.0" textFill="RED">
                      <font>
                         <Font name="Helvetica Neue Light" size="25.0" />
                      </font>

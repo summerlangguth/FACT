@@ -8,6 +8,7 @@ import javafx.beans.property.*;
 import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
@@ -170,14 +171,24 @@ public class EditSetController {
     @FXML
     private void onClose() {
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CreateSet.fxml"));
-            Stage CreateSetStage = new Stage();
+            // Load homebase layout
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
+            Parent root = baseLoader.load();
+
+            // Get controller of homebase
+            HomeBaseController baseController = baseLoader.getController();
+
+            // Load homepage.fxml into the content area
+            baseController.setContent("/com/example/FACT/createSet.fxml");
+
+            // Get current stage from the login button
+            Stage newStage = new Stage();
             Stage currentStage = (Stage) CreateSetButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            CreateSetStage.initStyle(StageStyle.UNDECORATED);
-            CreateSetStage.setTitle("Create Set");
-            CreateSetStage.setScene(scene);
-            CreateSetStage.show();
+            // Set the new scene with the base layout
+            Scene scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.initStyle(StageStyle.UNDECORATED);
+            newStage.show();
             currentStage.hide();
         }
         catch(Exception e){

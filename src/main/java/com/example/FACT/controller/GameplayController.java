@@ -1,5 +1,6 @@
 package com.example.FACT.controller;
 
+import com.example.FACT.HelloApplication;
 import com.example.FACT.model.GameEngine;
 import com.example.FACT.model.Shortcut;
 import javafx.animation.PauseTransition;
@@ -21,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -54,6 +56,8 @@ public class GameplayController {
         Platform.runLater(this::refreshUI);
     }
 
+
+
     /**
      * Once the root has been loaded, the program begins listening for the next key event (user input).
      * Also sets the top left title, matching the correct application.
@@ -61,7 +65,7 @@ public class GameplayController {
     @FXML
     private void initialize() {
         Platform.runLater(() -> {
-            root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, this::onKeyPressed);
+            root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
             appTitleLabel.setText(appTitleDefault);
         });
     }
@@ -80,12 +84,22 @@ public class GameplayController {
             return;
         }
 
-        if (e.getCode() == KeyCode.META) {
+        if ((e.getCode() == KeyCode.CONTROL)||(e.getCode() == KeyCode.SHIFT)||(e.getCode() == KeyCode.ALT)||(e.getCode() == KeyCode.TAB)){
             showStatus(" ", "#c62828");
-        } else {
+        }
+        else {
             boolean inputStatus = engine.checkAndAdvance(e);
             if (inputStatus) {
                 showStatus("CORRECT", "#2e7d32");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(ev -> {
+                    statusLabel.setText(" ");
+                    refreshUI();
+                });
+                pause.play();
+            }
+            else{
+                showStatus("INCORRECT", "ED2A00");
                 PauseTransition pause = new PauseTransition(Duration.seconds(2));
                 pause.setOnFinished(ev -> {
                     statusLabel.setText(" ");
@@ -168,5 +182,6 @@ public class GameplayController {
         scene = new Scene(parentRoot);
         stage.setScene(scene);
         stage.show();
+
     }
 }

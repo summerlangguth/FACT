@@ -2,10 +2,12 @@ package com.example.FACT.model;
 
 import java.sql.*;
 import java.util.List;
+import java.time.*;
+import java.util.concurrent.TimeUnit;
 
 public class SqliteUserDAO implements IUserDAO{
     private Connection connection;
-
+    private Timestamp current;
     /**
      * Constructor for the SQLite user data access object.
      * Connects to the instance of the database and creates the table if not already present.
@@ -29,10 +31,12 @@ public class SqliteUserDAO implements IUserDAO{
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS userDetails ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "firstName TEXT NOT NULL,"
-                    + "lastName TEXT NOT NULL,"
-                    + "email TEXT NOT NULL UNIQUE,"
-                    + "password VARCHAR NOT NULL"
+                    + "firstName VARCHAR NOT NULL,"
+                    + "lastName VARCHAR NOT NULL,"
+                    + "email VARCHAR NOT NULL UNIQUE,"
+                    + "password VARCHAR NOT NULL,"
+                    + "lastActive TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+                    + "streak INTEGER"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -57,6 +61,9 @@ public class SqliteUserDAO implements IUserDAO{
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
+                Timestamp lastActive = resultSet.getTimestamp("lastActive");
+                Integer streak = resultSet.getInt("streak");
+                setActivityValue(lastActive, streak, email);
                 return true;
             }
             else{
@@ -65,7 +72,42 @@ public class SqliteUserDAO implements IUserDAO{
         }
         catch(Exception e){
             return false;
-            //TODO
+        }
+    }
+
+    public void setActivityValue(Timestamp lastActive, Integer streak, String email) throws SQLException {
+        current = Timestamp.valueOf(LocalDateTime.now());
+        Double active = (double) TimeUnit.DAYS.convert(current.getTime() - lastActive.getTime(), TimeUnit.MILLISECONDS);
+        PreparedStatement activeStatement;
+        activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
+        if(active > 1 && active < 2){
+            Integer updated = streak + 1;
+            activeStatement.setInt(1, updated);
+        }
+        else if (active >= 2){
+            activeStatement.setInt(1, 0);
+        }
+        else if (streak == 0){
+            activeStatement.setInt(1, 1);
+        }
+        activeStatement.setString(2, email);
+        activeStatement.executeUpdate();
+    }
+
+    public void setActivity(String email){
+        PreparedStatement statement;
+        String query = "SELECT streak FROM userDetails WHERE email = ?";
+        ResultSet resultSet;
+        try{
+            statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                Integer updated = resultSet.getInt("streak");
+                UserManager.getInstance().getLoggedInUser().setActivity(updated);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     @Override
@@ -85,5 +127,29 @@ public class SqliteUserDAO implements IUserDAO{
 
         }
 
+    }
+
+    public User createUserObject(String email, String password) throws SQLException{
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        String query = "SELECT * FROM userDetails WHERE email = ? AND password = ?";
+        try{
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                return new User(firstName, lastName, email, password);
+            }
+            else{
+                throw new SQLException();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }
