@@ -53,7 +53,6 @@ public class SqliteUserDAO implements IUserDAO{
      */
     public boolean isLogin(String email, String password) throws SQLException {
         PreparedStatement preparedStatement;
-        PreparedStatement activeStatement;
         ResultSet resultSet;
         String query = "SELECT * FROM userDetails WHERE email = ? AND password = ?";
         try{
@@ -62,30 +61,9 @@ public class SqliteUserDAO implements IUserDAO{
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                current = Timestamp.valueOf(LocalDateTime.now());
                 Timestamp lastActive = resultSet.getTimestamp("lastActive");
-                Double active = (double) TimeUnit.DAYS.convert(current.getTime() - lastActive.getTime(), TimeUnit.MILLISECONDS);
                 Integer streak = resultSet.getInt("streak");
-                if(active > 1 && active < 2){
-                    Integer updated = streak + 1;
-                    activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
-                    activeStatement.setInt(1, updated);
-                    activeStatement.setString(2, email);
-                    activeStatement.executeUpdate();
-
-                }
-                else if (active >= 2){
-                    activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
-                    activeStatement.setInt(1, 0);
-                    activeStatement.setString(2, email);
-                    activeStatement.executeUpdate();
-                }
-                else if (streak == 0){
-                    activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
-                    activeStatement.setInt(1, 1);
-                    activeStatement.setString(2, email);
-                    activeStatement.executeUpdate();
-                }
+                setActivityValue(lastActive, streak, email);
                 return true;
             }
             else{
@@ -94,8 +72,26 @@ public class SqliteUserDAO implements IUserDAO{
         }
         catch(Exception e){
             return false;
-            //TODO
         }
+    }
+
+    public void setActivityValue(Timestamp lastActive, Integer streak, String email) throws SQLException {
+        current = Timestamp.valueOf(LocalDateTime.now());
+        Double active = (double) TimeUnit.DAYS.convert(current.getTime() - lastActive.getTime(), TimeUnit.MILLISECONDS);
+        PreparedStatement activeStatement;
+        activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
+        if(active > 1 && active < 2){
+            Integer updated = streak + 1;
+            activeStatement.setInt(1, updated);
+        }
+        else if (active >= 2){
+            activeStatement.setInt(1, 0);
+        }
+        else if (streak == 0){
+            activeStatement.setInt(1, 1);
+        }
+        activeStatement.setString(2, email);
+        activeStatement.executeUpdate();
     }
 
     public void setActivity(String email){
