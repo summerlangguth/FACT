@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,9 +17,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.Parent;
+
+import java.net.URL;
+import java.util.Objects;
 
 import java.io.File;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -152,32 +154,25 @@ public class LoginController implements Initializable {
 
     }
 
-    public void loadHomePage(){
-        try{
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
+    public void loadHomePage() {
+        try {
+            // Load base shell
+            URL baseUrl = getClass().getResource("/com/example/FACT/homebase.fxml");
+            FXMLLoader baseLoader = new FXMLLoader(Objects.requireNonNull(baseUrl, "homebase.fxml not found"));
+            Parent baseRoot = baseLoader.load();
 
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
+            // Ask BaseController to show Home inside the center
+            com.example.FACT.controller.BaseController baseController = baseLoader.getController();
             baseController.setContent("/com/example/FACT/homepage.fxml");
 
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) loginButton.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
+            // Reuse the current stage
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene(baseRoot));
+            stage.show();
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
+
 }
