@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.BaseController" minWidth="0.0" minHeight="0.0" prefWidth="-1.0" prefHeight="-1.0" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.BaseController">
 
 
 
    <!-- TOP: Custom title bar -->
    <top>
-      <HBox fx:id="titleBar" spacing="10" alignment="CENTER_LEFT"
-            styleClass="titlebar" BorderPane.alignment="CENTER">
-         <padding><Insets top="8" right="12" bottom="8" left="12"/></padding>
+      <HBox fx:id="titleBar" alignment="CENTER_LEFT" spacing="10" styleClass="titlebar" BorderPane.alignment="CENTER">
+         <padding><Insets bottom="8" left="12" right="12" top="8" /></padding>
 
          <!-- Logo spot (top-left) -->
          <ImageView fx:id="brandingImageView" fitHeight="24.0" pickOnBounds="true" preserveRatio="true">
@@ -23,33 +21,33 @@
 
             </image>
          </ImageView>
-         <Label text="FACT" styleClass="app-title"/>
+         <Label styleClass="app-title" text="FACT" />
 
          <!-- Spacer pushes window controls to the right -->
-         <Region HBox.hgrow="ALWAYS"/>
+         <Region HBox.hgrow="ALWAYS" />
 
          <!-- Window controls (top-right) -->
-         <Button fx:id="minimizeButton" text="—" focusTraversable="false" onAction="#onMinimize" styleClass="window-btn"/>
-         <Button fx:id="maximizeButton" text="□" focusTraversable="false" onAction="#onMaximizeRestore" styleClass="window-btn"/>
-         <Button fx:id="closeButton" text="✕" focusTraversable="false" onAction="#onClose" styleClass="window-btn close"/>
+         <Button fx:id="minimizeButton" focusTraversable="false" onAction="#onMinimize" styleClass="window-btn" text="—" />
+         <Button fx:id="maximizeButton" focusTraversable="false" onAction="#onMaximizeRestore" styleClass="window-btn" text="□" />
+         <Button fx:id="closeButton" focusTraversable="false" onAction="#onClose" styleClass="window-btn close" text="✕" />
       </HBox>
    </top>
 
    <!-- LEFT: Sidebar menu -->
    <left>
-      <VBox fx:id="sideMenu" spacing="8" prefWidth="220" styleClass="sidebar">
-         <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+      <VBox fx:id="sideMenu" prefWidth="220" spacing="8" styleClass="sidebar">
+         <padding><Insets bottom="12" left="12" right="12" top="12" /></padding>
 
          <!-- Add whatever buttons you want; wire them to navigate -->
-         <Button text="Home"    onAction="#goHome"    maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
-         <Button text="Create Set"  onAction="#goCreate"  maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
-         <Button text="Play"    onAction="#goPlay"    maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
-         <Button text="Edit Sets" onAction="#goEdit" maxWidth="1.7976931348623157E308" styleClass="nav-btn"/>
+         <Button maxWidth="1.7976931348623157E308" onAction="#goHome" styleClass="nav-btn" text="Home" />
+         <Button maxWidth="1.7976931348623157E308" onAction="#goPlay" styleClass="nav-btn" text="Play" />
+         <Button maxWidth="1.7976931348623157E308" onAction="#goCreate" styleClass="nav-btn" text="Create Set" />
+         <Button maxWidth="1.7976931348623157E308" onAction="#goEdit" styleClass="nav-btn" text="Edit Sets" />
       </VBox>
    </left>
 
    <!-- CENTER: Content placeholder where pages get loaded -->
    <center>
-      <StackPane fx:id="contentArea" styleClass="content-area"/>
+      <StackPane fx:id="contentArea" styleClass="content-area" />
    </center>
 </BorderPane>

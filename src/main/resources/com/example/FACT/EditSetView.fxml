@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.EditSetController" minWidth="0.0" minHeight="0.0" prefWidth="-1.0" prefHeight="-1.0" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="840.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.EditSetController">
    <children>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="840.0" prefWidth="1496.0">
          <top>
             <AnchorPane BorderPane.alignment="CENTER">
                <padding>
@@ -16,19 +24,22 @@
             </AnchorPane>
          </top>
 
-         <bottom>
-            <AnchorPane prefHeight="615.0" prefWidth="1204.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
+         </padding>
+         <left>
+            <AnchorPane prefHeight="615.0" prefWidth="930.0" BorderPane.alignment="CENTER">
                <children>
 
                   <!-- Title -->
-                  <Text layoutX="520.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Key Sets" wrappingWidth="220.0">
+                  <Text layoutX="318.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Key Sets" wrappingWidth="220.0">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Text>
 
                   <!-- Application selector -->
-                  <ComboBox fx:id="ApplicationComboBox" layoutX="364.0" layoutY="85.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select Application" />
+                  <ComboBox fx:id="ApplicationComboBox" layoutX="162.0" layoutY="84.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select Application" />
                   <Label fx:id="RowCountLabel" alignment="CENTER_LEFT" layoutX="780.0" layoutY="105.0" prefHeight="24.0" prefWidth="200.0" text="">
                      <font>
                         <Font size="16.0" />
@@ -36,7 +47,7 @@
                   </Label>
 
                   <!-- Table of key sets -->
-                  <TableView fx:id="table" editable="true" layoutX="202.0" layoutY="160.0" prefHeight="260.0" prefWidth="800.0">
+                  <TableView fx:id="table" editable="true" layoutY="159.0" prefHeight="260.0" prefWidth="800.0">
                      <columns>
                         <TableColumn fx:id="colCategory" prefWidth="160.0" text="Category" />
                         <TableColumn fx:id="colDifficulty" prefWidth="160.0" text="Difficulty" />
@@ -46,28 +57,28 @@
                   </TableView>
 
                   <!-- Keybind capture row -->
-                  <Label layoutX="202.0" layoutY="437.0" text="Set Keybind for Selected:">
+                  <Label layoutY="436.0" text="Set Keybind for Selected:">
                      <font><Font size="18.0" /></font>
                   </Label>
-                  <TextField fx:id="KeyBindCaptureField" layoutX="442.0" layoutY="430.0" minHeight="40.0" minWidth="360.0" prefHeight="40.0" prefWidth="360.0" promptText="Click here and press shortcut (e.g., Ctrl+C)">
+                  <TextField fx:id="KeyBindCaptureField" layoutX="240.0" layoutY="429.0" minHeight="40.0" minWidth="360.0" prefHeight="40.0" prefWidth="360.0" promptText="Click here and press shortcut (e.g., Ctrl+C)">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </TextField>
-                  <Button layoutX="822.0" layoutY="430.0" mnemonicParsing="false" onAction="#onApplyKeyBindToSelected" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2E40F5;" text="Apply to Selected" textFill="WHITE">
+                  <Button layoutX="620.0" layoutY="429.0" mnemonicParsing="false" onAction="#onApplyKeyBindToSelected" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2E40F5;" text="Apply to Selected" textFill="WHITE">
                      <font>
                         <Font name="Helvetica Bold" size="18.0" />
                      </font>
                   </Button>
 
                   <!-- Bottom action buttons -->
-                  <Button layoutX="202.0" layoutY="530.0" mnemonicParsing="false" onAction="#onDeleteSelected" prefHeight="60.0" prefWidth="212.0" style="-fx-background-color: #EF4444;" text="Delete Selected" textFill="WHITE">
+                  <Button layoutY="529.0" mnemonicParsing="false" onAction="#onDeleteSelected" prefHeight="60.0" prefWidth="212.0" style="-fx-background-color: #EF4444;" text="Delete Selected" textFill="WHITE">
                      <font>
                         <Font name="Helvetica Bold" size="24.0" />
                      </font>
                   </Button>
 
-                  <Button layoutX="790.0" layoutY="530.0" mnemonicParsing="false" onAction="#onSaveChanges" prefHeight="60.0" prefWidth="212.0" style="-fx-background-color: #22C55E;" text="Save Changes" textFill="WHITE">
+                  <Button layoutX="588.0" layoutY="529.0" mnemonicParsing="false" onAction="#onSaveChanges" prefHeight="60.0" prefWidth="212.0" style="-fx-background-color: #22C55E;" text="Save Changes" textFill="WHITE">
                      <font>
                         <Font name="Helvetica Bold" size="24.0" />
                      </font>
@@ -75,11 +86,7 @@
 
                </children>
             </AnchorPane>
-         </bottom>
-
-         <padding>
-            <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
-         </padding>
+         </left>
       </BorderPane>
    </children>
 
