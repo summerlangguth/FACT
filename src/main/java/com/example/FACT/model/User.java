@@ -106,7 +106,7 @@ public class User {
     }
 
     /**
-     * sets the users activity streak
+     * sets the users daily activity streak
      * @param active how many days in a row the user has been active
      */
     public void setActivity(int active){
@@ -114,7 +114,7 @@ public class User {
     }
 
     /**
-     * gets the users activity streak
+     * gets the users daily activity streak
      * @return how many days in a row the user has been active
      */
     public Integer getActivity(){

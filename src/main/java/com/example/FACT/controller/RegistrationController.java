@@ -4,7 +4,6 @@ import com.example.FACT.HelloApplication;
 import com.example.FACT.model.IUserDAO;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -70,9 +69,8 @@ public class RegistrationController implements Initializable {
 
     /**
      * validates user data and returns relevant message
-     * @param event click of the signup button
      */
-    public void signUpButtonOnAction(ActionEvent event){
+    public void signUpButtonOnAction(){
         registerMessageLabel.setText("");
         confirmPasswordLabel.setText("");
         if(!emailTextField.getText().isBlank() && !setPasswordField.getText().isBlank() && !firstNameTextField.getText().isBlank() && !lastNameTextField.getText().isBlank()){
