@@ -38,7 +38,6 @@ public class HomePageController {
     private Label activityStreak;
     @FXML
     private Button logoutButton;
-
     @FXML
     private Button createButton;
 
@@ -47,7 +46,7 @@ public class HomePageController {
     private void initialize(){
         String userName = UserManager.getInstance().getLoggedInUser().getFirstName();
         Integer active = UserManager.getInstance().getLoggedInUser().getActivity();
-        welcomeMessage.setText("Welcome," + userName);
+        welcomeMessage.setText("Welcome, " + userName);
         activityStreak.setText("Current Streak: " + active);
     }
 

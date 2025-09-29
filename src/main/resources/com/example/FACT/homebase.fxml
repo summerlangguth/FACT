@@ -15,11 +15,9 @@
       <HBox fx:id="titleBar" spacing="10" alignment="CENTER_LEFT"
             styleClass="titlebar" BorderPane.alignment="CENTER">
          <padding><Insets top="8" right="12" bottom="8" left="12"/></padding>
-
          <!-- Logo spot (top-left) -->
          <ImageView fx:id="brandingImageView" fitHeight="24.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <!-- Update to your logo path -->
 
             </image>
          </ImageView>
