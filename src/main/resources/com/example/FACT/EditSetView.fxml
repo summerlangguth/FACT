@@ -1,146 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.FACT.controller.EditSetController"
-      minWidth="0.0" minHeight="0.0" prefWidth="-1.0" prefHeight="-1.0"
-      maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308"
-      stylesheets="@../css/modern.css" styleClass="scene-root content card">
-
-   <padding>
-      <Insets left="40.0" right="40.0" top="20.0" bottom="20.0" />
-   </padding>
-
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="840.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.EditSetController">
    <children>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-
-         <center>
-            <VBox alignment="TOP_CENTER" spacing="24" BorderPane.alignment="CENTER">
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="840.0" prefWidth="1496.0">
+         <top>
+            <AnchorPane BorderPane.alignment="CENTER">
                <padding>
-                  <Insets top="40.0" bottom="40.0" left="60.0" right="60.0" />
+                  <Insets bottom="25.0" />
                </padding>
+            </AnchorPane>
+         </top>
 
+         <padding>
+            <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
+         </padding>
+         <left>
+            <AnchorPane prefHeight="615.0" prefWidth="930.0" BorderPane.alignment="CENTER">
                <children>
-                  <!-- Page Title -->
-                  <Label styleClass="page-title" text="Edit Key Sets">
+
+                  <!-- Title -->
+                  <Text layoutX="318.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Key Sets" wrappingWidth="220.0">
                      <font>
-                        <Font size="28.0" />
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+
+                  <!-- Application selector -->
+                  <ComboBox fx:id="ApplicationComboBox" layoutX="162.0" layoutY="84.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select Application" />
+                  <Label fx:id="RowCountLabel" alignment="CENTER_LEFT" layoutX="780.0" layoutY="105.0" prefHeight="24.0" prefWidth="200.0" text="">
+                     <font>
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <HBox spacing="16" alignment="CENTER_LEFT" maxWidth="900">
-                     <children>
-                        <VBox spacing="8" HBox.hgrow="ALWAYS">
-                           <Label styleClass="form-label" text="Select Application" />
-                           <ComboBox fx:id="ApplicationComboBox"
-                                     styleClass="combo-box-lg"
-                                     maxWidth="1.7976931348623157E308"
-                                     minHeight="60.0" prefHeight="60.0"
-                                     promptText="Select Application" />
-                        </VBox>
 
-                        <VBox spacing="8" alignment="BOTTOM_LEFT">
-                           <Label styleClass="form-label" text="Total Rows" />
-                           <Label fx:id="RowCountLabel" styleClass="info-label"
-                                  prefHeight="60.0" alignment="CENTER_LEFT"
-                                  text="">
-                              <font>
-                                 <Font size="16.0" />
-                              </font>
-                           </Label>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <VBox spacing="12" maxWidth="900" VBox.vgrow="ALWAYS">
-                     <TableView fx:id="table" editable="true"
-                                prefHeight="300.0" maxWidth="1.7976931348623157E308"
-                                VBox.vgrow="ALWAYS">
-                        <columns>
-                           <TableColumn fx:id="colCategory" prefWidth="180.0"
-                                        text="Category" />
-                           <TableColumn fx:id="colDifficulty" prefWidth="140.0"
-                                        text="Difficulty" />
-                           <TableColumn fx:id="colDescription" prefWidth="340.0"
-                                        text="Description" />
-                           <TableColumn fx:id="colKeyBind" prefWidth="140.0"
-                                        text="Key Bind" />
-                        </columns>
-                     </TableView>
-                  </VBox>
-                  <VBox spacing="12" maxWidth="900" styleClass="surface">
-                     <padding>
-                        <Insets top="20.0" bottom="20.0" left="24.0" right="24.0" />
-                     </padding>
+                  <!-- Table of key sets -->
+                  <TableView fx:id="table" editable="true" layoutY="159.0" prefHeight="260.0" prefWidth="800.0">
+                     <columns>
+                        <TableColumn fx:id="colCategory" prefWidth="160.0" text="Category" />
+                        <TableColumn fx:id="colDifficulty" prefWidth="160.0" text="Difficulty" />
+                        <TableColumn fx:id="colDescription" prefWidth="360.0" text="Description" />
+                        <TableColumn fx:id="colKeyBind" prefWidth="120.0" text="Key Bind" />
+                     </columns>
+                  </TableView>
 
-                     <children>
-                        <Label styleClass="form-label"
-                               text="Set Keybind for Selected Row">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
+                  <!-- Keybind capture row -->
+                  <Label layoutY="436.0" text="Set Keybind for Selected:">
+                     <font><Font size="18.0" /></font>
+                  </Label>
+                  <TextField fx:id="KeyBindCaptureField" layoutX="240.0" layoutY="429.0" minHeight="40.0" minWidth="360.0" prefHeight="40.0" prefWidth="360.0" promptText="Click here and press shortcut (e.g., Ctrl+C)">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="620.0" layoutY="429.0" mnemonicParsing="false" onAction="#onApplyKeyBindToSelected" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2E40F5;" text="Apply to Selected" textFill="WHITE">
+                     <font>
+                        <Font name="Helvetica Bold" size="18.0" />
+                     </font>
+                  </Button>
 
-                        <HBox spacing="12" alignment="CENTER_LEFT">
-                           <children>
-                              <TextField fx:id="KeyBindCaptureField"
-                                         styleClass="text-field-lg"
-                                         HBox.hgrow="ALWAYS"
-                                         minHeight="50.0" prefHeight="50.0"
-                                         promptText="Click here and press shortcut (e.g., Ctrl+C)">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
+                  <!-- Bottom action buttons -->
+                  <Button layoutY="529.0" mnemonicParsing="false" onAction="#onDeleteSelected" prefHeight="60.0" prefWidth="212.0" style="-fx-background-color: #EF4444;" text="Delete Selected" textFill="WHITE">
+                     <font>
+                        <Font name="Helvetica Bold" size="24.0" />
+                     </font>
+                  </Button>
 
-                              <Button mnemonicParsing="false"
-                                      onAction="#onApplyKeyBindToSelected"
-                                      styleClass="button-primary,button-solid,button-xl"
-                                      prefHeight="50.0" prefWidth="180.0"
-                                      text="Apply to Selected" textFill="WHITE">
-                                 <font>
-                                    <Font name="Helvetica Bold" size="15.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <HBox spacing="16" alignment="CENTER" styleClass="action-buttons">
-                     <HBox.margin>
-                        <Insets top="16.0" />
-                     </HBox.margin>
+                  <Button layoutX="588.0" layoutY="529.0" mnemonicParsing="false" onAction="#onSaveChanges" prefHeight="60.0" prefWidth="212.0" style="-fx-background-color: #22C55E;" text="Save Changes" textFill="WHITE">
+                     <font>
+                        <Font name="Helvetica Bold" size="24.0" />
+                     </font>
+                  </Button>
 
-                     <children>
-                        <Button mnemonicParsing="false"
-                                onAction="#onDeleteSelected"
-                                styleClass="button-primary,button-solid,button-xl"
-                                prefHeight="60.0" prefWidth="220.0"
-                                text="Delete Selected" textFill="WHITE">
-                           <font>
-                              <Font name="Helvetica Bold" size="20.0" />
-                           </font>
-                        </Button>
-
-                        <Region HBox.hgrow="ALWAYS" />
-
-                        <Button mnemonicParsing="false"
-                                onAction="#onSaveChanges"
-                                styleClass="button-success,button-solid,button-xl"
-                                prefHeight="60.0" prefWidth="220.0"
-                                text="Save Changes" textFill="WHITE">
-                           <font>
-                              <Font name="Helvetica Bold" size="20.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
                </children>
-            </VBox>
-         </center>
+            </AnchorPane>
+         </left>
       </BorderPane>
    </children>
+
+   <padding>
+      <Insets left="40.0" right="40.0" />
+   </padding>
 </VBox>
