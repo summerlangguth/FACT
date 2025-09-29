@@ -1,5 +1,6 @@
 package com.example.FACT.controller;
 
+import com.example.FACT.HelloApplication;
 import com.example.FACT.model.GameEngine;
 import com.example.FACT.model.Shortcut;
 import javafx.animation.PauseTransition;
@@ -21,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -180,5 +182,6 @@ public class GameplayController {
         scene = new Scene(parentRoot);
         stage.setScene(scene);
         stage.show();
+
     }
 }

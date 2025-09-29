@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
+import java.time.Instant;
 /// done by summer n11187450
 import static org.junit.jupiter.api.Assertions.*;
 /// use to create mock data -> safer than testing using an actual database.
@@ -31,6 +32,9 @@ public class SQLiteUserTest {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
         when(mockStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(true); /// want to pass
+        when(mockResultSet.getTimestamp("lastActive")).thenReturn(Timestamp.from(Instant.now()));
+        when(mockResultSet.getInt("streak")).thenReturn(0); /// mock the set activity
+        when(mockStatement.executeUpdate()).thenReturn(0); /// allow the update to happen
         boolean testLogin = userTest.isLogin("test@example.com","Correct");
         assertTrue(testLogin);
     }

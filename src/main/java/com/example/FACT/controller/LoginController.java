@@ -83,6 +83,7 @@ public class LoginController implements Initializable {
                     //loginMessageLabel.setText("valid login");
                     User loggedInUser = model.createUserObject(email, password);
                     UserManager.getInstance().setLoggedInUser(loggedInUser);
+                    model.setActivity(email);
                     loadHomePage();
                 }
                else {
