@@ -46,7 +46,9 @@ public class HomePageController {
     @FXML
     private void initialize(){
         String userName = UserManager.getInstance().getLoggedInUser().getFirstName();
+        Integer active = UserManager.getInstance().getLoggedInUser().getActivity();
         welcomeMessage.setText("Welcome," + userName);
+        activityStreak.setText("Current Streak: " + active);
     }
 
     public void onHomePracButton(){

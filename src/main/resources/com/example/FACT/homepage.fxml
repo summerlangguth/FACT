@@ -17,12 +17,12 @@
          <top>
             <AnchorPane BorderPane.alignment="TOP_CENTER">
                <children>
-                    <Label fx:id="welcomeMessage" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0">
+                    <Label fx:id="welcomeMessage" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0">
                         <font>
                             <Font name="Helvetica Neue Light" size="96.0" />
                         </font>
                     </Label>
-                    <Label fx:id="activityStreak" alignment="CENTER" contentDisplay="CENTER" layoutX="452.0" layoutY="152.0" AnchorPane.leftAnchor="452.0" AnchorPane.topAnchor="152.0">
+                    <Label fx:id="activityStreak" alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="152.0">
                         <font>
                             <Font name="Helvetica Neue Light" size="72.0" />
                         </font>

@@ -1,4 +1,7 @@
 package com.example.FACT.model;
+
+import java.sql.Timestamp;
+
 /**
  * A simple model class representing a user with a first name, last name, email, and password.
  */
@@ -9,6 +12,7 @@ public class User {
     private String email;
     private String password;
     private Integer streak;
+    private Integer activity;
     private Float accuracy;
     private Integer numIncorrect;
     private Integer numCorrect;
@@ -99,6 +103,22 @@ public class User {
 
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    /**
+     * sets the users activity streak
+     * @param active how many days in a row the user has been active
+     */
+    public void setActivity(int active){
+        this.activity = active;
+    }
+
+    /**
+     * gets the users activity streak
+     * @return how many days in a row the user has been active
+     */
+    public Integer getActivity(){
+        return activity;
     }
 
     /**

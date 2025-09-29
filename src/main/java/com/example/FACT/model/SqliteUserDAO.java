@@ -2,10 +2,12 @@ package com.example.FACT.model;
 
 import java.sql.*;
 import java.util.List;
+import java.time.*;
+import java.util.concurrent.TimeUnit;
 
 public class SqliteUserDAO implements IUserDAO{
     private Connection connection;
-
+    private Timestamp current;
     /**
      * Constructor for the SQLite user data access object.
      * Connects to the instance of the database and creates the table if not already present.
@@ -29,10 +31,12 @@ public class SqliteUserDAO implements IUserDAO{
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS userDetails ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "firstName TEXT NOT NULL,"
-                    + "lastName TEXT NOT NULL,"
-                    + "email TEXT NOT NULL UNIQUE,"
-                    + "password VARCHAR NOT NULL"
+                    + "firstName VARCHAR NOT NULL,"
+                    + "lastName VARCHAR NOT NULL,"
+                    + "email VARCHAR NOT NULL UNIQUE,"
+                    + "password VARCHAR NOT NULL,"
+                    + "lastActive TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+                    + "streak INTEGER"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -49,6 +53,7 @@ public class SqliteUserDAO implements IUserDAO{
      */
     public boolean isLogin(String email, String password) throws SQLException {
         PreparedStatement preparedStatement;
+        PreparedStatement activeStatement;
         ResultSet resultSet;
         String query = "SELECT * FROM userDetails WHERE email = ? AND password = ?";
         try{
@@ -57,6 +62,30 @@ public class SqliteUserDAO implements IUserDAO{
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
+                current = Timestamp.valueOf(LocalDateTime.now());
+                Timestamp lastActive = resultSet.getTimestamp("lastActive");
+                Double active = (double) TimeUnit.DAYS.convert(current.getTime() - lastActive.getTime(), TimeUnit.MILLISECONDS);
+                Integer streak = resultSet.getInt("streak");
+                if(active > 1 && active < 2){
+                    Integer updated = streak + 1;
+                    activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
+                    activeStatement.setInt(1, updated);
+                    activeStatement.setString(2, email);
+                    activeStatement.executeUpdate();
+
+                }
+                else if (active >= 2){
+                    activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
+                    activeStatement.setInt(1, 0);
+                    activeStatement.setString(2, email);
+                    activeStatement.executeUpdate();
+                }
+                else if (streak == 0){
+                    activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
+                    activeStatement.setInt(1, 1);
+                    activeStatement.setString(2, email);
+                    activeStatement.executeUpdate();
+                }
                 return true;
             }
             else{
@@ -66,6 +95,23 @@ public class SqliteUserDAO implements IUserDAO{
         catch(Exception e){
             return false;
             //TODO
+        }
+    }
+
+    public void setActivity(String email){
+        PreparedStatement statement;
+        String query = "SELECT streak FROM userDetails WHERE email = ?";
+        ResultSet resultSet;
+        try{
+            statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                Integer updated = resultSet.getInt("streak");
+                UserManager.getInstance().getLoggedInUser().setActivity(updated);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     @Override

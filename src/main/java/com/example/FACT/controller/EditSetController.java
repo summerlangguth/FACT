@@ -178,6 +178,7 @@ public class EditSetController {
             // Get controller of homebase
             HomeBaseController baseController = baseLoader.getController();
 
+            // Load homepage.fxml into the content area
             baseController.setContent("/com/example/FACT/createSet.fxml");
 
             // Get current stage from the login button
@@ -186,10 +187,9 @@ public class EditSetController {
             // Set the new scene with the base layout
             Scene scene = new Scene(root);
             newStage.setScene(scene);
-            newStage.show();
             newStage.initStyle(StageStyle.UNDECORATED);
-            currentStage.close();
-
+            newStage.show();
+            currentStage.hide();
         }
         catch(Exception e){
             e.printStackTrace();

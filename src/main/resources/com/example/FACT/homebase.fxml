@@ -9,10 +9,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.StackPane?>
 <AnchorPane prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomeBaseController">
    <children>
       <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: ffffffff;">
@@ -23,17 +23,17 @@
                      <children>
                         <ButtonBar buttonMinWidth="35.0" prefHeight="40.0" prefWidth="200.0">
                           <buttons>
-                              <Button fx:id="minimizeButton" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#minimizeButtonAction" prefHeight="32.0" prefWidth="33.0" style="-fx-background-color: white; -fx-border-color: #3578C9; -fx-border-width: 3; -fx-border-radius: 7;" text="—" textAlignment="CENTER" textFill="#3578c9">
+                              <Button fx:id="closeButton" contentDisplay="CENTER" graphicTextGap="1.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="13.0" prefWidth="18.0" style="-fx-background-color: white; -fx-border-color: #3578C9; -fx-border-width: 3; -fx-border-radius: 7;" text="X" textAlignment="CENTER" textFill="#3578c9">
                                  <font>
-                                    <Font name="Helvetica Bold" size="10.0" />
+                                    <Font name="Helvetica Bold" size="14.0" />
                                  </font>
                                  <effect>
                                     <Blend />
                                  </effect>
                               </Button>
-                              <Button fx:id="closeButton" contentDisplay="CENTER" graphicTextGap="1.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="13.0" prefWidth="18.0" style="-fx-background-color: white; -fx-border-color: #3578C9; -fx-border-width: 3; -fx-border-radius: 7;" text="X" textAlignment="CENTER" textFill="#3578c9">
+                              <Button fx:id="minimizeButton" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" onAction="#minimizeButtonAction" prefHeight="32.0" prefWidth="33.0" style="-fx-background-color: white; -fx-border-color: #3578C9; -fx-border-width: 3; -fx-border-radius: 7;" text="—" textAlignment="CENTER" textFill="#3578c9">
                                  <font>
-                                    <Font name="Helvetica Bold" size="14.0" />
+                                    <Font name="Helvetica Bold" size="10.0" />
                                  </font>
                                  <effect>
                                     <Blend />
@@ -54,7 +54,7 @@
                   </AnchorPane>
                </top>
                <center>
-                  <StackPane prefHeight="503.0" fx:id="contentArea"/>
+                  <StackPane fx:id="contentArea" prefHeight="503.0" />
                </center>
             </BorderPane>
          </children>
