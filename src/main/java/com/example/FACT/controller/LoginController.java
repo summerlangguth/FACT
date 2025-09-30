@@ -4,6 +4,7 @@ import com.example.FACT.HelloApplication;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.User;
 import com.example.FACT.model.UserManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +15,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Parent;
@@ -28,7 +32,8 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
     @FXML
     private Label welcomeText;
-
+    @FXML
+    private BorderPane root;
     @FXML
     private Label loginMessageLabel;
 
@@ -57,7 +62,16 @@ public class LoginController implements Initializable {
         File brandingfile = new File("images/logo.png");
         Image brandingImage = new Image(brandingfile.toURI().toString());
         brandingImageView.setImage(brandingImage);
+        Platform.runLater(() -> {
+                root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
+        });
 
+    }
+
+    private void onKeyPressed(KeyEvent e){
+        if(e.getCode() == KeyCode.ENTER){
+            loginButtonOnAction();
+        }
     }
 
     /**
