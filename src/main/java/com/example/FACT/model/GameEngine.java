@@ -8,7 +8,8 @@ import java.util.List;
 
 public class GameEngine {
 
-    private User CurrentUser = UserManager.getInstance().getLoggedInUser();
+
+    //private User CurrentUser = UserManager.getInstance().getLoggedInUser();
 
     /**
      * List containing shortcut objects. Initialises an empty list.
@@ -25,6 +26,7 @@ public class GameEngine {
 
     /**
      * Copies a list of shortcuts and pastes into the GameEngine.
+     *
      * @param list shortcut list to be used for Gameplay.
      */
     public final void setShortcuts(List<Shortcut> list) {
@@ -41,20 +43,22 @@ public class GameEngine {
 
     /**
      * Returns which position the current shortcut is in the list.
+     *
      * @return Integer for index position, or null if finished.
      */
     public Shortcut current() {
         return (index < shortcuts.size()) ? shortcuts.get(index) : null;
     }
 
-    public String progress(){
-        int position = index +1;
+    public String progress() {
+        int position = index + 1;
         int total = shortcuts.size();
         return position + "/" + total;
     }
 
     /**
      * Compares shortcut number to size of list, if equal or bigger, the course is finished.
+     *
      * @return boolean value.
      */
     public boolean isFinished() {
@@ -64,23 +68,25 @@ public class GameEngine {
     /**
      * Checks to see if user input matches the expected key event combo. If able to move on, will increase correct
      * and index respectively.
+     *
      * @param e key combination entered
-     * @return returns boolean value to see if the next shortcut can be loaded,
+     *          // @return returns boolean value to see if the next shortcut can be loaded,
      */
+
     public boolean checkAndAdvance(KeyEvent e) {
         KeyCombination expected = current().getCombo();
         boolean currentInput = expected.match(e);
 
         if (currentInput) {
             index++;
-            CurrentUser.incrementStreak();
-            CurrentUser.incrementCorrect();
+            //CurrentUser.incrementStreak();
+            //CurrentUser.incrementCorrect();
             return true;
-        }
-        else {
-            CurrentUser.setStreak(0);
-            CurrentUser.incrementIncorrect();
+        } else {
+            //CurrentUser.setStreak(0);
+            //CurrentUser.incrementIncorrect();
             return false;
         }
+
     }
 }

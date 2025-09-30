@@ -26,9 +26,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-/**
- * The GameplayController manages the FMXL file and links it to the logic ran by the GameEngine.
- */
+
 public class GameplayController {
 
     @FXML private BorderPane root;
@@ -46,15 +44,13 @@ public class GameplayController {
     private final String appTitleDefault = "VS Studio Code";
 
     /**
-     * Creates a new instance of GameEngone, which will now be used to calculate the logic for the gameplay.
+     * Creates a new instance of GameEngine, which will now be used to calculate the logic for the gameplay.
      * @param engine Passes in the GameEngine instance that will be used for the program.
      */
     public void setEngine(GameEngine engine) {
         this.engine = engine;
         Platform.runLater(this::refreshUI);
     }
-
-
 
     /**
      * Once the root has been loaded, the program begins listening for the next key event (user input).
