@@ -100,6 +100,7 @@ public class SqliteUserDAO implements IUserDAO{
 
     /**
      * sets the user's daily activity as an accessible value in the user object
+     * is separate from the setDailyActivity as the user instance has to be set in the loginController
      * @param email the user's email
      */
     public void setActivity(String email){

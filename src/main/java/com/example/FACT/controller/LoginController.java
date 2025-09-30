@@ -4,7 +4,6 @@ import com.example.FACT.HelloApplication;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.User;
 import com.example.FACT.model.UserManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -63,17 +62,15 @@ public class LoginController implements Initializable {
 
     /**
      * creates the registration form
-     * @param event signup button click
      */
-    public void signButtonOnAction(ActionEvent event){
+    public void signButtonOnAction(){
         createAccountForm();
     }
 
     /**
      * validates user credentials and calls isLogin to check.
-     * @param event login bytton click
      */
-    public void loginButtonOnAction(ActionEvent event){
+    public void loginButtonOnAction(){
         loginMessageLabel.setText("");
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
