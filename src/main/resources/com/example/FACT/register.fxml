@@ -18,7 +18,7 @@
    <children>
       <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: ffffffff;">
          <children>
-            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <top>
                   <AnchorPane BorderPane.alignment="CENTER">
                      <children>
