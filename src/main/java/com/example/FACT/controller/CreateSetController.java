@@ -256,7 +256,7 @@ public class CreateSetController {
             return;
         }
 
-        String category = CategoryTextField.getText();
+        String Category = CategoryTextField.getText();
         String difficulty = DifficultyComboBox.getValue();
         if (difficulty == null || difficulty.isBlank()) {
             CreateMessageLabel.setText("Please select a difficulty.");
@@ -268,7 +268,7 @@ public class CreateSetController {
                 ? capturedCombo.get().getDisplayText()
                 : KeyBindTextField.getText();
 
-        KeySets keySets = new KeySets(application, category, difficulty, description, keyBind);
+        KeySets keySets = new KeySets(application, Category, difficulty, description, keyBind);
 
         try {
             if (model.addKeySet(keySets)) {

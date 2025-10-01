@@ -59,7 +59,7 @@ public class EditSetController {
         table.setItems(items);
         table.setEditable(true);
 
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("Category"));
         colCategory.setCellFactory(TextFieldTableCell.forTableColumn());
         colCategory.setOnEditCommit(evt -> {
             evt.getRowValue().setCategory(evt.getNewValue());
