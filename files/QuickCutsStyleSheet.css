@@ -12,31 +12,36 @@
     -qc-primary-200:  #658ECA;   /* light blue */
     -qc-ink:          #0F2239;   /* deep navy for headings */
     -qc-bg:           #FFFFFF;   /* surfaces */
+    -qc-surface:      #FBFCFE;   /* subtle elevated surface */
     -qc-text:         #0F2239;   /* body text */
     -qc-text-invert:  #FFFFFF;   /* on-primary text */
-    -qc-border:       rgba(15,34,57,0.15);
-    -qc-muted:        rgba(15,34,57,0.60);
-    -qc-shadow:       rgba(0,0,0,0.12);
+    -qc-border:       rgba(15,34,57,0.14);
+    -qc-muted:        rgba(15,34,57,0.62);
+    -qc-shadow:       rgba(0,0,0,0.10);
 
-    /* State colors (derived) */
-    -qc-focus:        -qc-primary;
-    -qc-hover:        #3171BF;   /* slightly brighter primary */
-    -qc-pressed:      #25528B;   /* slightly darker primary */
-    -qc-selection:    #E8F0FB;   /* light selection fill */
+    /* State colors */
+    -qc-focus:        #3B82F6;   /* visible focus ring */
+    -qc-hover:        #3171BF;
+    -qc-pressed:      #25528B;
+    -qc-selection:    #E9F2FF;
 
-    /* Radii & spacing */
-    -qc-radius:       10px;
-    -qc-radius-sm:    8px;
-    -qc-radius-lg:    16px;
-    -qc-pad:          10px;
-    -qc-gap:          8px;
+    /* Semantic */
     -qc-success:          #22C55E;
     -qc-success-hover:    #16A34A;
     -qc-success-pressed:  #15803D;
-
     -qc-danger:           #EF4444;
     -qc-danger-hover:     #DC2626;
     -qc-danger-pressed:   #B91C1C;
+    -qc-warning:          #F59E0B;
+
+    /* Radii & spacing */
+    -qc-radius-xs: 6px;
+    -qc-radius-sm: 8px;
+    -qc-radius:    12px;
+    -qc-radius-lg: 16px;
+    -qc-pad:       12px;
+    -qc-gap:       8px;
+
     /* Typography */
     -fx-font-family: "Helvetica";
     -fx-font-size: 14px;           /* base */
@@ -47,61 +52,55 @@
 
 /* ---------- App background ---------- */
 .root {
-    -fx-background-color: -qc-bg;
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #FAFBFF);
 }
 
 /* ---------- Global text & headings ---------- */
-.label {
-    -fx-text-fill: -qc-text;
-}
+.label { -fx-text-fill: -qc-text; }
 
 .heading-1 {
     -fx-font-size: -qc-h1;
     -fx-font-weight: bold;
     -fx-text-fill: -qc-ink;
 }
-
 .heading-2 {
     -fx-font-size: -qc-h2;
     -fx-font-weight: bold;
     -fx-text-fill: -qc-ink;
 }
-
 .heading-3 {
     -fx-font-size: -qc-h3;
-    -fx-font-weight: semi-bold;
+    -fx-font-weight: 600;
     -fx-text-fill: -qc-ink;
 }
+
+/* Muted helper */
+.text-muted { -fx-text-fill: -qc-muted; }
 
 /* ---------- Hyperlinks ---------- */
 .hyperlink {
     -fx-text-fill: -qc-primary;
     -fx-underline: false;
 }
-.hyperlink:hover {
-    -fx-text-fill: -qc-hover;
-    -fx-underline: true;
-}
+.hyperlink:hover { -fx-text-fill: -qc-hover; -fx-underline: true; }
 
 /* ---------- Buttons ---------- */
 .button {
     -fx-background-color: linear-gradient(to bottom, -qc-primary, -qc-pressed);
     -fx-text-fill: -qc-text-invert;
     -fx-background-radius: -qc-radius;
-    -fx-padding: 8px 14px;
+    -fx-padding: 9px 16px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, -qc-shadow, 8, 0.15, 0, 2);
-    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, -qc-shadow, 10, 0.2, 0, 2);
+    -fx-font-weight: 600;
+    -fx-border-color: transparent;
 }
-.button:hover {
-    -fx-background-color: -qc-hover;
-}
-.button:pressed {
-    -fx-background-color: -qc-pressed;
-}
+.button:hover   { -fx-background-color: -qc-hover; }
+.button:pressed { -fx-background-color: -qc-pressed; }
 .button:focused {
-    -fx-effect: dropshadow(gaussian, -qc-focus, 8, 0.25, 0, 0);
-    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(gaussian, -qc-focus, 10, 0.35, 0, 0);
+    -fx-border-color: -qc-focus;
+    -fx-border-width: 1px;
 }
 
 /* Outline / Secondary button */
@@ -113,29 +112,37 @@
     -fx-border-width: 1px;
     -fx-effect: none;
 }
-.button.outline:hover, .btn-outline:hover {
-    -fx-background-color: -qc-selection;
-}
+.button.outline:hover, .btn-outline:hover { -fx-background-color: -qc-selection; }
 
 /* Text-only button */
 .button.text, .btn-text {
     -fx-background-color: transparent;
     -fx-text-fill: -qc-primary;
+    -fx-padding: 6px 10px;
     -fx-effect: none;
-    -fx-padding: 6px 8px;
 }
-.button.text:hover, .btn-text:hover {
-    -fx-background-color: -qc-selection;
-}
+.button.text:hover, .btn-text:hover { -fx-background-color: -qc-selection; -fx-background-radius: -qc-radius-sm; }
+
+/* Semantic buttons */
+.button.btn-save   { -fx-background-color: linear-gradient(to bottom, -qc-success, -qc-success-pressed); }
+.button.btn-save:hover   { -fx-background-color: -qc-success-hover; }
+.button.btn-save:pressed { -fx-background-color: -qc-success-pressed; }
+
+.button.btn-cancel { -fx-background-color: linear-gradient(to bottom, -qc-danger, -qc-danger-pressed); }
+.button.btn-cancel:hover   { -fx-background-color: -qc-danger-hover; }
+.button.btn-cancel:pressed { -fx-background-color: -qc-danger-pressed; }
+
+.button.btn-edit   { -fx-background-color: linear-gradient(to bottom, -qc-primary, -qc-pressed); }
 
 /* Toggle buttons */
 .toggle-button {
     -fx-background-radius: -qc-radius;
-    -fx-background-color: transparent;
+    -fx-background-color: -qc-surface;
     -fx-text-fill: -qc-text;
     -fx-border-color: -qc-border;
     -fx-border-radius: -qc-radius;
 }
+.toggle-button:hover { -fx-background-color: -qc-selection; }
 .toggle-button:selected {
     -fx-background-color: -qc-primary-200;
     -fx-text-fill: -qc-text-invert;
@@ -144,17 +151,18 @@
 
 /* ---------- Inputs ---------- */
 .text-field, .password-field, .text-area, .combo-box-base, .date-picker {
-    -fx-background-color: -qc-bg;
+    -fx-background-color: -qc-surface;
     -fx-text-fill: -qc-text;
     -fx-background-radius: -qc-radius;
     -fx-border-radius: -qc-radius;
     -fx-border-color: -qc-border;
+    -fx-padding: 8px 10px;
     -fx-prompt-text-fill: -qc-muted;
 }
 .text-field:focused, .password-field:focused,
 .text-area:focused, .combo-box-base:focused, .date-picker:focused {
     -fx-border-color: -qc-focus;
-    -fx-effect: dropshadow(gaussian, -qc-shadow, 6, 0.2, 0, 1);
+    -fx-effect: dropshadow(gaussian, -qc-shadow, 8, 0.25, 0, 1);
 }
 
 .text-area .content {
@@ -163,8 +171,18 @@
     -fx-background-radius: -qc-radius;
 }
 
-.check-box, .radio-button {
-    -fx-text-fill: -qc-text;
+/* Invalid state helper */
+.invalid, .text-field.invalid, .password-field.invalid {
+    -fx-border-color: -qc-danger;
+}
+
+/* Checkboxes & radios */
+.check-box, .radio-button { -fx-text-fill: -qc-text; }
+.check-box > .box, .radio-button > .radio {
+    -fx-background-color: -qc-surface;
+    -fx-border-color: -qc-border;
+    -fx-background-radius: -qc-radius-xs;
+    -fx-border-radius: -qc-radius-xs;
 }
 .check-box:selected > .box, .radio-button:selected > .radio  {
     -fx-background-color: -qc-primary;
@@ -180,48 +198,40 @@
     -fx-background-color: -qc-primary;
     -fx-background-radius: 10px;
 }
-.progress-bar > .bar {
-    -fx-background-color: -qc-primary;
-}
-.progress-bar > .track {
-    -fx-background-color: -qc-selection;
-}
+.progress-bar > .bar   { -fx-background-color: -qc-primary; }
+.progress-bar > .track { -fx-background-color: -qc-selection; }
 
 /* ---------- Menus ---------- */
 .menu-bar, .context-menu {
     -fx-background-color: -qc-bg;
+    -fx-background-radius: -qc-radius;
+    -fx-border-color: -qc-border;
 }
-.menu-bar .label {
-    -fx-text-fill: -qc-text;
-}
-.menu-item:focused {
-    -fx-background-color: -qc-selection;
-}
+.menu-bar .label { -fx-text-fill: -qc-text; }
+.menu-item:focused { -fx-background-color: -qc-selection; -fx-background-radius: -qc-radius-sm; }
 
 /* ---------- Tabs ---------- */
-.tab-pane .tab-header-area {
-    -fx-background-color: transparent;
-}
+.tab-pane { -fx-background-color: transparent; }
 .tab-pane .tab-header-background {
-    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #F7F9FC);
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #F6F8FC);
     -fx-border-color: -qc-border;
+    -fx-background-radius: -qc-radius-sm -qc-radius-sm 0 0;
 }
 .tab-pane .tab {
     -fx-background-insets: 0;
     -fx-background-radius: -qc-radius-sm -qc-radius-sm 0 0;
     -fx-padding: 8px 14px;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -qc-text;
 }
+.tab-pane .tab:hover { -fx-background-color: -qc-selection; }
 .tab-pane .tab:selected {
     -fx-background-color: -qc-bg;
     -fx-border-color: -qc-border -qc-border transparent -qc-border;
     -fx-border-width: 1px;
 }
-.tab-pane .tab-label {
-    -fx-text-fill: -qc-text;
-}
-.tab-pane:focused .tab:selected .focus-indicator {
-    -fx-border-color: -qc-focus;
-}
+.tab-pane:focused .tab:selected .focus-indicator { -fx-border-color: -qc-focus; }
 
 /* ---------- Lists & Tables ---------- */
 .list-view, .table-view, .tree-view {
@@ -230,8 +240,9 @@
     -fx-border-radius: -qc-radius;
     -fx-border-color: -qc-border;
 }
-.list-cell, .table-row-cell, .tree-cell {
-    -fx-text-fill: -qc-text;
+.list-cell, .table-row-cell, .tree-cell { -fx-text-fill: -qc-text; }
+.list-cell:filled:hover, .table-row-cell:filled:hover, .tree-cell:filled:hover {
+    -fx-background-color: rgba(49,113,191,0.08);
 }
 .list-cell:filled:selected, .table-row-cell:filled:selected, .tree-cell:filled:selected {
     -fx-background-color: -qc-selection;
@@ -240,17 +251,15 @@
     -fx-background-color: #F3F6FA;
     -fx-border-color: -qc-border;
 }
-.table-view .column-header, .table-view .filler {
-    -fx-size: 28px;
-}
+.table-view .column-header, .table-view .filler { -fx-size: 28px; }
 
 /* ---------- Tooltips ---------- */
 .tooltip {
     -fx-background-color: -qc-ink;
     -fx-text-fill: -qc-text-invert;
-    -fx-background-radius: 6px;
+    -fx-background-radius: 8px;
     -fx-padding: 8px 10px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0.2, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.3, 0, 2);
 }
 
 /* ---------- Scrollbars ---------- */
@@ -258,16 +267,22 @@
     -fx-background-color: -qc-primary-200;
     -fx-background-radius: 8px;
 }
-.scroll-bar:horizontal, .scroll-bar:vertical {
-    -fx-background-color: transparent;
-}
+.scroll-bar:horizontal, .scroll-bar:vertical { -fx-background-color: transparent; }
 
 /* ---------- Cards & Surfaces ---------- */
 .surface, .card, .pane-elevated {
     -fx-background-color: -qc-bg;
-    -fx-background-radius: -qc-radius;
-    -fx-padding: calc(-qc-pad * 1);
-    -fx-effect: dropshadow(gaussian, -qc-shadow, 14, 0.18, 0, 4);
+    -fx-background-radius: -qc-radius-lg;
+    -fx-padding: -qc-pad;
+    -fx-effect: dropshadow(gaussian, -qc-shadow, 16, 0.22, 0, 6);
+}
+
+/* Subtle filled surface (use .surface-alt when you want contrast) */
+.surface-alt {
+    -fx-background-color: -qc-surface;
+    -fx-background-radius: -qc-radius-lg;
+    -fx-padding: -qc-pad;
+    -fx-effect: dropshadow(gaussian, -qc-shadow, 14, 0.20, 0, 4);
 }
 
 /* ---------- Toolbar / Header ---------- */
@@ -280,10 +295,9 @@
     -fx-font-weight: bold;
 }
 
-/* ---------- App Logo block ----------
-   Place a Pane/Region and add style class 'app-logo' in Scene Builder. */
+/* ---------- App Logo block ---------- */
 .app-logo {
-    -fx-background-image: url("assets/quickcuts-logo.png"); /* <- update path if needed */
+    -fx-background-image: url("assets/quickcuts-logo.png"); /* update path if needed */
     -fx-background-repeat: no-repeat;
     -fx-background-position: left center;
     -fx-background-size: contain;
@@ -298,10 +312,21 @@
     -fx-padding: 4px 10px;
 }
 
-/* ---------- Dark Mode (optional class on root) ----------
-   Add style class 'dark' to the Root to switch. */
+/* ---------- Dialogs ---------- */
+.dialog-pane {
+    -fx-background-color: -qc-bg;
+    -fx-background-radius: -qc-radius-lg;
+    -fx-border-color: -qc-border;
+    -fx-border-radius: -qc-radius-lg;
+    -fx-padding: 14px;
+    -fx-effect: dropshadow(gaussian, -qc-shadow, 18, 0.28, 0, 8);
+}
+.dialog-pane:header .header-panel { -fx-background-color: transparent; }
+
+/* ---------- Dark Mode (optional class on root) ---------- */
 .dark {
     -qc-bg:           #0F2239;
+    -qc-surface:      #172B46;
     -qc-text:         #FFFFFF;
     -qc-ink:          #FFFFFF;
     -qc-border:       rgba(255,255,255,0.18);
@@ -310,21 +335,10 @@
 }
 .dark .label, .dark .hyperlink { -fx-text-fill: -qc-text; }
 .dark .button {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.25, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 12, 0.28, 0, 3);
 }
-
-.button.btn-save {
-    -fx-background-color: linear-gradient(to bottom, -qc-success, -qc-success-pressed);
+.dark .menu-bar, .dark .context-menu, .dark .list-view, .dark .table-view, .dark .tree-view {
+    -fx-background-color: #0F2239;
+    -fx-border-color: rgba(255,255,255,0.14);
 }
-.button.btn-save:hover   { -fx-background-color: -qc-success-hover; }
-.button.btn-save:pressed { -fx-background-color: -qc-success-pressed; }
-
-.button.btn-cancel {
-    -fx-background-color: linear-gradient(to bottom, -qc-danger, -qc-danger-pressed);
-}
-.button.btn-cancel:hover   { -fx-background-color: -qc-danger-hover; }
-.button.btn-cancel:pressed { -fx-background-color: -qc-danger-pressed; }
-
-.button.btn-edit {
-    -fx-background-color: linear-gradient(to bottom, -qc-primary, -qc-pressed);
-}
+.dark .table-view .column-header-background { -fx-background-color: #122B4A; }
