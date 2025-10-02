@@ -129,7 +129,7 @@
 
                         <Button mnemonicParsing="false"
                                 onAction="#onSaveChanges"
-                                styleClass="button-primary,button-solid,button-xl"
+                                styleClass="button-success,button-solid,button-xl"
                                 prefHeight="60.0" prefWidth="220.0"
                                 text="Save Changes" textFill="WHITE">
                            <font>
