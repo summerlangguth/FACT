@@ -32,7 +32,7 @@
                           onAction="#CreateSetAction"
                           prefHeight="60.0" prefWidth="141.0"
                           text="Save" textFill="WHITE"
-                          styleClass="button-primary,button-solid,button-xl"/>
+                          styleClass="button-success,button-solid,button-xl"/>
                   <Button fx:id="CancelButton"
                           layoutX="365.0" layoutY="479.0"
                           mnemonicParsing="false"
