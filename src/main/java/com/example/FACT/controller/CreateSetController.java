@@ -21,6 +21,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller class CreateSetController
+ *
+ * JavaFx controller for creating sets for the app connects to createSet.fxml.
+ */
 public class CreateSetController {
     @FXML private ComboBox<String> ApplicationComboBox; // NEW
     @FXML private TextField CategoryTextField;
@@ -32,7 +37,6 @@ public class CreateSetController {
     @FXML private Button EditSetsButton;
     @FXML private TextField KeyBindTextField;
 
-    // from previous step
     private final javafx.beans.property.ObjectProperty<KeyCombination> capturedCombo =
             new javafx.beans.property.SimpleObjectProperty<>();
 
@@ -41,6 +45,9 @@ public class CreateSetController {
     private static final String ADD_APP_SENTINEL = "➕ Add application…";
     private final ObservableList<String> appItems = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the Create Set controller
+     */
     @FXML
     public void initialize() {
         setupKeyCaptureField();
@@ -115,12 +122,20 @@ public class CreateSetController {
         });
     }
 
+    /**
+     * Method to clear/reset the create form for ease if a mistake is made.
+     * @param e
+     */
     @FXML
     private void ClearForm(ActionEvent e) {
         clearForm(false);
         CreateMessageLabel.setText("");
     }
 
+    /**
+     * Changes page to go to the edit set form
+     */
+    // EDIT This currently not correct
     @FXML
     private void EditSetAction() {
         try{
@@ -140,6 +155,9 @@ public class CreateSetController {
         }
     }
 
+    /**
+     * Loads a list of applications for the applications drop down selector
+     */
     private void loadApplications() {
         try {
             List<String> apps = model.listApplications();
@@ -155,6 +173,9 @@ public class CreateSetController {
         }
     }
 
+    /**
+     * method for adding a new application
+     */
     private void handleAddApplication() {
         TextInputDialog dlg = new TextInputDialog();
         dlg.setTitle("Add Application");
@@ -203,6 +224,7 @@ public class CreateSetController {
         }
     }
 
+    // Check double up!!!!
     private void clearForm(boolean keepApplication) {
         if (!keepApplication) {
             ApplicationComboBox.getSelectionModel().clearSelection();
@@ -210,10 +232,8 @@ public class CreateSetController {
         CategoryTextField.clear();
         DescriptionTextField.clear();
 
-        // Show "Select Difficulty"
         DifficultyComboBox.getSelectionModel().clearSelection();
 
-        // Reset keybind capture
         capturedCombo.set(null);
         KeyBindTextField.clear();
         KeyBindTextField.setPromptText("Click here and press a shortcut (e.g., Ctrl+C)");
@@ -224,18 +244,28 @@ public class CreateSetController {
     }
 
 
-
+    /**
+     * method to display any error messages
+     * @param msg , message to be shown
+     */
     private void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
         a.setHeaderText(null);
         a.showAndWait();
     }
 
+    /**
+     * Event handler for create button that will add a new keyset.
+     * @param event , Event for when Create button pressed
+     */
     @FXML
     public void CreateSetAction(ActionEvent event) {
         CreateKeySet();
     }
 
+    /**
+     * Adds the inputted information into the sets database
+     */
     public void CreateKeySet() {
         String application = ApplicationComboBox.getValue();
         if (application == null || application.isBlank() || ADD_APP_SENTINEL.equals(application)) {
@@ -271,6 +301,9 @@ public class CreateSetController {
 
     }
 
+    /**
+     * Set up for the key capture to detect what keys the user in inputting.
+     */
     private void setupKeyCaptureField() {
         KeyBindTextField.setPromptText("Click here and press a shortcut (e.g., Ctrl+C)");
         KeyBindTextField.addEventFilter(KeyEvent.KEY_TYPED, e -> e.consume());
@@ -306,6 +339,14 @@ public class CreateSetController {
         });
     }
 
+    /**
+     * Used to format the inputted keybinds
+     * @param ctrl
+     * @param alt
+     * @param shift
+     * @param meta
+     * @return
+     */
     private String formatPartial(boolean ctrl, boolean alt, boolean shift, boolean meta) {
         List<String> parts = new ArrayList<>();
         if (ctrl)  parts.add("Ctrl");

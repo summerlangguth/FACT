@@ -36,14 +36,11 @@ public class EditSetController {
     private final ICreateSetDAO dao = new SqliteCreateSetDAO();
     private final ObservableList<KeySets> items = FXCollections.observableArrayList();
 
-    // capture state
     private final ObjectProperty<KeyCombination> capturedCombo = new SimpleObjectProperty<>();
 
     @FXML
     public void initialize() {
-        // Load applications
         ApplicationComboBox.getItems().setAll(dao.listApplications());
-        // Placeholder when null
         ApplicationComboBox.setButtonCell(new ListCell<>() {
             @Override protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -54,7 +51,6 @@ public class EditSetController {
 
         ApplicationComboBox.setOnAction(e -> loadFor(ApplicationComboBox.getValue()));
 
-        // Table setup
         table.setItems(items);
         table.setEditable(true);
 
@@ -99,7 +95,6 @@ public class EditSetController {
         RowCountLabel.setText(items.isEmpty() ? "No items" : items.size() + " items");
     }
 
-    // --- Keybind capture for selected row ---
     private void setupKeyCapture() {
         KeyBindCaptureField.addEventFilter(KeyEvent.KEY_TYPED, e -> e.consume());
         KeyBindCaptureField.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
