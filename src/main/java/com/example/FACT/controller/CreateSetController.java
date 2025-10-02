@@ -46,7 +46,8 @@ public class CreateSetController {
 
     private static final String ADD_APP_SENTINEL = "➕ Add application…";
     private final ObservableList<String> appItems = FXCollections.observableArrayList();
-
+    private static final String COMBO_CELL_CLASS = "combo-md-cell";
+    private static final String COMBO_ITALIC_CLASS = "combo-italic";
     /**
      * Initializes the Create Set controller
      */
@@ -54,75 +55,100 @@ public class CreateSetController {
     public void initialize() {
         setupKeyCaptureField();
 
+        // ----- Applications -----
         loadApplications();
         ApplicationComboBox.setItems(appItems);
-        ApplicationComboBox.setButtonCell(new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText("Select Application");
-                } else {
-                    setText(item);
-                }
-                setStyle("-fx-font-size: 25px;");
-            }
-        });
-        ApplicationComboBox.setCellFactory(cb -> new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty ? null : item);
-                setStyle("-fx-font-size: 25px;");
-            }
-        });
-        ApplicationComboBox.setPromptText("Select application");
+        configureComboBoxWithSentinel(ApplicationComboBox, "Select Application", ADD_APP_SENTINEL);
 
-        DifficultyComboBox.getItems().setAll("Beginner", "Intermediate", "Advanced");
-        DifficultyComboBox.setButtonCell(new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText("Select Difficulty");
-                } else {
-                    setText(item);
-                }
-                setStyle("-fx-font-size: 25px;");
-            }
-        });
-        DifficultyComboBox.setCellFactory(cb -> new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty ? null : item);
-                setStyle("-fx-font-size: 25px;");
-            }
-        });
-
-        ApplicationComboBox.getSelectionModel().clearSelection();
-        DifficultyComboBox.getSelectionModel().clearSelection();
-
-        ApplicationComboBox.setCellFactory(cb -> new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    if (ADD_APP_SENTINEL.equals(item)) {
-                        setStyle("-fx-font-style: italic;");
-                    } else {
-                        setStyle("");
-                    }
-                }
-            }
-        });
-
+        // Action for sentinel
         ApplicationComboBox.setOnAction(e -> {
             String value = ApplicationComboBox.getValue();
             if (ADD_APP_SENTINEL.equals(value)) {
                 handleAddApplication();
             }
         });
+
+        // ----- Difficulty -----
+        DifficultyComboBox.getItems().setAll("Beginner", "Intermediate", "Advanced");
+        configureComboBox(DifficultyComboBox, "Select Difficulty");
+
+        // Clear selections initially
+        ApplicationComboBox.getSelectionModel().clearSelection();
+        DifficultyComboBox.getSelectionModel().clearSelection();
     }
+
+    private void configureComboBox(ComboBox<String> combo, String prompt) {
+        combo.setPromptText(prompt);
+
+        // Button cell (closed state)
+        combo.setButtonCell(new ListCell<>() {
+            { getStyleClass().add(COMBO_CELL_CLASS); }
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? prompt : item);
+                // DO NOT set inline font sizes here; CSS controls it.
+                getStyleClass().remove(COMBO_ITALIC_CLASS);
+            }
+        });
+
+        // Popup cells (open state)
+        combo.setCellFactory(cb -> new ListCell<>() {
+            { getStyleClass().add(COMBO_CELL_CLASS); }
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? null : item);
+                getStyleClass().remove(COMBO_ITALIC_CLASS);
+            }
+        });
+    }
+
+    /** Same as above, but makes the sentinel italic (without changing font size). */
+    private void configureComboBoxWithSentinel(ComboBox<String> combo, String prompt, String sentinel) {
+        combo.setPromptText(prompt);
+
+        // Button cell
+        combo.setButtonCell(new ListCell<>() {
+            { getStyleClass().add(COMBO_CELL_CLASS); }
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(prompt);
+                    getStyleClass().remove(COMBO_ITALIC_CLASS);
+                } else {
+                    setText(item);
+                    if (sentinel.equals(item)) {
+                        if (!getStyleClass().contains(COMBO_ITALIC_CLASS)) {
+                            getStyleClass().add(COMBO_ITALIC_CLASS);
+                        }
+                    } else {
+                        getStyleClass().remove(COMBO_ITALIC_CLASS);
+                    }
+                }
+            }
+        });
+
+        // Popup cells
+        combo.setCellFactory(cb -> new ListCell<>() {
+            { getStyleClass().add(COMBO_CELL_CLASS); }
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    getStyleClass().remove(COMBO_ITALIC_CLASS);
+                } else {
+                    setText(item);
+                    if (sentinel.equals(item)) {
+                        if (!getStyleClass().contains(COMBO_ITALIC_CLASS)) {
+                            getStyleClass().add(COMBO_ITALIC_CLASS);
+                        }
+                    } else {
+                        getStyleClass().remove(COMBO_ITALIC_CLASS);
+                    }
+                }
+            }
+        });
+    }
+
 
     /**
      * Method to clear/reset the create form for ease if a mistake is made.
