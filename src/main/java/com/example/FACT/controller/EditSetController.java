@@ -37,14 +37,11 @@ public class EditSetController {
     private final ICreateSetDAO dao = new SqliteCreateSetDAO();
     private final ObservableList<KeySets> items = FXCollections.observableArrayList();
 
-    // capture state
     private final ObjectProperty<KeyCombination> capturedCombo = new SimpleObjectProperty<>();
 
     @FXML
     public void initialize() {
-        // Load applications
         ApplicationComboBox.getItems().setAll(dao.listApplications());
-        // Placeholder when null
         ApplicationComboBox.setButtonCell(new ListCell<>() {
             @Override protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -55,11 +52,10 @@ public class EditSetController {
 
         ApplicationComboBox.setOnAction(e -> loadFor(ApplicationComboBox.getValue()));
 
-        // Table setup
         table.setItems(items);
         table.setEditable(true);
 
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("Category"));
         colCategory.setCellFactory(TextFieldTableCell.forTableColumn());
         colCategory.setOnEditCommit(evt -> {
             evt.getRowValue().setCategory(evt.getNewValue());
@@ -100,7 +96,6 @@ public class EditSetController {
         RowCountLabel.setText(items.isEmpty() ? "No items" : items.size() + " items");
     }
 
-    // --- Keybind capture for selected row ---
     private void setupKeyCapture() {
         KeyBindCaptureField.addEventFilter(KeyEvent.KEY_TYPED, e -> e.consume());
         KeyBindCaptureField.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
@@ -165,35 +160,6 @@ public class EditSetController {
     private void onSaveChanges() {
         for (KeySets ks : items) {
             dao.updateKeySet(ks);
-        }
-    }
-
-    @FXML
-    private void onClose() {
-        try{
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
-            baseController.setContent("/com/example/FACT/createSet.fxml");
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) CreateSetButton.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
         }
     }
 }

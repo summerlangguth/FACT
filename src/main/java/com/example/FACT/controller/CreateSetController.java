@@ -22,6 +22,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller class CreateSetController
+ *
+ * JavaFx controller for creating sets for the app connects to createSet.fxml.
+ */
 public class CreateSetController {
     @FXML private ComboBox<String> ApplicationComboBox; // NEW
     @FXML private TextField CategoryTextField;
@@ -34,7 +39,6 @@ public class CreateSetController {
     @FXML private Button EditSetsButton;
     @FXML private TextField KeyBindTextField;
 
-    // from previous step
     private final javafx.beans.property.ObjectProperty<KeyCombination> capturedCombo =
             new javafx.beans.property.SimpleObjectProperty<>();
 
@@ -42,77 +46,95 @@ public class CreateSetController {
 
     private static final String ADD_APP_SENTINEL = "➕ Add application…";
     private final ObservableList<String> appItems = FXCollections.observableArrayList();
-
+    private static final String COMBO_CELL_CLASS = "combo-md-cell";
+    private static final String COMBO_ITALIC_CLASS = "combo-italic";
+    /**
+     * Initializes the Create Set controller
+     */
     @FXML
     public void initialize() {
         setupKeyCaptureField();
 
         loadApplications();
         ApplicationComboBox.setItems(appItems);
-        ApplicationComboBox.setButtonCell(new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText("Select Application");
-                } else {
-                    setText(item);
-                }
-                setStyle("-fx-font-size: 25px;");
-            }
-        });
-        ApplicationComboBox.setCellFactory(cb -> new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty ? null : item);
-                setStyle("-fx-font-size: 25px;");
-            }
-        });
-        ApplicationComboBox.setPromptText("Select application");
-
-        DifficultyComboBox.getItems().setAll("Beginner", "Intermediate", "Advanced");
-        DifficultyComboBox.setButtonCell(new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText("Select Difficulty");
-                } else {
-                    setText(item);
-                }
-                setStyle("-fx-font-size: 25px;");
-            }
-        });
-        DifficultyComboBox.setCellFactory(cb -> new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty ? null : item);
-                setStyle("-fx-font-size: 25px;");
-            }
-        });
-
-        ApplicationComboBox.getSelectionModel().clearSelection();
-        DifficultyComboBox.getSelectionModel().clearSelection();
-
-        ApplicationComboBox.setCellFactory(cb -> new ListCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    if (ADD_APP_SENTINEL.equals(item)) {
-                        setStyle("-fx-font-style: italic;");
-                    } else {
-                        setStyle("");
-                    }
-                }
-            }
-        });
+        configureComboBoxWithSentinel(ApplicationComboBox, "Select Application", ADD_APP_SENTINEL);
 
         ApplicationComboBox.setOnAction(e -> {
             String value = ApplicationComboBox.getValue();
             if (ADD_APP_SENTINEL.equals(value)) {
                 handleAddApplication();
+            }
+        });
+
+        DifficultyComboBox.getItems().setAll("Beginner", "Intermediate", "Advanced");
+        configureComboBox(DifficultyComboBox, "Select Difficulty");
+
+        ApplicationComboBox.getSelectionModel().clearSelection();
+        DifficultyComboBox.getSelectionModel().clearSelection();
+    }
+
+    private void configureComboBox(ComboBox<String> combo, String prompt) {
+        combo.setPromptText(prompt);
+
+        combo.setButtonCell(new ListCell<>() {
+            { getStyleClass().add(COMBO_CELL_CLASS); }
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? prompt : item);
+                getStyleClass().remove(COMBO_ITALIC_CLASS);
+            }
+        });
+
+        combo.setCellFactory(cb -> new ListCell<>() {
+            { getStyleClass().add(COMBO_CELL_CLASS); }
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? null : item);
+                getStyleClass().remove(COMBO_ITALIC_CLASS);
+            }
+        });
+    }
+
+    private void configureComboBoxWithSentinel(ComboBox<String> combo, String prompt, String sentinel) {
+        combo.setPromptText(prompt);
+
+        combo.setButtonCell(new ListCell<>() {
+            { getStyleClass().add(COMBO_CELL_CLASS); }
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(prompt);
+                    getStyleClass().remove(COMBO_ITALIC_CLASS);
+                } else {
+                    setText(item);
+                    if (sentinel.equals(item)) {
+                        if (!getStyleClass().contains(COMBO_ITALIC_CLASS)) {
+                            getStyleClass().add(COMBO_ITALIC_CLASS);
+                        }
+                    } else {
+                        getStyleClass().remove(COMBO_ITALIC_CLASS);
+                    }
+                }
+            }
+        });
+
+        combo.setCellFactory(cb -> new ListCell<>() {
+            { getStyleClass().add(COMBO_CELL_CLASS); }
+            @Override protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    getStyleClass().remove(COMBO_ITALIC_CLASS);
+                } else {
+                    setText(item);
+                    if (sentinel.equals(item)) {
+                        if (!getStyleClass().contains(COMBO_ITALIC_CLASS)) {
+                            getStyleClass().add(COMBO_ITALIC_CLASS);
+                        }
+                    } else {
+                        getStyleClass().remove(COMBO_ITALIC_CLASS);
+                    }
+                }
             }
         });
     }
@@ -127,17 +149,13 @@ public class CreateSetController {
     private void EditSetAction() {
         try{
 
-            // Load homebase layout
             FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
             Parent root = baseLoader.load();
 
-            // Get controller of homebase
             HomeBaseController baseController = baseLoader.getController();
 
-            // Load homepage.fxml into the content area
             baseController.setContent("/com/example/FACT/EditSetView.fxml");
 
-            // Get current stage from the login button
             Stage newStage = new Stage();
             Stage currentStage = (Stage) EditSetsButton.getScene().getWindow();
             // Set the new scene with the base layout
@@ -160,7 +178,6 @@ public class CreateSetController {
             Collections.sort(apps, String.CASE_INSENSITIVE_ORDER);
 
             appItems.setAll(apps);
-            // Append sentinel at the end
             appItems.add(ADD_APP_SENTINEL);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -223,20 +240,15 @@ public class CreateSetController {
         CategoryTextField.clear();
         DescriptionTextField.clear();
 
-        // Show "Select Difficulty"
         DifficultyComboBox.getSelectionModel().clearSelection();
 
-        // Reset keybind capture
         capturedCombo.set(null);
         KeyBindTextField.clear();
         KeyBindTextField.setPromptText("Click here and press a shortcut (e.g., Ctrl+C)");
         KeyBindTextField.requestFocus();
 
-        // Clear any message
         CreateMessageLabel.setText("");
     }
-
-
 
     private void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
@@ -244,6 +256,10 @@ public class CreateSetController {
         a.showAndWait();
     }
 
+    /**
+     * Event handler for create button that will add a new keyset.
+     * @param event , Event for when Create button pressed
+     */
     @FXML
     public void CreateSetAction(ActionEvent event) {
         CreateKeySet();
@@ -256,7 +272,7 @@ public class CreateSetController {
             return;
         }
 
-        String category = CategoryTextField.getText();
+        String Category = CategoryTextField.getText();
         String difficulty = DifficultyComboBox.getValue();
         if (difficulty == null || difficulty.isBlank()) {
             CreateMessageLabel.setText("Please select a difficulty.");
@@ -268,7 +284,7 @@ public class CreateSetController {
                 ? capturedCombo.get().getDisplayText()
                 : KeyBindTextField.getText();
 
-        KeySets keySets = new KeySets(application, category, difficulty, description, keyBind);
+        KeySets keySets = new KeySets(application, Category, difficulty, description, keyBind);
 
         try {
             if (model.addKeySet(keySets)) {
@@ -284,6 +300,9 @@ public class CreateSetController {
 
     }
 
+    /**
+     * Set up for the key capture to detect what keys the user in inputting.
+     */
     private void setupKeyCaptureField() {
         KeyBindTextField.setPromptText("Click here and press a shortcut (e.g., Ctrl+C)");
         KeyBindTextField.addEventFilter(KeyEvent.KEY_TYPED, e -> e.consume());
@@ -319,6 +338,14 @@ public class CreateSetController {
         });
     }
 
+    /**
+     * Used to format the inputted keybinds
+     * @param ctrl
+     * @param alt
+     * @param shift
+     * @param meta
+     * @return
+     */
     private String formatPartial(boolean ctrl, boolean alt, boolean shift, boolean meta) {
         List<String> parts = new ArrayList<>();
         if (ctrl)  parts.add("Ctrl");
@@ -326,33 +353,5 @@ public class CreateSetController {
         if (shift) parts.add("Shift");
         if (meta)  parts.add("Meta");
         return String.join("+", parts) + (parts.isEmpty() ? "" : "+ …");
-    }
-    @FXML
-    private void exitCreate(){
-        try{
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
-            baseController.setContent("/com/example/FACT/homepage.fxml");
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) exit.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
     }
 }

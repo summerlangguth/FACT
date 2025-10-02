@@ -4,13 +4,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
 <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomePageController">
     <children>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-         <padding>
-            <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
-         </padding>
+        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <padding>
+                <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
+            </padding>
          <top>
             <AnchorPane BorderPane.alignment="TOP_CENTER">
                <children>
@@ -34,7 +36,7 @@
                         <Font name="Helvetica Neue Light" size="25.0" />
                      </font>
                   </Label>
-                    <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="LOGOUT" textFill="WHITE">
+                    <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" styleClass="button-primary,button-solid,button-xl" text="LOGOUT" textFill="WHITE">
                         <font>
                             <Font name="Helvetica Bold" size="30.0" />
                         </font>

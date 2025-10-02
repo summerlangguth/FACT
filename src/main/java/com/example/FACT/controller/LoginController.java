@@ -4,7 +4,7 @@ import com.example.FACT.HelloApplication;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.User;
 import com.example.FACT.model.UserManager;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +15,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Parent;
@@ -29,7 +32,8 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
     @FXML
     private Label welcomeText;
-
+    @FXML
+    private BorderPane root;
     @FXML
     private Label loginMessageLabel;
 
@@ -58,22 +62,29 @@ public class LoginController implements Initializable {
         File brandingfile = new File("images/logo.png");
         Image brandingImage = new Image(brandingfile.toURI().toString());
         brandingImageView.setImage(brandingImage);
+        Platform.runLater(() -> {
+                root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
+        });
 
+    }
+
+    private void onKeyPressed(KeyEvent e){
+        if(e.getCode() == KeyCode.ENTER){
+            loginButtonOnAction();
+        }
     }
 
     /**
      * creates the registration form
-     * @param event signup button click
      */
-    public void signButtonOnAction(ActionEvent event){
+    public void signButtonOnAction(){
         createAccountForm();
     }
 
     /**
      * validates user credentials and calls isLogin to check.
-     * @param event login bytton click
      */
-    public void loginButtonOnAction(ActionEvent event){
+    public void loginButtonOnAction(){
         loginMessageLabel.setText("");
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
@@ -109,43 +120,19 @@ public class LoginController implements Initializable {
         stage.close();
     }
 
-//    public void validateLogin(){
-//        DatabaseConnection connectNow = new DatabaseConnection();
-//        Connection connectDB = connectNow.getConnection();
-//        String verifyLogin = "SELECT count(1) FROM user_account WHERE email = '" + emailTextField.getText() + "' AND password = '"+ passwordField.getText() + "'";
-//
-//        try{
-//            Statement statement = connectDB.createStatement();
-//            ResultSet queryResult = statement.executeQuery(verifyLogin);
-//
-//            while(queryResult.next()){
-//                if(queryResult.getInt(1) == 1) {
-//                    loginMessageLabel.setText("Correct Login");
-//                }
-//                else{
-//                    loginMessageLabel.setText("Invalid Login. Try again or sign up");
-//                }
-//            }
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//            e.getCause();
-//        }
-//    }
-
-    /**
-     * closes the current stage and loads a new stage with the registration content
-     */
     public void createAccountForm(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register.fxml"));
-            Stage registerStage = new Stage();
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));
+            Parent root = baseLoader.load();
+            Stage logoutStage = new Stage();
+            AuthBaseController baseController = baseLoader.getController();
+            baseController.setContent("/com/example/FACT/register.fxml");
             Stage currentStage = (Stage) signButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            registerStage.initStyle(StageStyle.UNDECORATED);
-            registerStage.setTitle("Create Account");
-            registerStage.setScene(scene);
-            registerStage.show();
+            Scene scene = new Scene(root);
+            logoutStage.initStyle(StageStyle.UNDECORATED);
+            logoutStage.setTitle("Register");
+            logoutStage.setScene(scene);
+            logoutStage.show();
             currentStage.hide();
         }
         catch(Exception e){

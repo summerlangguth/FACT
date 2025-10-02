@@ -1,0 +1,405 @@
+
+/* === Modern JavaFX Theme ===
+   Palette:
+     --color-primary: #2D66AC
+     --color-primary-60: #658ECA
+     --color-surface: #FFFFFF
+     --color-ink: #0F2239
+*/
+
+.root, .scene-root {
+    -fx-font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    -color-primary: #2D66AC;
+    -color-primary-60: #658ECA;
+    -color-ink: #0F2239;
+    -color-surface: #FFFFFF;
+    -fx-background-color: -color-surface;
+    -fx-text-fill: -color-ink;
+}
+
+/* Layout helpers */
+.container {
+    -fx-padding: 24;
+    -fx-spacing: 16;
+}
+
+.card {
+    -fx-background-color: derive(-color-surface, -2%);
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(15,34,57,0.10), 12, 0.15, 0, 4);
+    -fx-padding: 16;
+}
+
+/* Top bar */
+.topbar, ToolBar.topbar {
+    -fx-background-color: linear-gradient(to bottom, -color-surface, derive(-color-surface, -4%));
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.2, 0, 2);
+}
+
+.topbar .label {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -color-ink;
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-ink, 60%), -color-ink);
+    -fx-padding: 16;
+    -fx-spacing: 8;
+}
+
+.sidebar .label {
+    -fx-text-fill: white;
+    -fx-opacity: 0.8;
+}
+
+/* Navigation buttons */
+.nav-btn, .button.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-padding: 10 12;
+    -fx-background-radius: 12;
+    -fx-alignment: CENTER_LEFT;
+    -fx-graphic-text-gap: 10;
+    -fx-opacity: 0.9;
+}
+
+.nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-opacity: 1.0;
+}
+
+.nav-btn:focused {
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.25), 8, 0.2, 0, 0);
+}
+
+.nav-btn.primary {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: white;
+}
+.nav-btn.primary:hover {
+    -fx-background-color: ladder(-color-primary, derive(-color-primary,10%) 50%, derive(-color-primary,-5%) 50%);
+}
+
+/* Standard Buttons */
+.button {
+    -fx-background-color: linear-gradient(to bottom, -color-primary-60, -color-primary);
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-padding: 10 16;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(13,37,68,0.20), 8, 0.2, 0, 2);
+}
+
+.button:hover {
+    -fx-opacity: 0.95;
+}
+
+.button:disabled {
+    -fx-opacity: 0.5;
+}
+
+/* Ghost buttons */
+.button.ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-primary;
+    -fx-border-color: -color-primary;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-effect: none;
+}
+
+.button.ghost:hover {
+    -fx-background-color: rgba(45,102,172,0.08);
+}
+
+/* Inputs */
+.text-field, .password-field, .text-area {
+    -fx-background-color: rgba(15,34,57,0.04);
+    -fx-background-radius: 12;
+    -fx-padding: 10 12;
+    -fx-text-fill: -color-ink;
+    -fx-prompt-text-fill: rgba(15,34,57,0.50);
+    -fx-border-color: transparent;
+    -fx-border-radius: 12;
+}
+
+.text-field:focused, .password-field:focused, .text-area:focused {
+    -fx-background-color: rgba(15,34,57,0.06);
+    -fx-border-color: -color-primary-60;
+    -fx-effect: dropshadow(gaussian, rgba(101,142,202,0.35), 8, 0.2, 0, 0);
+}
+
+/* Lists & Tables */
+.list-view, .table-view {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view > .column-header-background {
+    -fx-background-color: derive(-color-surface, -4%);
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 6 10;
+}
+.table-row-cell:odd {
+    -fx-background-color: rgba(15,34,57,0.02);
+}
+.table-row-cell:selected {
+    -fx-background-color: rgba(45,102,172,0.18);
+}
+
+/* Chips / tags */
+.chip {
+    -fx-background-color: rgba(45,102,172,0.12);
+    -fx-text-fill: -color-ink;
+    -fx-background-radius: 999;
+    -fx-padding: 4 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+/* Scroll bars */
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(15,34,57,0.25);
+    -fx-background-radius: 8;
+}
+
+/* Content area */
+.content {
+    -fx-padding: 24;
+    -fx-spacing: 16;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -color-ink;
+}
+
+.helper-text {
+    -fx-text-fill: rgba(15,34,57,0.65);
+}
+
+/* Toggle buttons (e.g., for light/dark switch you may implement later) */
+.toggle-button {
+    -fx-background-radius: 999;
+    -fx-background-color: rgba(15,34,57,0.08);
+    -fx-text-fill: -color-ink;
+    -fx-padding: 8 12;
+}
+
+.toggle-button:selected {
+    -fx-background-color: -color-primary-60;
+    -fx-text-fill: white;
+}
+
+
+/* Action bar helpers (consistent alignment for Create/Edit footers) */
+.hbox.actions {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-spacing: 12;
+    -fx-padding: 12 0 0 0;
+}
+
+/* Ensure GridPane.cards have spacing */
+GridPane.card {
+    -fx-hgap: 12;
+    -fx-vgap: 10;
+    -fx-padding: 16;
+}
+
+
+/* === ComboBox: match input styling === */
+.combo-box, .choice-box {
+    -fx-background-color: rgba(15,34,57,0.04);
+    -fx-background-radius: 12;
+    -fx-border-color: transparent;
+    -fx-border-radius: 12;
+    -fx-padding: 8 12;
+    -fx-cursor: hand;
+}
+
+.combo-box:hover, .choice-box:hover {
+    -fx-background-color: rgba(15,34,57,0.06);
+}
+
+.combo-box:focused, .choice-box:focused {
+    -fx-background-color: rgba(15,34,57,0.06);
+    -fx-border-color: -color-primary-60;
+    -fx-effect: dropshadow(gaussian, rgba(101,142,202,0.35), 8, 0.2, 0, 0);
+}
+
+/* Text inside the closed ComboBox */
+.combo-box .list-cell, .choice-box .label {
+    -fx-text-fill: -color-ink;
+    -fx-padding: 2 0; /* visually align with text fields */
+    -fx-opacity: 0.95;
+}
+
+/* Editable ComboBox text field */
+.combo-box:editable .text-field {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 12;
+    -fx-padding: 6 0;
+    -fx-text-fill: -color-ink;
+}
+
+/* Arrow button – keep minimal */
+.combo-box .arrow-button, .choice-box .open-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 12;
+    -fx-padding: 0 8 0 6;
+}
+
+.combo-box .arrow-button .arrow, .choice-box .open-button .arrow {
+    -fx-background-color: -color-ink;
+    -fx-opacity: 0.55;
+}
+.combo-box:hover .arrow-button .arrow, .choice-box:hover .open-button .arrow {
+    -fx-opacity: 0.8;
+}
+
+/* Popup list */
+.combo-box-popup .list-view {
+    -fx-background-color: -color-surface;
+    -fx-background-radius: 12;
+    -fx-padding: 6;
+    -fx-effect: dropshadow(gaussian, rgba(15,34,57,0.20), 12, 0.2, 0, 6);
+}
+
+.combo-box-popup .list-cell {
+    -fx-padding: 8 10;
+    -fx-text-fill: -color-ink;
+    -fx-background-color: transparent;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(15,34,57,0.06);
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: rgba(45,102,172,0.18);
+}
+
+/* Disabled state */
+.combo-box:disabled, .choice-box:disabled {
+    -fx-opacity: 0.55;
+}
+
+
+/* Uniform dropdown sizing for all ComboBoxes (Create/Edit) */
+.combo-box-popup > .list-view {
+    -fx-fixed-cell-size: 40; /* ensures equal row heights */
+    -fx-background-insets: 0;
+    -fx-padding: 6;
+}
+
+.combo-box-popup .list-cell {
+    -fx-font-size: 16px;   /* unify text size */
+    -fx-padding: 8 12;     /* unify internal padding */
+}
+
+
+/* === Consistent Combo sizing for Create Set (Application & Difficulty) === */
+.combo-box.combo-md {
+    -fx-font-size: 14px; /* closed state text */
+    -fx-min-height: 36px;
+}
+
+.combo-box.combo-md .list-cell,
+.combo-box.combo-md .label,
+.combo-box.combo-md:editable .text-field {
+    -fx-font-size: 14px;   /* visible text area */
+    -fx-min-height: 22px;
+    -fx-padding: 6 0;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-font-size: 14px;   /* dropdown items */
+    -fx-min-height: 32px;
+    -fx-padding: 6 10;
+}
+
+
+/* === Enforce uniform popup item sizing & font across all ComboBox popups === */
+.combo-box-popup .list-view {
+    -fx-font-size: 14px;
+    -fx-fixed-cell-size: 32; /* consistent row heights regardless of label font */
+    -fx-background-insets: 0;
+    -fx-padding: 6;
+}
+
+.combo-box-popup .list-cell {
+    -fx-font-size: 14px;
+    -fx-padding: 6 10;
+}
+
+/* Also unify the visible button cell of all combo-md */
+.combo-box.combo-md > .list-cell,
+.combo-box.combo-md > .label {
+    -fx-font-size: 14px;
+    -fx-padding: 6 0;
+}
+
+
+/* === Strong font normalization for ComboBox popups and button cells === */
+.combo-box.combo-md,
+.combo-box.combo-md .cell,
+.combo-box.combo-md .list-cell,
+.combo-box.combo-md .list-cell .label,
+.combo-box-popup .list-cell,
+.combo-box-popup .list-cell .label {
+    -fx-font-size: 14px;
+}
+
+/* ===== Position-safe unified button styles ===== */
+.button-xl {
+    /* purely visual: no min/pref sizes set */
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-background-radius: 14;
+    -fx-cursor: hand;
+}
+
+.button-solid {
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.2, 0, 2);
+}
+
+.button-primary { -fx-background-color: linear-gradient(to bottom, -color-primary-60, -color-primary); }
+.button-primary:hover { -fx-opacity: 0.95; }
+.button-primary:pressed { -fx-opacity: 0.90; }
+
+.button-success { -fx-background-color: #22C55E; }
+.button-success:hover { -fx-opacity: 0.95; }
+.button-success:pressed { -fx-opacity: 0.90; }
+
+.button-danger { -fx-background-color: #EF4444; }
+.button-danger:hover { -fx-opacity: 0.95; }
+.button-danger:pressed { -fx-opacity: 0.90; }
+
+.button-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-primary;
+    -fx-border-color: -color-primary;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-effect: none;
+}
+.button-ghost:hover { -fx-background-color: rgba(45,102,172,0.08); }
+
+.button:disabled { -fx-opacity: 0.5; }

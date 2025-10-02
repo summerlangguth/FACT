@@ -1,43 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<!--
-  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
-
-  This file is available and licensed under the following license:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
-  are met:
-
-  - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
-    from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.CreateSetController" minWidth="0.0" minHeight="0.0" prefWidth="-1.0" prefHeight="-1.0" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0" styleClass="scene-root content" stylesheets="@modern.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.CreateSetController">
    <children>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <top>
@@ -45,32 +18,29 @@
                <padding>
                   <Insets bottom="25.0" />
                </padding>
-               <Button fx:id="exit" mnemonicParsing="false" onAction="#exitCreate" style="-fx-border-color: #3578C9; -fx-background-color: FFFFFF; -fx-border-radius: 5; -fx-border-width: 2;" text="EXIT" textFill="#3578c9">
-                  <HBox.margin>
-                     <Insets right="10.0" top="4.0" />
-                  </HBox.margin>
-                  <font>
-                     <Font name="Helvetica Bold" size="18.0" />
-                  </font>
-               </Button>
             </AnchorPane>
          </top>
          <bottom>
             <AnchorPane prefHeight="615.0" prefWidth="1204.0" BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox fx:id="ApplicationComboBox" layoutX="364.0" layoutY="85.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select Application">
+                  <ComboBox fx:id="ApplicationComboBox" layoutX="364.0" layoutY="85.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select Application" style="-fx-font-size: 14px;" styleClass="combo-md">
                   </ComboBox>
 
-                  <Button fx:id="SaveButton" layoutX="623.0" layoutY="479.0" mnemonicParsing="false" onAction="#CreateSetAction" prefHeight="60.0" prefWidth="141.0" style="-fx-background-color:  #22C55E;" text="Save" textFill="WHITE">
-                     <font>
-                        <Font name="Helvetica Bold" size="30.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="CancelButton" cancelButton="true" layoutX="365.0" layoutY="479.0" mnemonicParsing="false" onAction="#ClearForm" prefHeight="60.0" prefWidth="145.0" style="-fx-background-color: #EF4444;" text="Cancel" textFill="WHITE">
-                     <font>
-                        <Font name="Helvetica Bold" size="30.0" />
-                     </font>
-                  </Button>
+                  <Button fx:id="SaveButton"
+                          layoutX="623.0" layoutY="479.0"
+                          mnemonicParsing="false"
+                          onAction="#CreateSetAction"
+                          prefHeight="60.0" prefWidth="141.0"
+                          text="Save" textFill="WHITE"
+                          styleClass="button-success,button-solid,button-xl"/>
+                  <Button fx:id="CancelButton"
+                          layoutX="365.0" layoutY="479.0"
+                          mnemonicParsing="false"
+                          onAction="#ClearForm"
+                          prefHeight="60.0" prefWidth="145.0"
+                          text="Cancel"
+                          styleClass="button-primary,button-solid,button-xl"/>
+
                   <Label fx:id="CreateMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="554.0" prefWidth="1200.0">
                      <font>
                         <Font name="Helvetica Neue Bold" size="36.0" />
@@ -81,7 +51,7 @@
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <ComboBox fx:id="DifficultyComboBox" layoutX="367.0" layoutY="237.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select difficulty">
+                  <ComboBox fx:id="DifficultyComboBox" layoutX="367.0" layoutY="237.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select difficulty" style="-fx-font-size: 14px;" styleClass="combo-md">
                   </ComboBox>
 
                   <TextField fx:id="DescriptionTextField" layoutX="368.0" layoutY="311.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Description">
