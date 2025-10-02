@@ -4,7 +4,7 @@ import com.example.FACT.HelloApplication;
 import com.example.FACT.model.IUserDAO;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.User;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +15,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -37,6 +40,8 @@ public class RegistrationController implements Initializable {
     @FXML
     private Button closeButton;
     @FXML
+    private BorderPane root;
+    @FXML
     private Label registerMessageLabel;
     @FXML
     private Label confirmPasswordLabel;
@@ -51,6 +56,7 @@ public class RegistrationController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     public IUserDAO model = new SqliteUserDAO();
+    /// kept as a global variable for testing purposes
     private String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     @Override
@@ -58,7 +64,14 @@ public class RegistrationController implements Initializable {
         File brandingfile = new File("images/logo.png");
         Image brandingImage = new Image(brandingfile.toURI().toString());
         brandingImageView.setImage(brandingImage);
-
+        Platform.runLater(() -> {
+            root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
+        });
+    }
+    private void onKeyPressed(KeyEvent e){
+        if(e.getCode() == KeyCode.ENTER){
+            signUpButtonOnAction();
+        }
     }
 
     /**
@@ -70,9 +83,8 @@ public class RegistrationController implements Initializable {
 
     /**
      * validates user data and returns relevant message
-     * @param event click of the signup button
      */
-    public void signUpButtonOnAction(ActionEvent event){
+    public void signUpButtonOnAction(){
         registerMessageLabel.setText("");
         confirmPasswordLabel.setText("");
         if(!emailTextField.getText().isBlank() && !setPasswordField.getText().isBlank() && !firstNameTextField.getText().isBlank() && !lastNameTextField.getText().isBlank()){
