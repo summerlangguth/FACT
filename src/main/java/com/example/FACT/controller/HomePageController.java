@@ -33,13 +33,10 @@ public class HomePageController {
     @FXML
     private Label welcomeMessage;
     @FXML
-    private Button homepagePracButton;
-    @FXML
     private Label activityStreak;
     @FXML
     private Button logoutButton;
-    @FXML
-    private Button createButton;
+
 
 
     @FXML
@@ -48,48 +45,6 @@ public class HomePageController {
         Integer active = UserManager.getInstance().getLoggedInUser().getActivity();
         welcomeMessage.setText("Welcome, " + userName);
         activityStreak.setText("Current Streak: " + active);
-    }
-
-    public void onHomePracButton(){
-        try{
-
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            FXMLLoader gameLoader = new FXMLLoader(HelloApplication.class.getResource("gameplay.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml and get the controller
-            GameplayController gameController = baseController.setDemoContent("/com/example/FACT/gameplay.fxml");
-
-            List<Shortcut> demoShortcuts = List.of(
-                    new Shortcut("Copy", new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN)),
-                    new Shortcut("Paste", new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN))
-            );
-
-            // Load homepage.fxml into the content area
-            GameEngine engine = new GameEngine(demoShortcuts);
-            gameController.setEngine(engine);
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) homepagePracButton.getScene().getWindow();
-
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-
     }
 
     public void onLogout(){
@@ -113,34 +68,4 @@ public class HomePageController {
         }
 
     }
-
-    public void onCreateButton(){
-        try{
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
-            baseController.setContent("/com/example/FACT/createSet.fxml");
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) createButton.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-
-    }
-
 }

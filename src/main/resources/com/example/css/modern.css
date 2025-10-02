@@ -365,3 +365,41 @@ GridPane.card {
 .combo-box-popup .list-cell .label {
     -fx-font-size: 14px;
 }
+
+/* ===== Position-safe unified button styles ===== */
+.button-xl {
+    /* purely visual: no min/pref sizes set */
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-background-radius: 14;
+    -fx-cursor: hand;
+}
+
+.button-solid {
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.2, 0, 2);
+}
+
+.button-primary { -fx-background-color: linear-gradient(to bottom, -color-primary-60, -color-primary); }
+.button-primary:hover { -fx-opacity: 0.95; }
+.button-primary:pressed { -fx-opacity: 0.90; }
+
+.button-success { -fx-background-color: #22C55E; }
+.button-success:hover { -fx-opacity: 0.95; }
+.button-success:pressed { -fx-opacity: 0.90; }
+
+.button-danger { -fx-background-color: #EF4444; }
+.button-danger:hover { -fx-opacity: 0.95; }
+.button-danger:pressed { -fx-opacity: 0.90; }
+
+.button-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-primary;
+    -fx-border-color: -color-primary;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-effect: none;
+}
+.button-ghost:hover { -fx-background-color: rgba(45,102,172,0.08); }
+
+.button:disabled { -fx-opacity: 0.5; }

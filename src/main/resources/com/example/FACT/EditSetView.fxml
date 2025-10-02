@@ -10,7 +10,7 @@
       fx:controller="com.example.FACT.controller.EditSetController"
       minWidth="0.0" minHeight="0.0" prefWidth="-1.0" prefHeight="-1.0"
       maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308"
-      stylesheets="@modern.css" styleClass="scene-root content card">
+      stylesheets="@../css/modern.css" styleClass="scene-root content card">
 
    <padding>
       <Insets left="40.0" right="40.0" top="20.0" bottom="20.0" />
@@ -19,7 +19,6 @@
    <children>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
 
-         <!-- Main content area -->
          <center>
             <VBox alignment="TOP_CENTER" spacing="24" BorderPane.alignment="CENTER">
                <padding>
@@ -33,8 +32,6 @@
                         <Font size="28.0" />
                      </font>
                   </Label>
-
-                  <!-- Application Selection Section -->
                   <HBox spacing="16" alignment="CENTER_LEFT" maxWidth="900">
                      <children>
                         <VBox spacing="8" HBox.hgrow="ALWAYS">
@@ -58,8 +55,6 @@
                         </VBox>
                      </children>
                   </HBox>
-
-                  <!-- Table Section -->
                   <VBox spacing="12" maxWidth="900" VBox.vgrow="ALWAYS">
                      <TableView fx:id="table" editable="true"
                                 prefHeight="300.0" maxWidth="1.7976931348623157E308"
@@ -76,8 +71,6 @@
                         </columns>
                      </TableView>
                   </VBox>
-
-                  <!-- Keybind Capture Section -->
                   <VBox spacing="12" maxWidth="900" styleClass="surface">
                      <padding>
                         <Insets top="20.0" bottom="20.0" left="24.0" right="24.0" />
@@ -105,7 +98,7 @@
 
                               <Button mnemonicParsing="false"
                                       onAction="#onApplyKeyBindToSelected"
-                                      styleClass="button-primary,button-lg"
+                                      styleClass="button-primary,button-solid,button-xl"
                                       prefHeight="50.0" prefWidth="180.0"
                                       text="Apply to Selected" textFill="WHITE">
                                  <font>
@@ -116,8 +109,6 @@
                         </HBox>
                      </children>
                   </VBox>
-
-                  <!-- Action Buttons -->
                   <HBox spacing="16" alignment="CENTER" styleClass="action-buttons">
                      <HBox.margin>
                         <Insets top="16.0" />
@@ -126,7 +117,7 @@
                      <children>
                         <Button mnemonicParsing="false"
                                 onAction="#onDeleteSelected"
-                                styleClass="button-danger,button-xl"
+                                styleClass="button-primary,button-solid,button-xl"
                                 prefHeight="60.0" prefWidth="220.0"
                                 text="Delete Selected" textFill="WHITE">
                            <font>
@@ -138,7 +129,7 @@
 
                         <Button mnemonicParsing="false"
                                 onAction="#onSaveChanges"
-                                styleClass="button-success,button-xl"
+                                styleClass="button-primary,button-solid,button-xl"
                                 prefHeight="60.0" prefWidth="220.0"
                                 text="Save Changes" textFill="WHITE">
                            <font>

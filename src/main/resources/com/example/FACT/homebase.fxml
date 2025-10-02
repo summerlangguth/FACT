@@ -7,13 +7,9 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.BaseController" stylesheets="@../css/modern.css" styleClass="scene-root">
 
-
-
-   <!-- TOP: Custom title bar -->
    <top>
       <HBox fx:id="titleBar" alignment="CENTER_LEFT" spacing="10" styleClass="titlebar" BorderPane.alignment="CENTER">
          <padding><Insets bottom="8" left="12" right="12" top="8" /></padding>
-         <!-- Logo spot (top-left) -->
          <ImageView fx:id="brandingImageView" fitHeight="24.0" pickOnBounds="true" preserveRatio="true">
             <image>
 
@@ -21,22 +17,18 @@
          </ImageView>
          <Label styleClass="app-title" text="FACT" />
 
-         <!-- Spacer pushes window controls to the right -->
          <Region HBox.hgrow="ALWAYS" />
 
-         <!-- Window controls (top-right) -->
          <Button fx:id="minimizeButton" focusTraversable="false" onAction="#onMinimize" styleClass="window-btn" text="—" />
          <Button fx:id="maximizeButton" focusTraversable="false" onAction="#onMaximizeRestore" styleClass="window-btn" text="□" />
          <Button fx:id="closeButton" focusTraversable="false" onAction="#onClose" styleClass="window-btn close" text="✕" />
       </HBox>
    </top>
 
-   <!-- LEFT: Sidebar menu -->
    <left>
       <VBox fx:id="sideMenu" prefWidth="220" spacing="8" styleClass="sidebar">
          <padding><Insets bottom="12" left="12" right="12" top="12" /></padding>
 
-         <!-- Add whatever buttons you want; wire them to navigate -->
          <Button maxWidth="1.7976931348623157E308" onAction="#goHome" styleClass="nav-btn" text="Home" />
          <Button maxWidth="1.7976931348623157E308" onAction="#goPlay" styleClass="nav-btn" text="Play" />
          <Button maxWidth="1.7976931348623157E308" onAction="#goCreate" styleClass="nav-btn" text="Create Set" />
@@ -44,7 +36,6 @@
       </VBox>
    </left>
 
-   <!-- CENTER: Content placeholder where pages get loaded -->
    <center>
       <StackPane fx:id="contentArea" styleClass="content-area" />
    </center>

@@ -36,7 +36,7 @@
                         <Font name="Helvetica Neue Light" size="25.0" />
                      </font>
                   </Label>
-                    <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="LOGOUT" textFill="WHITE">
+                    <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" styleClass="button-primary,button-solid,button-xl" text="LOGOUT" textFill="WHITE">
                         <font>
                             <Font name="Helvetica Bold" size="30.0" />
                         </font>

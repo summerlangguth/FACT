@@ -162,33 +162,4 @@ public class EditSetController {
             dao.updateKeySet(ks);
         }
     }
-
-    @FXML
-    private void onClose() {
-        try{
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
-            baseController.setContent("/com/example/FACT/createSet.fxml");
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) CreateSetButton.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-    }
 }

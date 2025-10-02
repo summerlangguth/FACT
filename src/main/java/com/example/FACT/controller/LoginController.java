@@ -120,33 +120,6 @@ public class LoginController implements Initializable {
         stage.close();
     }
 
-//    public void validateLogin(){
-//        DatabaseConnection connectNow = new DatabaseConnection();
-//        Connection connectDB = connectNow.getConnection();
-//        String verifyLogin = "SELECT count(1) FROM user_account WHERE email = '" + emailTextField.getText() + "' AND password = '"+ passwordField.getText() + "'";
-//
-//        try{
-//            Statement statement = connectDB.createStatement();
-//            ResultSet queryResult = statement.executeQuery(verifyLogin);
-//
-//            while(queryResult.next()){
-//                if(queryResult.getInt(1) == 1) {
-//                    loginMessageLabel.setText("Correct Login");
-//                }
-//                else{
-//                    loginMessageLabel.setText("Invalid Login. Try again or sign up");
-//                }
-//            }
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//            e.getCause();
-//        }
-//    }
-
-    /**
-     * closes the current stage and loads a new stage with the registration content
-     */
     public void createAccountForm(){
         try{
             FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));

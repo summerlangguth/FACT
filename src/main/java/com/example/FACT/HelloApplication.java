@@ -29,7 +29,6 @@ public class HelloApplication extends Application {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            // You could show an error dialog or exit if desired
         }
     }
 

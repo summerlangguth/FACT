@@ -55,12 +55,10 @@ public class CreateSetController {
     public void initialize() {
         setupKeyCaptureField();
 
-        // ----- Applications -----
         loadApplications();
         ApplicationComboBox.setItems(appItems);
         configureComboBoxWithSentinel(ApplicationComboBox, "Select Application", ADD_APP_SENTINEL);
 
-        // Action for sentinel
         ApplicationComboBox.setOnAction(e -> {
             String value = ApplicationComboBox.getValue();
             if (ADD_APP_SENTINEL.equals(value)) {
@@ -68,11 +66,9 @@ public class CreateSetController {
             }
         });
 
-        // ----- Difficulty -----
         DifficultyComboBox.getItems().setAll("Beginner", "Intermediate", "Advanced");
         configureComboBox(DifficultyComboBox, "Select Difficulty");
 
-        // Clear selections initially
         ApplicationComboBox.getSelectionModel().clearSelection();
         DifficultyComboBox.getSelectionModel().clearSelection();
     }
@@ -80,18 +76,15 @@ public class CreateSetController {
     private void configureComboBox(ComboBox<String> combo, String prompt) {
         combo.setPromptText(prompt);
 
-        // Button cell (closed state)
         combo.setButtonCell(new ListCell<>() {
             { getStyleClass().add(COMBO_CELL_CLASS); }
             @Override protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? prompt : item);
-                // DO NOT set inline font sizes here; CSS controls it.
                 getStyleClass().remove(COMBO_ITALIC_CLASS);
             }
         });
 
-        // Popup cells (open state)
         combo.setCellFactory(cb -> new ListCell<>() {
             { getStyleClass().add(COMBO_CELL_CLASS); }
             @Override protected void updateItem(String item, boolean empty) {
@@ -102,11 +95,9 @@ public class CreateSetController {
         });
     }
 
-    /** Same as above, but makes the sentinel italic (without changing font size). */
     private void configureComboBoxWithSentinel(ComboBox<String> combo, String prompt, String sentinel) {
         combo.setPromptText(prompt);
 
-        // Button cell
         combo.setButtonCell(new ListCell<>() {
             { getStyleClass().add(COMBO_CELL_CLASS); }
             @Override protected void updateItem(String item, boolean empty) {
@@ -127,7 +118,6 @@ public class CreateSetController {
             }
         });
 
-        // Popup cells
         combo.setCellFactory(cb -> new ListCell<>() {
             { getStyleClass().add(COMBO_CELL_CLASS); }
             @Override protected void updateItem(String item, boolean empty) {
@@ -149,36 +139,23 @@ public class CreateSetController {
         });
     }
 
-
-    /**
-     * Method to clear/reset the create form for ease if a mistake is made.
-     * @param e
-     */
     @FXML
     private void ClearForm(ActionEvent e) {
         clearForm(false);
         CreateMessageLabel.setText("");
     }
 
-    /**
-     * Changes page to go to the edit set form
-     */
-    // EDIT This currently not correct
     @FXML
     private void EditSetAction() {
         try{
 
-            // Load homebase layout
             FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
             Parent root = baseLoader.load();
 
-            // Get controller of homebase
             HomeBaseController baseController = baseLoader.getController();
 
-            // Load homepage.fxml into the content area
             baseController.setContent("/com/example/FACT/EditSetView.fxml");
 
-            // Get current stage from the login button
             Stage newStage = new Stage();
             Stage currentStage = (Stage) EditSetsButton.getScene().getWindow();
             // Set the new scene with the base layout
@@ -194,9 +171,6 @@ public class CreateSetController {
         }
     }
 
-    /**
-     * Loads a list of applications for the applications drop down selector
-     */
     private void loadApplications() {
         try {
             List<String> apps = model.listApplications();
@@ -204,7 +178,6 @@ public class CreateSetController {
             Collections.sort(apps, String.CASE_INSENSITIVE_ORDER);
 
             appItems.setAll(apps);
-            // Append sentinel at the end
             appItems.add(ADD_APP_SENTINEL);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -212,9 +185,6 @@ public class CreateSetController {
         }
     }
 
-    /**
-     * method for adding a new application
-     */
     private void handleAddApplication() {
         TextInputDialog dlg = new TextInputDialog();
         dlg.setTitle("Add Application");
@@ -263,7 +233,6 @@ public class CreateSetController {
         }
     }
 
-    // Check double up!!!!
     private void clearForm(boolean keepApplication) {
         if (!keepApplication) {
             ApplicationComboBox.getSelectionModel().clearSelection();
@@ -278,15 +247,9 @@ public class CreateSetController {
         KeyBindTextField.setPromptText("Click here and press a shortcut (e.g., Ctrl+C)");
         KeyBindTextField.requestFocus();
 
-        // Clear any message
         CreateMessageLabel.setText("");
     }
 
-
-    /**
-     * method to display any error messages
-     * @param msg , message to be shown
-     */
     private void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
         a.setHeaderText(null);
@@ -302,9 +265,6 @@ public class CreateSetController {
         CreateKeySet();
     }
 
-    /**
-     * Adds the inputted information into the sets database
-     */
     public void CreateKeySet() {
         String application = ApplicationComboBox.getValue();
         if (application == null || application.isBlank() || ADD_APP_SENTINEL.equals(application)) {
@@ -393,33 +353,5 @@ public class CreateSetController {
         if (shift) parts.add("Shift");
         if (meta)  parts.add("Meta");
         return String.join("+", parts) + (parts.isEmpty() ? "" : "+ …");
-    }
-    @FXML
-    private void exitCreate(){
-        try{
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
-            baseController.setContent("/com/example/FACT/homepage.fxml");
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) exit.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
     }
 }

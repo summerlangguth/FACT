@@ -18,43 +18,25 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * AuthBaseController
- * Standalone controller (no inheritance) that mirrors the top-bar/window
- * behavior from your BaseController, but without any sidebar/navigation.
- *
- * Expected FXML ids in authbase.fxml:
- *  - StackPane contentArea
- *  - HBox      titleBar
- *  - Button    minimizeButton, maximizeButton, closeButton
- *
- * Usage:
- *   base.setContent("/com/example/FACT/login.fxml");
- */
 public class AuthBaseController {
 
-    // ===== FXML wires =====
+
     @FXML private StackPane contentArea;
     @FXML private HBox titleBar;
     @FXML private Button minimizeButton;
     @FXML private Button maximizeButton;
     @FXML private Button closeButton;
 
-    // ===== Config =====
-    /** Wrap injected content in an AnchorPane and anchor all sides to 0 so it stretches. */
     private static final boolean USE_ANCHOR_WRAPPER = true;
 
-    // ===== Window state for drag/maximize =====
     private double dragOffsetX;
     private double dragOffsetY;
     private boolean maximized = false;
 
-    // Saved bounds for restore after maximize
     private double savedX, savedY, savedW, savedH;
 
     @FXML
     private void initialize() {
-        // Attach drag + double-click handlers to the title bar
         if (titleBar != null) {
             titleBar.setOnMousePressed(this::onDragStart);
             titleBar.setOnMouseDragged(this::onDragged);
@@ -65,14 +47,10 @@ public class AuthBaseController {
             });
         }
 
-        // (Optional) You could load a default page here after the Scene is ready
         Platform.runLater(() -> {
-            // Example:
-            // setContent("/com/example/FACT/login.fxml");
         });
     }
 
-    // ===== Public API to swap center content =====
     public void setContent(String fxmlResourcePath) {
         try {
             URL url = getClass().getResource(fxmlResourcePath);
@@ -98,9 +76,6 @@ public class AuthBaseController {
         }
     }
 
-    /**
-     * Convenience variant that also returns the child controller (if needed).
-     */
     public <T> T setContentAndGetController(String fxmlResourcePath) {
         try {
             URL url = getClass().getResource(fxmlResourcePath);
@@ -128,8 +103,6 @@ public class AuthBaseController {
             return null;
         }
     }
-
-    // ===== Title bar window controls =====
     @FXML
     private void onClose() {
         Stage stage = getStage();
@@ -165,7 +138,6 @@ public class AuthBaseController {
             stage.setHeight(bounds.getHeight());
             maximized = true;
         } else {
-            // Restore previous bounds
             stage.setX(savedX);
             stage.setY(savedY);
             stage.setWidth(savedW);
@@ -174,7 +146,6 @@ public class AuthBaseController {
         }
     }
 
-    // ===== Drag to move window =====
     private void onDragStart(MouseEvent e) {
         Stage stage = getStage();
         if (stage == null) return;
@@ -185,13 +156,12 @@ public class AuthBaseController {
 
     private void onDragged(MouseEvent e) {
         Stage stage = getStage();
-        if (stage == null || maximized) return; // do not drag while maximized
+        if (stage == null || maximized) return;
 
         stage.setX(e.getScreenX() - dragOffsetX);
         stage.setY(e.getScreenY() - dragOffsetY);
     }
 
-    // ===== Helpers =====
     private Stage getStage() {
         if (contentArea == null) return null;
         Scene scene = contentArea.getScene();
