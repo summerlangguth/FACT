@@ -94,10 +94,13 @@ public class HomePageController {
 
     public void onLogout(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));
+            Parent root = baseLoader.load();
             Stage logoutStage = new Stage();
+            AuthBaseController baseController = baseLoader.getController();
+            baseController.setContent("/com/example/FACT/login.fxml");
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
+            Scene scene = new Scene(root);
             logoutStage.initStyle(StageStyle.UNDECORATED);
             logoutStage.setTitle("Login");
             logoutStage.setScene(scene);

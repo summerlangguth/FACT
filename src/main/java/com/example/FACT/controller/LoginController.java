@@ -149,14 +149,17 @@ public class LoginController implements Initializable {
      */
     public void createAccountForm(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register.fxml"));
-            Stage registerStage = new Stage();
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));
+            Parent root = baseLoader.load();
+            Stage logoutStage = new Stage();
+            AuthBaseController baseController = baseLoader.getController();
+            baseController.setContent("/com/example/FACT/register.fxml");
             Stage currentStage = (Stage) signButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            registerStage.initStyle(StageStyle.UNDECORATED);
-            registerStage.setTitle("Create Account");
-            registerStage.setScene(scene);
-            registerStage.show();
+            Scene scene = new Scene(root);
+            logoutStage.initStyle(StageStyle.UNDECORATED);
+            logoutStage.setTitle("Register");
+            logoutStage.setScene(scene);
+            logoutStage.show();
             currentStage.hide();
         }
         catch(Exception e){

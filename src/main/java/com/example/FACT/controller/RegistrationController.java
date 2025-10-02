@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -142,14 +143,17 @@ public class RegistrationController implements Initializable {
      */
     public void loadLogin(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));
+            Parent root = baseLoader.load();
+            Stage logoutStage = new Stage();
+            AuthBaseController baseController = baseLoader.getController();
+            baseController.setContent("/com/example/FACT/login.fxml");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
-            Stage stage = new Stage();
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("Login");
-            stage.setScene(scene);
-            stage.show();
+            Scene scene = new Scene(root);
+            logoutStage.initStyle(StageStyle.UNDECORATED);
+            logoutStage.setTitle("Login");
+            logoutStage.setScene(scene);
+            logoutStage.show();
             currentStage.hide();
         }
         catch(Exception e){
