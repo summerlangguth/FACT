@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="users.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1728"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="keySets" custom_title="0" dock_id="1" table="4,7:mainkeySets"/><dock_state state="000000ff00000000fd00000001000000020000024800000215fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000000002480000013b00ffffff000002480000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="applications" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="151"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="keySets" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="39"/><column index="2" value="151"/><column index="3" value="215"/><column index="4" value="103"/><column index="5" value="300"/><column index="6" value="223"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">BEGIN TRANSACTION;
+
+-- =========================
+-- Blender Shortcuts
+-- =========================
+
+-- ========== General / Interface ==========
+INSERT INTO keySets (Application, Category, Difficulty, Description, Keybind) VALUES
+('Blender','General','Beginner','Search Menu (find operators)','F3'),
+('Blender','General','Beginner','Toggle full screen area','Ctrl+Space'),
+('Blender','General','Beginner','Toggle quad view','Ctrl+Alt+Q'),
+('Blender','General','Beginner','Duplicate','Shift+D'),
+('Blender','General','Beginner','Delete','X'),
+('Blender','General','Beginner','Undo','Ctrl+Z'),
+('Blender','General','Beginner','Redo','Ctrl+Shift+Z'),
+('Blender','General','Beginner','Save File','Ctrl+S'),
+('Blender','General','Beginner','Open File','Ctrl+O');
+
+-- ========== Viewport Navigation ==========
+INSERT INTO keySets VALUES
+('Blender','Navigation','Beginner','Rotate view (Orbit)','Middle Mouse Button (MMB) drag'),
+('Blender','Navigation','Beginner','Pan view','Shift+MMB drag'),
+('Blender','Navigation','Beginner','Zoom view','Ctrl+MMB drag / Scroll Wheel'),
+('Blender','Navigation','Beginner','Frame selected','Numpad .'),
+('Blender','Navigation','Beginner','Front view','Numpad 1'),
+('Blender','Navigation','Beginner','Right view','Numpad 3'),
+('Blender','Navigation','Beginner','Top view','Numpad 7'),
+('Blender','Navigation','Beginner','Camera view','Numpad 0'),
+('Blender','Navigation','Intermediate','Toggle perspective/orthographic','Numpad 5'),
+('Blender','Navigation','Intermediate','Local view (isolate selection)','Numpad /');
+
+-- ========== Object Mode (Transform) ==========
+INSERT INTO keySets VALUES
+('Blender','Object Mode','Beginner','Grab / Move','G'),
+('Blender','Object Mode','Beginner','Rotate','R'),
+('Blender','Object Mode','Beginner','Scale','S'),
+('Blender','Object Mode','Beginner','Confirm transform','Left Click / Enter'),
+('Blender','Object Mode','Beginner','Cancel transform','Right Click / Esc'),
+('Blender','Object Mode','Intermediate','Snap during transform','Ctrl (hold)'),
+('Blender','Object Mode','Intermediate','Axis constraint X','X'),
+('Blender','Object Mode','Intermediate','Axis constraint Y','Y'),
+('Blender','Object Mode','Intermediate','Axis constraint Z','Z'),
+('Blender','Object Mode','Intermediate','Precise transform','Shift (hold)');
+
+-- ========== Edit Mode (Modeling) ==========
+INSERT INTO keySets VALUES
+('Blender','Edit Mode','Beginner','Extrude','E'),
+('Blender','Edit Mode','Beginner','Inset face','I'),
+('Blender','Edit Mode','Beginner','Loop cut','Ctrl+R'),
+('Blender','Edit Mode','Beginner','Knife tool','K'),
+('Blender','Edit Mode','Intermediate','Bevel','Ctrl+B'),
+('Blender','Edit Mode','Intermediate','Merge vertices','M'),
+('Blender','Edit Mode','Intermediate','Proportional editing toggle','O'),
+('Blender','Edit Mode','Intermediate','Hide selection','H'),
+('Blender','Edit Mode','Intermediate','Unhide','Alt+H'),
+('Blender','Edit Mode','Intermediate','Select more/less','Ctrl+Numpad+ / -'),
+('Blender','Edit Mode','Intermediate','Edge loop select','Alt+Left Click'),
+('Blender','Edit Mode','Advanced','Fill face/edge loop','F'),
+('Blender','Edit Mode','Advanced','Spin / screw tool','Alt+R');
+
+-- ========== Rendering ==========
+INSERT INTO keySets VALUES
+('Blender','Rendering','Beginner','Render image','F12'),
+('Blender','Rendering','Beginner','Render animation','Ctrl+F12'),
+('Blender','Rendering','Beginner','Render region','Ctrl+B (drag)'),
+('Blender','Rendering','Intermediate','Clear render border','Ctrl+Alt+B');
+
+-- ========== Animation ==========
+INSERT INTO keySets VALUES
+('Blender','Animation','Beginner','Insert keyframe','I'),
+('Blender','Animation','Beginner','Delete keyframe','Alt+I'),
+('Blender','Animation','Intermediate','Play / Pause','Spacebar'),
+('Blender','Animation','Intermediate','Jump to next keyframe','Right Arrow'),
+('Blender','Animation','Intermediate','Jump to previous keyframe','Left Arrow'),
+('Blender','Animation','Advanced','Graph Editor - scale keys','S'),
+('Blender','Animation','Advanced','Graph Editor - grab/move keys','G'),
+('Blender','Animation','Advanced','Graph Editor - rotate keys','R');
+
+-- ========== Sculpt / Paint ==========
+INSERT INTO keySets VALUES
+('Blender','Sculpt/Paint','Beginner','Brush size increase','F'),
+('Blender','Sculpt/Paint','Beginner','Brush strength','Shift+F'),
+('Blender','Sculpt/Paint','Intermediate','Smooth (temporary)','Shift (while sculpting)'),
+('Blender','Sculpt/Paint','Advanced','Dynamic topology toggle','Ctrl+D');
+
+COMMIT;
+</sql><current_tab id="0"/></tab_sql></sqlb_project>

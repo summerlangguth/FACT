@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" stylesheets="@../css/modern.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomePageController">
+    <children>
+        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <padding>
+                <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
+            </padding>
+         <top>
+            <AnchorPane BorderPane.alignment="TOP_CENTER">
+               <children>
+                    <Label fx:id="welcomeMessage" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0">
+                        <font>
+                            <Font name="Helvetica Neue Light" size="96.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="activityStreak" alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="152.0">
+                        <font>
+                            <Font name="Helvetica Neue Light" size="72.0" />
+                        </font>
+                    </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="1200.0">
+                     <font>
+                        <Font name="Helvetica Neue Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="318.0" textFill="RED">
+                     <font>
+                        <Font name="Helvetica Neue Light" size="25.0" />
+                     </font>
+                  </Label>
+                    <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" styleClass="button-primary,button-solid,button-xl" text="LOGOUT" textFill="WHITE">
+                        <font>
+                            <Font name="Helvetica Bold" size="30.0" />
+                        </font>
+                    </Button>
+               </children>
+               <padding>
+                  <Insets bottom="25.0" />
+               </padding>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+    </children>
+</VBox>

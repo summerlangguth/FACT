@@ -1,0 +1,9 @@
+<changelist name="Uncommitted_changes_before_rebase_[Changes]" date="1759279936821" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before rebase [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="users.db" />
+    <option name="AFTER_PATH" value="users.db" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/users.db" />
+  </binary>
+</changelist>

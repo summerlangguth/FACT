@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.FACT.controller.AuthBaseController"
+            maxHeight="1.7976931348623157E308"
+            maxWidth="1.7976931348623157E308"
+            stylesheets="@../css/modern.css"
+            styleClass="scene-root">
+
+    <!-- TOP: Custom title bar (mirrors homebase, no sidebar) -->
+    <top>
+        <HBox fx:id="titleBar"
+              alignment="CENTER_LEFT"
+              spacing="10"
+              styleClass="titlebar"
+              BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="8" right="12" bottom="8" left="12"/>
+            </padding>
+
+            <!-- Logo from classpath -->
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                    <!-- Classpath-absolute: src/main/resources/images/logo.png -> /images/logo.png -->
+            </ImageView>
+
+            <!-- App title -->
+            <Label styleClass="app-title" text="FACT"/>
+
+            <!-- Spacer -->
+            <Pane HBox.hgrow="ALWAYS"/>
+
+            <!-- Window controls -->
+            <HBox spacing="6">
+                <Button fx:id="minimizeButton" onAction="#onMinimize"        styleClass="window-btn ghost" text="—"/>
+                <Button fx:id="maximizeButton" onAction="#onMaximizeRestore" styleClass="window-btn ghost" text="▢"/>
+                <Button fx:id="closeButton"    onAction="#onClose"           styleClass="window-btn ghost" text="✕"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- CENTER: Content placeholder -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area"/>
+    </center>
+
+</BorderPane>
