@@ -83,9 +83,7 @@ public class SqliteUserDAO implements IUserDAO{
      * @throws SQLException database exception
      */
     public void setDailyActivity(Timestamp lastActive, Integer streak, String email) throws SQLException {
-        long activeLong = Timestamp.valueOf(LocalDateTime.now()).getTime() - lastActive.getTime();
-        double millisecondDay = 1000.0 * 60 * 60 * 24;
-        double active = activeLong/(millisecondDay);
+        double active = (double) TimeUnit.DAYS.convert(Timestamp.valueOf(LocalDateTime.now()).getTime() - lastActive.getTime(), TimeUnit.MILLISECONDS);
         PreparedStatement activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
             if(active < 1 && streak != 0) {
                 activeStatement.close();
@@ -103,7 +101,6 @@ public class SqliteUserDAO implements IUserDAO{
                 activeStatement.setString(2, email);
                 activeStatement.executeUpdate();
             }
-
     }
 
     /**
