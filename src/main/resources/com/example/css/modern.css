@@ -8,7 +8,7 @@
 */
 
 .root, .scene-root {
-    -fx-font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    -fx-font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
     -color-primary: #2D66AC;
     -color-primary-60: #658ECA;
     -color-ink: #0F2239;
@@ -24,6 +24,7 @@
 }
 
 .card {
+    -fx-font-family: "Helvetica Neue", "Helvetica", sans-serif;
     -fx-background-color: derive(-color-surface, -2%);
     -fx-background-radius: 16;
     -fx-effect: dropshadow(gaussian, rgba(15,34,57,0.10), 12, 0.15, 0, 4);
@@ -32,6 +33,7 @@
 
 /* Top bar */
 .topbar, ToolBar.topbar {
+    -fx-font-family: "Helvetica Neue", "Helvetica", sans-serif;
     -fx-background-color: linear-gradient(to bottom, -color-surface, derive(-color-surface, -4%));
     -fx-padding: 10 16;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0.2, 0, 2);
@@ -45,19 +47,23 @@
 
 /* Sidebar */
 .sidebar {
+    -fx-font-family: "Helvetica Neue", "Helvetica", sans-serif;
     -fx-background-color: linear-gradient(to bottom, derive(-color-ink, 60%), -color-ink);
     -fx-padding: 16;
     -fx-spacing: 8;
 }
 
 .sidebar .label {
+    -fx-font-family: "Helvetica Neue", "Helvetica", sans-serif;
     -fx-text-fill: white;
     -fx-opacity: 0.8;
 }
 
 /* Navigation buttons */
 .nav-btn, .button.nav-btn {
+    -fx-font-family: Helvetica, "Helvetica", sans-serif;
     -fx-background-color: transparent;
+    -fx-font-weight: 700;
     -fx-text-fill: white;
     -fx-padding: 10 12;
     -fx-background-radius: 12;
@@ -86,11 +92,13 @@
 
 /* Standard Buttons */
 .button {
+    -fx-font-family: Helvetica, "Helvetica Neue", "Helvetica", sans-serif;
     -fx-background-color: linear-gradient(to bottom, -color-primary-60, -color-primary);
     -fx-text-fill: white;
     -fx-background-radius: 12;
     -fx-padding: 10 16;
-    -fx-font-weight: 600;
+    -fx-font-weight: 700;
+    -fx-font-size: 20px;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(13,37,68,0.20), 8, 0.2, 0, 2);
 }
@@ -369,8 +377,6 @@ GridPane.card {
 /* ===== Position-safe unified button styles ===== */
 .button-xl {
     /* purely visual: no min/pref sizes set */
-    -fx-font-size: 20px;
-    -fx-font-weight: 700;
     -fx-background-radius: 14;
     -fx-cursor: hand;
 }
@@ -380,7 +386,9 @@ GridPane.card {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.2, 0, 2);
 }
 
-.button-primary { -fx-background-color: linear-gradient(to bottom, -color-primary-60, -color-primary); }
+.button-primary {
+    -fx-background-color: linear-gradient(to bottom, -color-primary-60, -color-primary);
+    }
 .button-primary:hover { -fx-opacity: 0.95; }
 .button-primary:pressed { -fx-opacity: 0.90; }
 

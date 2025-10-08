@@ -46,20 +46,11 @@
                      <font>
                         <Font size="25.0" />
                      </font></PasswordField>
-                  <Button fx:id="loginButton" layoutX="395.0" layoutY="354.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="60.0" prefWidth="400.0" styleClass="button-primary,button-solid,button-xl" text="LOG IN" textFill="WHITE">
-                     <font>
-                        <Font name="Helvetica Bold" size="30.0" />
-                     </font>
+                  <Button fx:id="loginButton" layoutX="395.0" layoutY="354.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="60.0" prefWidth="400.0" styleClass="button,button-primary,button-solid,button-xl" text="LOG IN" textFill="WHITE">
                   </Button>
-                  <Button fx:id="signButton" layoutX="398.0" layoutY="456.0" mnemonicParsing="false" onAction="#signButtonOnAction" prefHeight="60.0" prefWidth="400.0" styleClass="button-primary,button-solid,button-xl" text="SIGN UP" textFill="WHITE">
-                     <font>
-                        <Font name="Helvetica Bold" size="30.0" />
-                     </font>
+                  <Button fx:id="signButton" layoutX="398.0" layoutY="456.0" mnemonicParsing="false" onAction="#signButtonOnAction" prefHeight="60.0" prefWidth="400.0" styleClass="button,button-primary,button-solid,button-xl" text="SIGN UP" textFill="WHITE">
                   </Button>
                   <Label fx:id="loginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="280.0" prefWidth="1200.0">
-                     <font>
-                        <Font name="Helvetica Neue Bold" size="48.0" />
-                     </font>
                   </Label>
                </children>
             </AnchorPane>

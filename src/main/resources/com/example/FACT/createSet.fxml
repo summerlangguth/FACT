@@ -20,8 +20,8 @@
                </padding>
             </AnchorPane>
          </top>
-         <bottom>
-            <AnchorPane prefHeight="615.0" prefWidth="1204.0" BorderPane.alignment="CENTER">
+         <center>
+            <AnchorPane prefHeight="615.0" prefWidth="1204.0" BorderPane.alignment="CENTER_LEFT">
                <children>
                   <ComboBox fx:id="ApplicationComboBox" layoutX="364.0" layoutY="85.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select Application" style="-fx-font-size: 14px;" styleClass="combo-md">
                   </ComboBox>
@@ -71,7 +71,7 @@
                   </Text>
                </children>
             </AnchorPane>
-         </bottom>
+         </center>
          <padding>
             <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
          </padding>
