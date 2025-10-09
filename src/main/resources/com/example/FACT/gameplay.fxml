@@ -31,6 +31,8 @@
                 </columnConstraints>
 
                 <VBox alignment="CENTER" minHeight="-Infinity" prefHeight="216.0" prefWidth="820.0" spacing="12.0" GridPane.columnIndex="0">
+                    <!-- STREAK COUNT -->
+                    <Label fx:id="streak" prefHeight="5" prefWidth="100" style="-fx-font-size: 15; -fx-font-weight: bold; -fx-alignment: CENTRE;"/>
                     <!-- KEYS TO PRESS -->
                     <Label prefHeight="51.0" prefWidth="222.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-alignment: CENTER;" text="Keys to Press">
                   <font>

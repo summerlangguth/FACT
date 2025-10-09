@@ -3,6 +3,8 @@ package com.example.FACT.controller;
 import com.example.FACT.HelloApplication;
 import com.example.FACT.model.GameEngine;
 import com.example.FACT.model.Shortcut;
+import com.example.FACT.model.User;
+import com.example.FACT.model.UserManager;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -40,6 +42,7 @@ public class GameplayController {
     @FXML private FlowPane keysPane;
     @FXML private Label statusLabel;
     @FXML private Label progress;
+    @FXML private Label streak;
     @FXML private Button exit;
     private Stage stage;
     private Scene scene;
@@ -48,13 +51,18 @@ public class GameplayController {
     private final String appTitleDefault = "VS Studio Code";
 
     /**
-     * Creates a new instance of GameEngone, which will now be used to calculate the logic for the gameplay.
+     * Creates a new instance of GameEngine, which will now be used to calculate the logic for the gameplay.
      * @param engine Passes in the GameEngine instance that will be used for the program.
      */
     public void setEngine(GameEngine engine) {
         this.engine = engine;
         Platform.runLater(this::refreshUI);
     }
+
+    /**
+     * Gets the current user
+     */
+    private User CurrentUser = UserManager.getInstance().getLoggedInUser();
 
 
 
@@ -124,6 +132,8 @@ public class GameplayController {
         shortcutDescText.setText(currentShortcut.getDescription());
         keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
         progress.setText(engine.progress());
+        streak.setText("Streak: poop");
+        //streak.setText("Streak: " + Integer.toString(CurrentUser.getStreak()));
     }
 
     /**
@@ -135,6 +145,11 @@ public class GameplayController {
         statusLabel.setText(text);
         statusLabel.setStyle("-fx-font-size: 23px; -fx-font-weight: bold; -fx-text-fill: " + colorHex + ";");
     }
+
+    /**
+     * Updates the streak at the top of the screen
+     */
+
 
     /**
      * Replaces modifier keys with their associated symbol.
