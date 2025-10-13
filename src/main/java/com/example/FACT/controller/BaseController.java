@@ -91,7 +91,7 @@ public class BaseController {
 
     @FXML private void goHome()     { setContent("/com/example/FACT/homepage.fxml"); }
     @FXML private void goCreate()   { setContent("/com/example/FACT/createSet.fxml"); }
-    @FXML private void goPlay()     { setContent("/com/example/FACT/gameplay.fxml"); }
+    @FXML private void goPlay()     { setContent("/com/example/FACT/setSelector.fxml"); }
     @FXML private void goEdit() { setContent("/com/example/FACT/EditSetView.fxml"); }
 
     @FXML

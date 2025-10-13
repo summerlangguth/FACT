@@ -20,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
@@ -28,6 +29,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -78,6 +80,21 @@ public class GameplayController {
         });
     }
 
+    public void setContent(String fxmlResourcePath) {
+        try {
+            URL url = getClass().getResource(fxmlResourcePath);
+            if (url == null) {
+                System.err.println("AuthBaseController.setContent: resource not found -> " + fxmlResourcePath);
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(url);
+            Node view = loader.load();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     /**
      * When a key is pressed, this method runs.
      * Checks if the input matches the required key combination.
@@ -117,6 +134,7 @@ public class GameplayController {
             }
         }
     }
+
 
     /**
      * Refreshes the UI to reflect the state of the GameEngine.
@@ -199,4 +217,15 @@ public class GameplayController {
         stage.show();
 
     }
+
+    public void setShortcutsAndStart(List<Shortcut> shortcuts, String appTitle) {
+        GameEngine engine = new GameEngine(shortcuts);
+        setEngine(engine);
+        if (appTitleLabel != null && appTitle != null && !appTitle.isBlank()) {
+            appTitleLabel.setText(appTitle);
+        }
+    }
+
+
+
 }
