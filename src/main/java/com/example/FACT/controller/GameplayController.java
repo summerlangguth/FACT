@@ -38,7 +38,6 @@ import java.util.List;
 public class GameplayController {
 
     @FXML private BorderPane root;
-    @FXML private ImageView logoImageView;
     @FXML private Label appTitleLabel;
     @FXML private Text shortcutDescText;
     @FXML private FlowPane keysPane;
@@ -48,7 +47,6 @@ public class GameplayController {
     @FXML private Button exit;
     private Stage stage;
     private Scene scene;
-    private Parent parentRoot;
     private GameEngine engine;
     private final String appTitleDefault = "VS Studio Code";
 
@@ -61,12 +59,6 @@ public class GameplayController {
         Platform.runLater(this::refreshUI);
     }
 
-    /**
-     * Gets the current user
-     */
-    private User CurrentUser = UserManager.getInstance().getLoggedInUser();
-
-
 
     /**
      * Once the root has been loaded, the program begins listening for the next key event (user input).
@@ -76,7 +68,6 @@ public class GameplayController {
     private void initialize() {
         Platform.runLater(() -> {
             root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
-            appTitleLabel.setText(appTitleDefault);
         });
     }
 
@@ -147,6 +138,7 @@ public class GameplayController {
             return;
         }
 
+        appTitleLabel.setText(currentShortcut.getApplication());
         shortcutDescText.setText(currentShortcut.getDescription());
         keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
         progress.setText(engine.progress());

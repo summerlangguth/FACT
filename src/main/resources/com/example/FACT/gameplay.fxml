@@ -2,8 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -80,17 +78,8 @@
    <top>
       <HBox alignment="CENTER" prefHeight="52.0" prefWidth="880.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
          <children>
-               <!-- APPLICATION IMAGE -->
-               <ImageView fx:id="logoImageView" fitHeight="28" pickOnBounds="true" preserveRatio="true">
-                   <image>
-                  <Image url="@VS_code_logo.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               </ImageView>
                <!-- APPLICATION TITLE -->
-               <Label fx:id="appTitleLabel" prefHeight="33.0" prefWidth="183.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="VS Studio Code">
+               <Label fx:id="appTitleLabel" prefHeight="33.0" prefWidth="183.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="">
                <padding>
                   <Insets left="10.0" />
                </padding>

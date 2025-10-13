@@ -67,7 +67,7 @@ public class SetSelectorController {
 
         // Iterates through the list, converts into a Shortcut object.
         List<Shortcut> shortcuts = rows.stream()
-                .map(k -> new Shortcut(k.getDescription(), parseKeyCombo(k.getKeyBind())))
+                .map(k -> new Shortcut(k.getApplication(), k.getDescription(), parseKeyCombo(k.getKeyBind())))
                 .collect(Collectors.toList());
 
 
