@@ -26,13 +26,18 @@ import java.util.stream.Collectors;
 
 public class SetSelectorController {
 
-    @FXML public Button startBtn;
+    @FXML private Button startBtn;
     @FXML private ComboBox<String> setCombo;
     @FXML private Label errorLabel;
 
+
+
+    // Sets up DataBase connection
     private final ICreateSetDAO dao = new SqliteCreateSetDAO();
 
-    // As the FXML file is initialised, all current sets in user's database is displayed in the Combo Box.
+
+
+    // Retrieves the list of apps in the DataBase, adds to ComboBox.
     @FXML
     private void initialize() {
         var apps = dao.listApplications();
@@ -41,22 +46,26 @@ public class SetSelectorController {
         errorLabel.setText("");
     }
 
+
+
     @FXML
     private void onStart() throws IOException {
+
+        // On Start, identifies which app the user has selected.
         String selected = setCombo.getSelectionModel().getSelectedItem();
         if (selected == null || selected.isBlank()) {
             errorLabel.setText("Please select a set to start playing.");
             return;
         }
 
-        // Retrieves all the shortcuts from the list.
+        // Stores all shortcuts into a list that matches the application that has been 'selected'.
         List<KeySets> rows = dao.listKeySetsByApplication(selected);
         if (rows == null || rows.isEmpty()) {
             errorLabel.setText("No shortcuts found for this set.");
             return;
         }
 
-        // Converts all the data values in the database into shortcut objects, which can then be compiled into a list and imported into gameplay for iteration.
+        // Iterates through the list, converts into a Shortcut object.
         List<Shortcut> shortcuts = rows.stream()
                 .map(k -> new Shortcut(k.getDescription(), parseKeyCombo(k.getKeyBind())))
                 .collect(Collectors.toList());
@@ -66,7 +75,7 @@ public class SetSelectorController {
         FXMLLoader baseLoader = new FXMLLoader(Objects.requireNonNull(baseUrl, "homebase.fxml not found"));
         Parent baseRoot = baseLoader.load();
 
-        com.example.FACT.controller.HomeBaseController baseController = baseLoader.getController();
+        com.example.FACT.controller.BaseController baseController = baseLoader.getController();
         GameplayController gameplayController = baseController.setContentAndGetController("/com/example/FACT/gameplay.fxml");
         gameplayController.setShortcutsAndStart(shortcuts, selected);
 
@@ -76,34 +85,97 @@ public class SetSelectorController {
         stage.show();
     }
 
-    private KeyCombination parseKeyCombo(String keyBind) {
-        if (keyBind == null || keyBind.isBlank()) return KeyCombination.NO_MATCH;
 
-        String s = keyBind.trim().toUpperCase();
+
+    private KeyCombination parseKeyCombo(String keyBind) {
+
+        // Check is keybind is null.
+        if (keyBind == null) return KeyCombination.NO_MATCH;
+
+        // Trim spaces, convert to Upper.
+        String s = keyBind.trim();
+        if (s.isEmpty()) return KeyCombination.NO_MATCH;
+        s = s.replaceAll("\\s*\\+\\s*", "+").replaceAll("\\++", "+").toUpperCase();
+
+        // Check for modifier keys.
         boolean shift = s.contains("SHIFT");
         boolean alt   = s.contains("ALT") || s.contains("OPTION");
         boolean ctrl  = s.contains("CTRL") || s.contains("CONTROL");
         boolean meta  = s.contains("CMD")  || s.contains("COMMAND") || s.contains("META");
 
+        // Grabs the last key of the key combo (usually the key that isn't the modifier e.g. F, Delete, etc.)
         String[] parts = s.split("\\+");
+        if (parts.length == 0) return KeyCombination.NO_MATCH;
         String keyToken = parts[parts.length - 1].trim();
+        if (keyToken.isEmpty()) return KeyCombination.NO_MATCH;
+
+        // Check KeyCode for null.
+        KeyCode keyCode = resolveKeyCode(keyToken);
+        if (keyCode == null || keyCode == KeyCode.UNDEFINED) {
+            return KeyCombination.NO_MATCH;
+        }
 
         var mods = new java.util.ArrayList<KeyCombination.Modifier>();
         if (shift) mods.add(KeyCombination.SHIFT_DOWN);
         if (alt)   mods.add(KeyCombination.ALT_DOWN);
-        if (ctrl || meta) mods.add(KeyCombination.SHORTCUT_DOWN);
+        if (ctrl || meta) mods.add(KeyCombination.SHORTCUT_DOWN); // cross-platform Cmd/Ctrl
 
-        KeyCode keyCode;
-        try {
-            keyCode = KeyCode.valueOf(keyToken);
-        } catch (IllegalArgumentException ex) {
-            switch (keyToken) {
-                case "SPACE": keyCode = KeyCode.SPACE; break;
-                case "TAB":   keyCode = KeyCode.TAB;   break;
-                case "ENTER": keyCode = KeyCode.ENTER; break;
-                default:      keyCode = KeyCode.UNDEFINED;
-            }
-        }
         return new KeyCodeCombination(keyCode, mods.toArray(new KeyCombination.Modifier[0]));
+    }
+
+
+
+    private KeyCode resolveKeyCode(String token) {
+
+        try {
+            return KeyCode.valueOf(token);
+        } catch (IllegalArgumentException ignored) { }
+
+        if (token.length() == 1 && Character.isLetter(token.charAt(0))) {
+            return KeyCode.valueOf(String.valueOf(token.charAt(0)));
+        }
+
+        if (token.length() == 1 && Character.isDigit(token.charAt(0))) {
+            return KeyCode.valueOf("DIGIT" + token);
+        }
+
+        switch (token) {
+            case "ESC": return KeyCode.ESCAPE;
+            case "DEL": return KeyCode.DELETE;
+            case "BKSP": case "BACK": return KeyCode.BACK_SPACE;
+            case "PGUP": return KeyCode.PAGE_UP;
+            case "PGDN": return KeyCode.PAGE_DOWN;
+        }
+
+        switch (token) {
+            case "+": return KeyCode.PLUS;
+            case "-": case "–": case "—": return KeyCode.MINUS;
+            case "=": return KeyCode.EQUALS;
+            case "/": return KeyCode.SLASH;
+            case "\\": return KeyCode.BACK_SLASH;
+            case ".": return KeyCode.PERIOD;
+            case ",": return KeyCode.COMMA;
+            case ";": return KeyCode.SEMICOLON;
+            case "'": return KeyCode.QUOTE;
+            case "[": return KeyCode.OPEN_BRACKET;
+            case "]": return KeyCode.CLOSE_BRACKET;
+            case "`": return KeyCode.BACK_QUOTE;
+            case "SPACE": return KeyCode.SPACE;
+            case "TAB": return KeyCode.TAB;
+            case "ENTER": case "RETURN": return KeyCode.ENTER;
+            case "UP": return KeyCode.UP;
+            case "DOWN": return KeyCode.DOWN;
+            case "LEFT": return KeyCode.LEFT;
+            case "RIGHT": return KeyCode.RIGHT;
+        }
+
+        if (token.startsWith("F")) {
+            try {
+                int f = Integer.parseInt(token.substring(1));
+                if (f >= 1 && f <= 24) return KeyCode.valueOf("F" + f);
+            } catch (NumberFormatException ignored) { }
+        }
+
+        return KeyCode.UNDEFINED;
     }
 }

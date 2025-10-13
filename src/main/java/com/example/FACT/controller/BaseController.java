@@ -150,4 +150,16 @@ public class BaseController {
         Scene scene = contentArea != null ? contentArea.getScene() : null;
         return (scene != null) ? (Stage) scene.getWindow() : null;
     }
+
+    public <T> T setContentAndGetController(String resourcePath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(resourcePath));
+            Node node = loader.load();
+            contentArea.getChildren().setAll(node);
+            return loader.getController();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
