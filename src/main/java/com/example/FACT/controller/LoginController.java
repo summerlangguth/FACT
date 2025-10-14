@@ -21,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Parent;
+import org.apache.commons.logging.Log;
 
 import java.net.URL;
 import java.util.Objects;
@@ -95,7 +96,7 @@ public class LoginController implements Initializable {
                     User loggedInUser = model.createUserObject(email, password);
                     UserManager.getInstance().setLoggedInUser(loggedInUser);
                     model.setActivity(email);
-                    loadHomePage();
+                    loadHomePage(loginButton);
                 }
                else {
                     loginMessageLabel.setText("Email or password is incorrect");
@@ -142,7 +143,7 @@ public class LoginController implements Initializable {
 
     }
 
-    public void loadHomePage() {
+    public void loadHomePage(Button loginButton) {
         try {
             // Load base shell
             URL baseUrl = getClass().getResource("/com/example/FACT/homebase.fxml");

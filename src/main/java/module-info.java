@@ -4,6 +4,7 @@ module com.example.FACT {
     requires javafx.graphics;
     requires java.sql;
     requires java.desktop;
+    requires commons.logging;
 
 
     opens com.example.FACT to javafx.fxml;

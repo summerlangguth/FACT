@@ -28,7 +28,6 @@ public class AuthBaseController {
     @FXML private Button closeButton;
 
     private static final boolean USE_ANCHOR_WRAPPER = true;
-
     private double dragOffsetX;
     private double dragOffsetY;
     private boolean maximized = false;
@@ -60,7 +59,6 @@ public class AuthBaseController {
             }
             FXMLLoader loader = new FXMLLoader(url);
             Node view = loader.load();
-
             if (USE_ANCHOR_WRAPPER) {
                 AnchorPane wrapper = new AnchorPane(view);
                 AnchorPane.setTopAnchor(view, 0.0);
@@ -75,7 +73,6 @@ public class AuthBaseController {
             ex.printStackTrace();
         }
     }
-
     public <T> T setContentAndGetController(String fxmlResourcePath) {
         try {
             URL url = getClass().getResource(fxmlResourcePath);

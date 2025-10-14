@@ -189,6 +189,8 @@
 .content {
     -fx-padding: 24;
     -fx-spacing: 16;
+    -fx-width: fit-content;
+    -fx-height: fit-content;
 }
 
 .section-title {

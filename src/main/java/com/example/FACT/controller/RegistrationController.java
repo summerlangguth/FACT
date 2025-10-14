@@ -1,9 +1,11 @@
 package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
-import com.example.FACT.model.IUserDAO;
 import com.example.FACT.model.SqliteUserDAO;
+import com.example.FACT.model.IUserDAO;
 import com.example.FACT.model.User;
+import com.example.FACT.controller.LoginController;
+import com.example.FACT.model.UserManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +26,7 @@ import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -57,8 +60,12 @@ public class RegistrationController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     public IUserDAO model = new SqliteUserDAO();
+    public SqliteUserDAO modelOne = new SqliteUserDAO();
+    public LoginController loginController = new LoginController();
     /// kept as a global variable for testing purposes
     private String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+    /// used to change login to properly log the user in
+    private Boolean validUser = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -69,6 +76,7 @@ public class RegistrationController implements Initializable {
             root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
         });
     }
+
     private void onKeyPressed(KeyEvent e){
         if(e.getCode() == KeyCode.ENTER){
             signUpButtonOnAction();
@@ -79,7 +87,35 @@ public class RegistrationController implements Initializable {
      * loads the login page
      */
     public void loginButtonOnAction(){
-        loadLogin();
+        if(validUser){
+            if(!emailTextField.getText().isBlank() && !confirmPasswordField.getText().isBlank()){
+                try{
+                    String email = emailTextField.getText();
+                    String password = confirmPasswordField.getText();
+                    if(modelOne.isLogin(email, password)){
+                        //loginMessageLabel.setText("valid login");
+                        User loggedInUser = modelOne.createUserObject(email, password);
+                        UserManager.getInstance().setLoggedInUser(loggedInUser);
+                        modelOne.setActivity(email);
+                        loginController.loadHomePage(loginButton);
+                    }
+                    else {
+                        registerMessageLabel.setText("Email or password is incorrect");
+                    }
+                }
+                catch(SQLException e){
+                    registerMessageLabel.setText("Email or password is incorrect");
+                    e.printStackTrace();
+                }
+
+            }
+            else{
+                registerMessageLabel.setText("Please enter both email and password");
+            }
+        }
+        else{
+            loadLogin();
+        }
     }
 
     /**
@@ -128,6 +164,8 @@ public class RegistrationController implements Initializable {
         try{
             if (model.addUser(user)) {
                 registerMessageLabel.setText("Sign up successful");
+                loginButton.setText("LOGIN NOW");
+                validUser = true;
             }
             else{
                 registerMessageLabel.setText("Please ensure all details are valid");
