@@ -32,9 +32,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-/**
- * The GameplayController manages the FMXL file and links it to the logic ran by the GameEngine.
- */
+
 public class GameplayController {
 
     @FXML private BorderPane root;
@@ -48,21 +46,18 @@ public class GameplayController {
     private Stage stage;
     private Scene scene;
     private GameEngine engine;
-    private final String appTitleDefault = "VS Studio Code";
 
     /**
-     * Creates a new instance of GameEngine, which will now be used to calculate the logic for the gameplay.
-     * @param engine Passes in the GameEngine instance that will be used for the program.
+     * Method that attaches a new GameEngine instance to the GameplayController.
+     * @param engine New GameEngine instance.
      */
     public void setEngine(GameEngine engine) {
         this.engine = engine;
         Platform.runLater(this::refreshUI);
     }
 
-
     /**
-     * Once the root has been loaded, the program begins listening for the next key event (user input).
-     * Also sets the top left title, matching the correct application.
+     * This method is automatically invoked when the Gameplay runs. Beings listening for key press events.
      */
     @FXML
     private void initialize() {
@@ -71,6 +66,13 @@ public class GameplayController {
         });
     }
 
+    /**
+     * Sets the content of the view by loading the specified FXML resource.
+     * If the resource is not found or an error occurs while loading,
+     * an error message is printed to the console.
+     *
+     * @param fxmlResourcePath the path of the FXML resource to be loaded.
+     */
     public void setContent(String fxmlResourcePath) {
         try {
             URL url = getClass().getResource(fxmlResourcePath);
@@ -137,35 +139,24 @@ public class GameplayController {
             keysPane.getChildren().clear();
             return;
         }
-
         appTitleLabel.setText(currentShortcut.getApplication());
         shortcutDescText.setText(currentShortcut.getDescription());
         keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
         progress.setText(engine.progress());
         streak.setText("Streak: poop");
-        //streak.setText("Streak: " + Integer.toString(CurrentUser.getStreak()));
+        // streak.setText("Streak: " + Integer.toString(CurrentUser.getStreak()));
     }
 
     /**
-     * Updates the status Label text at the bottom of the screen.
-     * @param text text to be inputted.
-     * @param colorHex color of the text.
+     * Updates the Status Label (Correct or Incorrect).
+     * @param text Status Label text.
+     * @param colorHex Status Label colour.
      */
     private void showStatus(String text, String colorHex) {
         statusLabel.setText(text);
         statusLabel.setStyle("-fx-font-size: 23px; -fx-font-weight: bold; -fx-text-fill: " + colorHex + ";");
     }
 
-    /**
-     * Updates the streak at the top of the screen
-     */
-
-
-    /**
-     * Replaces modifier keys with their associated symbol.
-     * @param combo the key event to be replaced.
-     * @return
-     */
     private List<Label> makeKeycaps(KeyCombination combo) {
         List<Label> out = new ArrayList<>();
         boolean isMac = System.getProperty("os.name").toLowerCase().contains("mac");
@@ -190,11 +181,6 @@ public class GameplayController {
         return out;
     }
 
-    /**
-     *
-     * @param text
-     * @return
-     */
     private Label cap(String text) {
         Label l = new Label(text);
         l.setStyle("-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;");
@@ -207,7 +193,6 @@ public class GameplayController {
         scene = new Scene(parentRoot);
         stage.setScene(scene);
         stage.show();
-
     }
 
     public void setShortcutsAndStart(List<Shortcut> shortcuts, String appTitle) {
@@ -217,7 +202,4 @@ public class GameplayController {
             appTitleLabel.setText(appTitle);
         }
     }
-
-
-
 }
