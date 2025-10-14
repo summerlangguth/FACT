@@ -91,7 +91,7 @@ public class BaseController {
 
     @FXML private void goHome()     { setContent("/com/example/FACT/homepage.fxml"); }
     @FXML private void goCreate()   { setContent("/com/example/FACT/createSet.fxml"); }
-    @FXML private void goPlay()     { setContent("/com/example/FACT/gameplay.fxml"); }
+    @FXML private void goPlay()     { setContent("/com/example/FACT/setSelector.fxml"); }
     @FXML private void goEdit() { setContent("/com/example/FACT/EditSetView.fxml"); }
 
     @FXML
@@ -149,5 +149,17 @@ public class BaseController {
     private Stage getStage() {
         Scene scene = contentArea != null ? contentArea.getScene() : null;
         return (scene != null) ? (Stage) scene.getWindow() : null;
+    }
+
+    public <T> T setContentAndGetController(String resourcePath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(resourcePath));
+            Node node = loader.load();
+            contentArea.getChildren().setAll(node);
+            return loader.getController();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

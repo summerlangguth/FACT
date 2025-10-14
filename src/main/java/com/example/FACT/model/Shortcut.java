@@ -3,6 +3,7 @@ package com.example.FACT.model;
 import javafx.scene.input.KeyCombination;
 
 public class Shortcut {
+    private final String application;
     private final String description;
     private final KeyCombination combo;
 
@@ -11,9 +12,14 @@ public class Shortcut {
      * @param description String describing the shortcut.
      * @param combo the key combination used to activate the shortcut.
      */
-    public Shortcut(String description, KeyCombination combo) {
+    public Shortcut(String application, String description, KeyCombination combo) {
+        this.application = application;
         this.description = description;
         this.combo = combo;
+    }
+
+    public String getApplication(){
+        return application;
     }
 
     /**

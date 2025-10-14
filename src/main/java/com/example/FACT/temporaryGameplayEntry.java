@@ -28,8 +28,8 @@ public class temporaryGameplayEntry extends Application {
 
         // DEMO SHORTCUTS
         List<Shortcut> demoShortcuts = List.of(
-                new Shortcut("Copy", new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN)),
-                new Shortcut("Paste", new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN))
+                new Shortcut("VS Code", "Copy", new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN)),
+                new Shortcut("VS Code", "Paste", new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN))
         );
 
         GameEngine engine = new GameEngine(demoShortcuts);
