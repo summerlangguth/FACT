@@ -46,20 +46,19 @@
                         <Font name="Helvetica Neue Bold" size="36.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="CategoryTextField" layoutX="365.0" layoutY="159.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Category">
+                  <TextField fx:id="CategoryTextField" layoutX="365.0" layoutY="159.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Set Category (eg. formulas, editing, modelling)">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </TextField>
                   <ComboBox fx:id="DifficultyComboBox" layoutX="367.0" layoutY="237.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Select difficulty" style="-fx-font-size: 14px;" styleClass="combo-md">
                   </ComboBox>
-
-                  <TextField fx:id="DescriptionTextField" layoutX="368.0" layoutY="311.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Description">
+                  <TextField fx:id="KeyBindTextField" layoutX="368.0" layoutY="311.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="KeyBind">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="KeyBindTextField" layoutX="365.0" layoutY="398.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="KeyBind">
+                  <TextField fx:id="DescriptionTextField" layoutX="365.0" layoutY="398.0" minHeight="60.0" minWidth="400.0" prefHeight="60.0" prefWidth="400.0" promptText="Description">
                      <font>
                         <Font size="25.0" />
                      </font>
