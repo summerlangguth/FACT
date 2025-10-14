@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameplayController {
 
@@ -154,7 +155,7 @@ public class GameplayController {
      */
     private void showStatus(String text, String colorHex) {
         statusLabel.setText(text);
-        statusLabel.setStyle("-fx-font-size: 23px; -fx-font-weight: bold; -fx-text-fill: " + colorHex + ";");
+        statusLabel.setStyle("-fx-font-size: 30px; -fx-font-family: Helvetica; -fx-font-weight:bold; -fx-text-fill: " + colorHex + ";");
     }
 
     private List<Label> makeKeycaps(KeyCombination combo) {
@@ -188,11 +189,25 @@ public class GameplayController {
     }
 
     public void exitGameplay(ActionEvent event) throws IOException {
-        Parent parentRoot =  FXMLLoader.load(getClass().getResource("/com/example/FACT/homepage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(parentRoot);
-        stage.setScene(scene);
-        stage.show();
+        try{
+            // Load base shell
+            URL baseUrl = getClass().getResource("/com/example/FACT/homebase.fxml");
+            FXMLLoader baseLoader = new FXMLLoader(Objects.requireNonNull(baseUrl, "homebase.fxml not found"));
+            Parent baseRoot = baseLoader.load();
+
+            // Ask BaseController to show Home inside the center
+            com.example.FACT.controller.BaseController baseController = baseLoader.getController();
+            baseController.setContent("/com/example/FACT/setSelector.fxml");
+
+            // Reuse the current stage
+            Stage stage = (Stage) exit.getScene().getWindow();
+            stage.setScene(new Scene(baseRoot));
+            stage.show();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
     }
 
     public void setShortcutsAndStart(List<Shortcut> shortcuts, String appTitle) {

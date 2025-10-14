@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -29,9 +30,9 @@
 
                 <VBox alignment="CENTER" minHeight="-Infinity" prefHeight="216.0" prefWidth="820.0" spacing="12.0" GridPane.columnIndex="0">
                     <!-- STREAK COUNT -->
-                    <Label fx:id="streak" prefHeight="5" prefWidth="100" style="-fx-font-size: 15; -fx-font-weight: bold; -fx-alignment: CENTRE;" />
+                    <Label fx:id="streak" prefHeight="5" prefWidth="100" styleClass="label-bold" />
                     <!-- KEYS TO PRESS -->
-                    <Label prefHeight="51.0" prefWidth="222.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-alignment: CENTER;" text="Keys to Press">
+                    <Label prefHeight="51.0" prefWidth="222.0" styleClass="label-bold" text="Keys to Press">
                   <font>
                      <Font size="22.0" />
                   </font></Label>
@@ -55,10 +56,8 @@
    <bottom>
       <BorderPane prefHeight="69.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <right>
-            <Label fx:id="progress" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="52.0" textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font></Label>
+            <Label fx:id="progress" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="52.0" textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT" styleClass="label-bold">
+            </Label>
          </right>
          <center>
              <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="20.0" prefWidth="367.0" style="-fx-font-size: 16px;" BorderPane.alignment="CENTER">
@@ -76,14 +75,15 @@
       </BorderPane>
    </bottom>
    <top>
-      <HBox alignment="CENTER" prefHeight="52.0" prefWidth="880.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="52.0" prefWidth="880.0" style="-fx-background-color: #dedfe0;" BorderPane.alignment="CENTER">
          <children>
                <!-- APPLICATION TITLE -->
-               <Label fx:id="appTitleLabel" prefHeight="33.0" prefWidth="183.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="">
+               <Label fx:id="appTitleLabel" prefHeight="33.0" prefWidth="183.0" styleClass="label-bold">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
+            <Button fx:id="exit" onAction="#exitGameplay" prefHeight="33.0" styleClass="button,button-primary,button-solid" text="EXIT" />
             <Region prefHeight="38.0" prefWidth="503.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>

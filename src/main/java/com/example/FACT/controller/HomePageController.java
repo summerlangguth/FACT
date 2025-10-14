@@ -44,7 +44,7 @@ public class HomePageController {
         String userName = UserManager.getInstance().getLoggedInUser().getFirstName();
         Integer active = UserManager.getInstance().getLoggedInUser().getActivity();
         welcomeMessage.setText("Welcome, " + userName);
-        activityStreak.setText("Current Streak: " + active);
+        activityStreak.setText("Daily Streak: " + active);
     }
 
     public void onLogout(){

@@ -13,6 +13,7 @@
     -color-primary-60: #658ECA;
     -color-ink: #0F2239;
     -color-surface: #FFFFFF;
+    -fc-font-size: 25px;
     -fx-background-color: -color-surface;
     -fx-text-fill: -color-ink;
 }
@@ -201,6 +202,12 @@
 
 .helper-text {
     -fx-text-fill: rgba(15,34,57,0.65);
+}
+
+/* Bolded text */
+.label-bold{
+    -fx-font-family: Helvetica, "Helvetica", sans-serif;
+    -fx-font-weight: 700;
 }
 
 /* Toggle buttons (e.g., for light/dark switch you may implement later) */
