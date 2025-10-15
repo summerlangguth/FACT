@@ -27,11 +27,7 @@
 
                <children>
                   <!-- Page Title -->
-                  <Label styleClass="page-title" text="Edit Key Sets">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Label>
+                  <Label styleClass="page-title" text="Edit Key Sets"/>
                   <HBox spacing="16" alignment="CENTER_LEFT" maxWidth="900">
                      <children>
                         <VBox spacing="8" HBox.hgrow="ALWAYS">

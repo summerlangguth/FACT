@@ -30,9 +30,6 @@
                     <!-- Classpath-absolute: src/main/resources/images/logo.png -> /images/logo.png -->
             </ImageView>
 
-            <!-- App title -->
-            <Label styleClass="app-title" text="FACT"/>
-
             <!-- Spacer -->
             <Pane HBox.hgrow="ALWAYS"/>
 

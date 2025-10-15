@@ -114,7 +114,7 @@ public class RegistrationController implements Initializable {
             }
         }
         else{
-            loadLogin();
+            loadLogin(loginButton);
         }
     }
 
@@ -179,7 +179,7 @@ public class RegistrationController implements Initializable {
     /**
      * closes the current stage and opens a new one with the login content
      */
-    public void loadLogin(){
+    public void loadLogin(Button loginButton){
         try{
             FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));
             Parent root = baseLoader.load();

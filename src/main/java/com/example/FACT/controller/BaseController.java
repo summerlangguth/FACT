@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -23,11 +24,13 @@ public class BaseController {
 
     @FXML private StackPane contentArea;
     @FXML private HBox titleBar;
+    @FXML private Button logoutButton;
 
     private double dragOffsetX;
     private double dragOffsetY;
     private boolean maximized = false;
     private Rectangle2D savedBounds;
+    private RegistrationController registrationController = new RegistrationController();
 
     private static final boolean USE_ANCHOR_WRAPPER = false;
 
@@ -93,6 +96,7 @@ public class BaseController {
     @FXML private void goCreate()   { setContent("/com/example/FACT/createSet.fxml"); }
     @FXML private void goPlay()     { setContent("/com/example/FACT/setSelector.fxml"); }
     @FXML private void goEdit() { setContent("/com/example/FACT/EditSetView.fxml"); }
+    @FXML private void goLogout() {registrationController.loadLogin(logoutButton);}
 
     @FXML
     private void onClose() {

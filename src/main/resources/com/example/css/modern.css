@@ -8,12 +8,12 @@
 */
 
 .root, .scene-root {
-    -fx-font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
-    -color-primary: #2D66AC;
-    -color-primary-60: #658ECA;
+    -fx-font-family: "Helvetica", Arial, sans-serif;
+    -color-primary: #3578C9;
+    -color-primary-60: #628fc4;
     -color-ink: #0F2239;
     -color-surface: #FFFFFF;
-    -fc-font-size: 25px;
+    -fc-font-size: 30px;
     -fx-background-color: -color-surface;
     -fx-text-fill: -color-ink;
 }
@@ -28,7 +28,6 @@
     -fx-font-family: "Helvetica Neue", "Helvetica", sans-serif;
     -fx-background-color: derive(-color-surface, -2%);
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(gaussian, rgba(15,34,57,0.10), 12, 0.15, 0, 4);
     -fx-padding: 16;
 }
 
@@ -41,7 +40,7 @@
 }
 
 .topbar .label {
-    -fx-font-size: 18px;
+    -fx-font-size: 20px;
     -fx-font-weight: 600;
     -fx-text-fill: -color-ink;
 }
@@ -49,7 +48,7 @@
 /* Sidebar */
 .sidebar {
     -fx-font-family: "Helvetica Neue", "Helvetica", sans-serif;
-    -fx-background-color: linear-gradient(to bottom, derive(-color-ink, 60%), -color-ink);
+    -fx-background-color: linear-gradient(to bottom, -color-primary, white);
     -fx-padding: 16;
     -fx-spacing: 8;
 }
@@ -60,17 +59,22 @@
     -fx-opacity: 0.8;
 }
 
+.app-title{
+    -fx-font-family: Helvetica, "Helvetica", sans-serif;
+    -fx-font-weight: 700;
+    -fx-text-fill: #3578C9;
+    -fx-font-size: 20px;
+}
 /* Navigation buttons */
 .nav-btn, .button.nav-btn {
     -fx-font-family: Helvetica, "Helvetica", sans-serif;
     -fx-background-color: transparent;
     -fx-font-weight: 700;
     -fx-text-fill: white;
-    -fx-padding: 10 12;
+    -fx-padding: 5 7;
     -fx-background-radius: 12;
     -fx-alignment: CENTER_LEFT;
     -fx-graphic-text-gap: 10;
-    -fx-opacity: 0.9;
 }
 
 .nav-btn:hover {
@@ -91,17 +95,20 @@
     -fx-background-color: ladder(-color-primary, derive(-color-primary,10%) 50%, derive(-color-primary,-5%) 50%);
 }
 
+.nav-btn-logout, .button.nav-btn-logout{
+    -fx-text-fill: -color-primary;
+}
+
 /* Standard Buttons */
 .button {
     -fx-font-family: Helvetica, "Helvetica Neue", "Helvetica", sans-serif;
-    -fx-background-color: linear-gradient(to bottom, -color-primary-60, -color-primary);
+    -fx-background-color: -color-primary;
     -fx-text-fill: white;
     -fx-background-radius: 12;
     -fx-padding: 10 16;
     -fx-font-weight: 700;
     -fx-font-size: 20px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(13,37,68,0.20), 8, 0.2, 0, 2);
 }
 
 .button:hover {
@@ -172,7 +179,7 @@
     -fx-text-fill: -color-ink;
     -fx-background-radius: 999;
     -fx-padding: 4 10;
-    -fx-font-size: 12px;
+    -fx-font-size: 18px;
     -fx-font-weight: 600;
 }
 
@@ -195,7 +202,7 @@
 }
 
 .section-title {
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-font-weight: 700;
     -fx-text-fill: -color-ink;
 }
@@ -208,7 +215,16 @@
 .label-bold{
     -fx-font-family: Helvetica, "Helvetica", sans-serif;
     -fx-font-weight: 700;
+
 }
+.form-label{
+    -fx-font-size: 20px;
+}
+
+.page-title{
+    -fx-font-size: 30px;
+}
+
 
 /* Toggle buttons (e.g., for light/dark switch you may implement later) */
 .toggle-button {
@@ -392,11 +408,10 @@ GridPane.card {
 
 .button-solid {
     -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.2, 0, 2);
 }
 
 .button-primary {
-    -fx-background-color: linear-gradient(to bottom, -color-primary-60, -color-primary);
+    -fx-background-color:-color-primary;
     }
 .button-primary:hover { -fx-opacity: 0.95; }
 .button-primary:pressed { -fx-opacity: 0.90; }

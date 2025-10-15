@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0" stylesheets="@../css/modern.css" styleClass="root" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.BaseController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0" styleClass="root" stylesheets="@../css/modern.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.BaseController">
 
    <!-- TOP: Custom title bar -->
    <top>
@@ -25,7 +25,7 @@
 
             </image>
          </ImageView>
-         <Label styleClass="app-title" text="FACT" />
+         <Label styleClass="app-title" text="quick cuts" />
 
          <!-- Spacer pushes window controls to the right -->
          <Region HBox.hgrow="ALWAYS" />
@@ -43,16 +43,19 @@
          <padding><Insets bottom="12" left="12" right="12" top="12" /></padding>
 
          <!-- Add whatever buttons you want; wire them to navigate -->
-         <Button maxWidth="1.7976931348623157E308" onAction="#goHome" styleClass="nav-btn" text="Home">
+         <Button maxWidth="1.7976931348623157E308" onAction="#goHome" styleClass="nav-btn" text="HOME">
             <font>
                <Font name="Helvetica Neue Bold" size="13.0" />
             </font></Button>
-         <Button maxWidth="1.7976931348623157E308" onAction="#goPlay" styleClass="nav-btn" text="Play">
+         <Button maxWidth="1.7976931348623157E308" onAction="#goPlay" styleClass="nav-btn" text="PLAY">
             <font>
                <Font name="Helvetica" size="13.0" />
             </font></Button>
-         <Button maxWidth="1.7976931348623157E308" onAction="#goCreate" styleClass="nav-btn" text="Create Set" />
-         <Button maxWidth="1.7976931348623157E308" onAction="#goEdit" styleClass="nav-btn" text="Edit Sets" />
+         <Button maxWidth="1.7976931348623157E308" onAction="#goCreate" styleClass="nav-btn" text="CREATE SET" />
+         <Button maxWidth="1.7976931348623157E308" onAction="#goEdit" styleClass="nav-btn" text="EDIT SETS" />
+         <Region VBox.vgrow="ALWAYS" />
+         <Button fx:id="logoutButton" maxWidth="1.7976931348623157E308" onAction="#goLogout"  styleClass="nav-btn, nav-btn-logout" text="LOGOUT">
+         </Button>
       </VBox>
    </left>
 

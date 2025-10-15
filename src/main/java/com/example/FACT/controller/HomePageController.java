@@ -36,11 +36,16 @@ public class HomePageController {
     private Label activityStreak;
     @FXML
     private Button logoutButton;
+    @FXML
+    private ImageView brandingImageView;
 
 
 
     @FXML
     private void initialize(){
+        File brandingfile = new File("images/logo.png");
+        Image brandingImage = new Image(brandingfile.toURI().toString());
+        brandingImageView.setImage(brandingImage);
         String userName = UserManager.getInstance().getLoggedInUser().getFirstName();
         Integer active = UserManager.getInstance().getLoggedInUser().getActivity();
         welcomeMessage.setText("Welcome, " + userName);
