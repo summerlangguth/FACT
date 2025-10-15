@@ -1,7 +1,6 @@
 package com.example.FACT.model;
 
 import java.sql.*;
-import java.util.List;
 import java.time.*;
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +13,7 @@ public class SqliteUserDAO implements IUserDAO{
      */
     public SqliteUserDAO() {
         connection = SqliteConnection.getInstance();
-        createTable();
+        initTable();
 
     }
 
@@ -25,7 +24,7 @@ public class SqliteUserDAO implements IUserDAO{
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    private void createTable() {
+    private void initTable() {
         // Create table if not exists
         try {
             Statement statement = connection.createStatement();
@@ -37,6 +36,7 @@ public class SqliteUserDAO implements IUserDAO{
                     + "password VARCHAR NOT NULL,"
                     + "lastActive TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
                     + "streak INTEGER"
+                    + "lastPlayed VARCHAR"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class SqliteUserDAO implements IUserDAO{
      * @return True if the given credentials match an existing user, false if not.
      * @throws SQLException exception thrown by database
      */
-    public boolean isLogin(String email, String password) throws SQLException {
+    public boolean validateLogin(String email, String password) throws SQLException {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         String query = "SELECT * FROM userDetails WHERE email = ? AND password = ?";
@@ -63,7 +63,7 @@ public class SqliteUserDAO implements IUserDAO{
             if(resultSet.next()){
                 Timestamp lastActive = resultSet.getTimestamp("lastActive");
                 Integer streak = resultSet.getInt("streak");
-                setDailyActivity(lastActive, streak, email);
+                updateDailyActivity(lastActive, streak, email);
                 return true;
             }
             else{
@@ -82,7 +82,7 @@ public class SqliteUserDAO implements IUserDAO{
      * @param email the user's email (unique identifier)
      * @throws SQLException database exception
      */
-    public void setDailyActivity(Timestamp lastActive, Integer streak, String email) throws SQLException {
+    public void updateDailyActivity(Timestamp lastActive, Integer streak, String email) throws SQLException {
         double active = (double) TimeUnit.DAYS.convert(Timestamp.valueOf(LocalDateTime.now()).getTime() - lastActive.getTime(), TimeUnit.MILLISECONDS);
         PreparedStatement activeStatement = connection.prepareStatement("UPDATE userDetails SET streak = ? WHERE email = ?");
             if(active < 1 && streak != 0) {
@@ -108,7 +108,7 @@ public class SqliteUserDAO implements IUserDAO{
      * is separate from the setDailyActivity as the user instance has to be set in the loginController
      * @param email the user's email
      */
-    public void setActivity(String email){
+    public void storeActivity(String email){
         PreparedStatement statement;
         String query = "SELECT streak FROM userDetails WHERE email = ?";
         ResultSet resultSet;
@@ -125,8 +125,37 @@ public class SqliteUserDAO implements IUserDAO{
         }
     }
 
+    public void updateLastPlayed(String email, String set) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE userDetails SET lastPlayed = ? WHERE email = ?");
+        try{
+            preparedStatement.setString(1, set);
+            preparedStatement.setString(2, email);
+            preparedStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void storeLastPlayed(String email){
+        PreparedStatement statement;
+        String query = "SELECT lastPlayed FROM userDetails WHERE email = ?";
+        ResultSet resultSet;
+        try{
+            statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                String updated = resultSet.getString("lastPlayed");
+                UserManager.getInstance().getLoggedInUser().setLastPlayed(updated);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public boolean addUser(User user){
+    public boolean createUser(User user){
         PreparedStatement statement;
         try {
             statement = connection.prepareStatement("INSERT INTO userDetails (firstName, lastName, email, password) VALUES (?, ?, ?, ?)");
@@ -167,4 +196,5 @@ public class SqliteUserDAO implements IUserDAO{
             return null;
         }
     }
+
 }

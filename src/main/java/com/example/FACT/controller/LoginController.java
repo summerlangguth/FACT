@@ -21,7 +21,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Parent;
-import org.apache.commons.logging.Log;
 
 import java.net.URL;
 import java.util.Objects;
@@ -91,11 +90,12 @@ public class LoginController implements Initializable {
             try{
                 String email = emailTextField.getText();
                 String password = passwordField.getText();
-                if(model.isLogin(email, password)){
+                if(model.validateLogin(email, password)){
                     //loginMessageLabel.setText("valid login");
                     User loggedInUser = model.createUserObject(email, password);
                     UserManager.getInstance().setLoggedInUser(loggedInUser);
-                    model.setActivity(email);
+                    model.storeActivity(email);
+                    model.storeLastPlayed(email);
                     loadHomePage(loginButton);
                 }
                else {

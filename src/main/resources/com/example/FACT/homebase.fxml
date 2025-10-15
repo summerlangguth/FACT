@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.Image?>
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0" styleClass="root" stylesheets="@../css/modern.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.BaseController">
 
    <!-- TOP: Custom title bar -->
@@ -20,12 +21,9 @@
 
          <!-- Logo spot (top-left) -->
          <ImageView fx:id="brandingImageView" fitHeight="24.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <!-- Update to your logo path -->
-
-            </image>
+           <Image url="@../../../images/logo.png" />
          </ImageView>
-         <Label styleClass="app-title" text="quick cuts" />
+         <!--<Label styleClass="app-title" text="quick cuts" /> -->
 
          <!-- Spacer pushes window controls to the right -->
          <Region HBox.hgrow="ALWAYS" />

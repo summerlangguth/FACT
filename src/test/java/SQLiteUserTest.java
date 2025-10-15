@@ -1,5 +1,4 @@
 import com.example.FACT.model.*;
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +34,7 @@ public class SQLiteUserTest {
         when(mockResultSet.getTimestamp("lastActive")).thenReturn(Timestamp.from(Instant.now()));
         when(mockResultSet.getInt("streak")).thenReturn(0); /// mock the set activity
         when(mockStatement.executeUpdate()).thenReturn(0); /// allow the update to happen
-        boolean testLogin = userTest.isLogin("test@example.com","Correct");
+        boolean testLogin = userTest.validateLogin("test@example.com","Correct");
         assertTrue(testLogin);
     }
 
@@ -44,13 +43,13 @@ public class SQLiteUserTest {
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
         when(mockStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(false); /// want to fail
-        boolean testLogin = userTest.isLogin("test@example.com","Incorrect");
+        boolean testLogin = userTest.validateLogin("test@example.com","Incorrect");
         assertFalse(testLogin);
     }
     @Test
     public void testLoginException() throws SQLException {
         when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("Returns Error"));
-        boolean testLogin = userTest.isLogin("test@example.com","Incorrect");
+        boolean testLogin = userTest.validateLogin("test@example.com","Incorrect");
         assertFalse(testLogin);
     }
 
@@ -59,7 +58,7 @@ public class SQLiteUserTest {
         User test = new User("Jane", "Smith", "test@email.com", "password");
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
         when(mockStatement.executeUpdate()).thenReturn(1); /// want to pass
-        boolean testRego = userTest.addUser(test);
+        boolean testRego = userTest.createUser(test);
         assertTrue(testRego);
     }
     @Test
@@ -67,7 +66,7 @@ public class SQLiteUserTest {
         User test = new User("Jane", "Smith", "duplicate@email.com", "password");
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
         when(mockStatement.executeUpdate()).thenThrow(new SQLException("UNIQUE email constraint failed"));
-        boolean testRego = userTest.addUser(test);
+        boolean testRego = userTest.createUser(test);
         assertFalse(testRego);
     }
 }

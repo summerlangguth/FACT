@@ -4,7 +4,6 @@ import com.example.FACT.HelloApplication;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.IUserDAO;
 import com.example.FACT.model.User;
-import com.example.FACT.controller.LoginController;
 import com.example.FACT.model.UserManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -92,11 +91,11 @@ public class RegistrationController implements Initializable {
                 try{
                     String email = emailTextField.getText();
                     String password = confirmPasswordField.getText();
-                    if(modelOne.isLogin(email, password)){
+                    if(modelOne.validateLogin(email, password)){
                         //loginMessageLabel.setText("valid login");
                         User loggedInUser = modelOne.createUserObject(email, password);
                         UserManager.getInstance().setLoggedInUser(loggedInUser);
-                        modelOne.setActivity(email);
+                        modelOne.storeActivity(email);
                         loginController.loadHomePage(loginButton);
                     }
                     else {
@@ -162,7 +161,7 @@ public class RegistrationController implements Initializable {
         String password = setPasswordField.getText();
         User user = new User(firstname, lastname, email, password);
         try{
-            if (model.addUser(user)) {
+            if (model.createUser(user)) {
                 registerMessageLabel.setText("Sign up successful");
                 loginButton.setText("LOGIN NOW");
                 validUser = true;

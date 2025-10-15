@@ -16,6 +16,7 @@ public class User {
     private Float accuracy;
     private Integer numIncorrect;
     private Integer numCorrect;
+    private String lastPlayed;
     /**
      * Constructs a new user with the specified first name, last name, email, and password.
      * @param firstName The first name of the user
@@ -103,6 +104,22 @@ public class User {
 
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    /**
+     * sets the set that the user last played
+     * @param lastPlayed the last set the user played
+     */
+    public void setLastPlayed(String lastPlayed){
+        this.lastPlayed = lastPlayed;
+    }
+
+    /**
+     * returns the last set the user played
+     * @return the last set the user played
+     */
+    public String getLastPlayed(){
+        return lastPlayed;
     }
 
     /**

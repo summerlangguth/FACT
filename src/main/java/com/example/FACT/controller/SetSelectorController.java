@@ -1,10 +1,6 @@
 package com.example.FACT.controller;
-
-import com.example.FACT.HelloApplication;
-import com.example.FACT.model.ICreateSetDAO;
-import com.example.FACT.model.KeySets;
-import com.example.FACT.model.Shortcut;
-import com.example.FACT.model.SqliteCreateSetDAO;
+import com.example.FACT.model.UserManager;
+import com.example.FACT.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,10 +12,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -49,7 +45,7 @@ public class SetSelectorController {
 
 
     @FXML
-    private void onStart() throws IOException {
+    private void onStart() throws IOException, SQLException {
 
         // On Start, identifies which app the user has selected.
         String selected = setCombo.getSelectionModel().getSelectedItem();
@@ -58,12 +54,16 @@ public class SetSelectorController {
             return;
         }
 
+
         // Stores all shortcuts into a list that matches the application that has been 'selected'.
         List<KeySets> rows = dao.listKeySetsByApplication(selected);
         if (rows == null || rows.isEmpty()) {
             errorLabel.setText("No shortcuts found for this set.");
             return;
         }
+
+        // sets the set name as the most recent one the user has played
+        UserManager.getInstance().getLoggedInUser().setLastPlayed(selected);
 
         // Iterates through the list, converts into a Shortcut object.
         List<Shortcut> shortcuts = rows.stream()
@@ -84,6 +84,7 @@ public class SetSelectorController {
         stage.setScene(new Scene(baseRoot));
         stage.show();
     }
+
 
 
 

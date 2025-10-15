@@ -8,6 +8,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -34,23 +36,37 @@
                         <Insets top="200.0" />
                      </padding>
                     </Label>
-                    <Label fx:id="activityStreak" alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="152.0" AnchorPane.topAnchor="152.0">
-                        <font>
-                            <Font name="Helvetica Neue Light" size="72.0" />
-                        </font>
-                     <padding>
-                        <Insets top="230.0" />
-                     </padding>
-                    </Label>
+                  <HBox layoutY="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                          <Label fx:id="activityStreak">
+                              <font>
+                                  <Font size="60.0" />
+                              </font>
+                           <padding>
+                              <Insets left="60.0" />
+                           </padding>
+                          </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lastPlayed" alignment="CENTER_RIGHT" contentDisplay="RIGHT">
+                           <font>
+                              <Font size="60.0" />
+                           </font>
+                           <padding>
+                              <Insets right="60.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                      <padding>
+                          <Insets top="30.0" />
+                      </padding>
+                  </HBox>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="1200.0">
                      <font>
                         <Font name="Helvetica Neue Bold" size="36.0" />
                      </font>
-                  </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="318.0" textFill="RED">
-                     <font>
-                        <Font name="Helvetica Neue Light" size="25.0" />
-                     </font>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
                   </Label>
                     <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" styleClass="button-primary,button-solid,button-xl" text="LOGOUT" textFill="WHITE">
                         <font>

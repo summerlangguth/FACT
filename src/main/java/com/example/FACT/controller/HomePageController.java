@@ -35,9 +35,12 @@ public class HomePageController {
     @FXML
     private Label activityStreak;
     @FXML
+    private Label lastPlayed;
+    @FXML
     private Button logoutButton;
     @FXML
     private ImageView brandingImageView;
+    private final RegistrationController registrationController = new RegistrationController();
 
 
 
@@ -48,29 +51,16 @@ public class HomePageController {
         brandingImageView.setImage(brandingImage);
         String userName = UserManager.getInstance().getLoggedInUser().getFirstName();
         Integer active = UserManager.getInstance().getLoggedInUser().getActivity();
+        String set = UserManager.getInstance().getLoggedInUser().getLastPlayed();
         welcomeMessage.setText("Welcome, " + userName);
         activityStreak.setText("Daily Streak: " + active);
+        if(set == null){
+            lastPlayed.setText("Start Practicing Now!");
+        }
+        else{
+            lastPlayed.setText("Last Set Played: " + set);
+        }
     }
 
-    public void onLogout(){
-        try{
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));
-            Parent root = baseLoader.load();
-            Stage logoutStage = new Stage();
-            AuthBaseController baseController = baseLoader.getController();
-            baseController.setContent("/com/example/FACT/login.fxml");
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            logoutStage.initStyle(StageStyle.UNDECORATED);
-            logoutStage.setTitle("Login");
-            logoutStage.setScene(scene);
-            logoutStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-
-    }
+    @FXML private void onLogout() {registrationController.loadLogin(logoutButton);}
 }

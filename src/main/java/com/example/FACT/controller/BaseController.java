@@ -1,6 +1,8 @@
 package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
+import com.example.FACT.model.SqliteUserDAO;
+import com.example.FACT.model.UserManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.SQLException;
 
 public class BaseController {
 
@@ -30,9 +33,10 @@ public class BaseController {
     private double dragOffsetY;
     private boolean maximized = false;
     private Rectangle2D savedBounds;
-    private RegistrationController registrationController = new RegistrationController();
+    private final RegistrationController registrationController = new RegistrationController();
 
     private static final boolean USE_ANCHOR_WRAPPER = false;
+    public SqliteUserDAO model = new SqliteUserDAO();
 
     @FXML
     private void initialize() {
@@ -96,7 +100,11 @@ public class BaseController {
     @FXML private void goCreate()   { setContent("/com/example/FACT/createSet.fxml"); }
     @FXML private void goPlay()     { setContent("/com/example/FACT/setSelector.fxml"); }
     @FXML private void goEdit() { setContent("/com/example/FACT/EditSetView.fxml"); }
-    @FXML private void goLogout() {registrationController.loadLogin(logoutButton);}
+    @FXML private void goLogout() throws SQLException {
+        String email = UserManager.getInstance().getLoggedInUser().getEmail();
+        String lastPlayed = UserManager.getInstance().getLoggedInUser().getLastPlayed();
+        model.updateLastPlayed(email, lastPlayed);
+        registrationController.loadLogin(logoutButton);}
 
     @FXML
     private void onClose() {
