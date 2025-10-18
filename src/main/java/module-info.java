@@ -12,5 +12,6 @@ module com.example.FACT {
     exports com.example.FACT.controller;
     opens com.example.FACT.controller to javafx.fxml;
     exports com.example.FACT.model;
-    opens com.example.FACT.model to javafx.fxml;
+    opens com.example.FACT.model to javafx.fxml,org.mockito, mockito.inline;
+
 }

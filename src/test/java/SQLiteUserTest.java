@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.*;
 import java.time.Instant;
+import java.time.*;
+import java.util.concurrent.TimeUnit;
 /// done by summer n11187450
 import static org.junit.jupiter.api.Assertions.*;
 /// use to create mock data -> safer than testing using an actual database.
@@ -14,6 +16,8 @@ public class SQLiteUserTest {
     private PreparedStatement mockStatement;
     private ResultSet mockResultSet;
     private SqliteUserDAO userTest;
+    private User mockUser;
+    private UserManager mockUserManager;
 
     @BeforeEach
     public void setUp(){
@@ -21,9 +25,13 @@ public class SQLiteUserTest {
         mockConnection = mock(Connection.class);
         mockStatement = mock(PreparedStatement.class);
         mockResultSet = mock(ResultSet.class);
+        mockUser = mock(User.class);
+        mockUserManager = mock(UserManager.class);
 
         userTest = new SqliteUserDAO();
         userTest.setConnection(mockConnection);
+        mockUserManager.setInstance(mockUserManager);
+        when(mockUserManager.getLoggedInUser()).thenReturn(mockUser);
     }
     @Test
     public void testLoginSuccessful() throws SQLException {
@@ -68,5 +76,107 @@ public class SQLiteUserTest {
         when(mockStatement.executeUpdate()).thenThrow(new SQLException("UNIQUE email constraint failed"));
         boolean testRego = userTest.createUser(test);
         assertFalse(testRego);
+    }
+    @Test
+    public void testIncrementDailyActivity() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+
+        // user last active yesterday
+        Timestamp yesterday = Timestamp.valueOf(LocalDateTime.now().minusDays(1));
+        userTest.updateDailyActivity(yesterday, 2, "test@example.com");
+
+        verify(mockStatement).setInt(1, 3); // streak should increment
+        verify(mockStatement).setString(2, "test@example.com");
+        verify(mockStatement).executeUpdate();
+    }
+
+    @Test
+    public void testResetDailyActivity() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+
+        // user last active 2 days ago
+        Timestamp twoDaysAgo = Timestamp.valueOf(LocalDateTime.now().minusDays(2));
+        userTest.updateDailyActivity(twoDaysAgo, 5, "test@example.com");
+
+        verify(mockStatement).setInt(1, 0); // streak reset
+        verify(mockStatement).setString(2, "test@example.com");
+        verify(mockStatement).executeUpdate();
+    }
+
+    @Test
+    public void testKeepDailyActivity() throws SQLException {
+        PreparedStatement spyStatement = spy(mockStatement);
+        when(mockConnection.prepareStatement(anyString())).thenReturn(spyStatement);
+
+        Timestamp now = Timestamp.valueOf(LocalDateTime.now());
+        userTest.updateDailyActivity(now, 3, "test@example.com");
+
+        verify(spyStatement, never()).executeUpdate(); // should not update for same day
+    }
+
+    @Test
+    public void testCreateUserObjectFound() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+        when(mockStatement.executeQuery()).thenReturn(mockResultSet);
+
+        when(mockResultSet.next()).thenReturn(true);
+        when(mockResultSet.getString("firstName")).thenReturn("John");
+        when(mockResultSet.getString("lastName")).thenReturn("Doe");
+
+        User user = userTest.createUserObject("john@doe.com", "pass123");
+
+        assertNotNull(user);
+        assertEquals("John", user.getFirstName());
+        assertEquals("Doe", user.getLastName());
+        assertEquals("john@doe.com", user.getEmail());
+    }
+
+    @Test
+    public void testCreateUserObjectNotFound() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+        when(mockStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(false);
+
+        User user = userTest.createUserObject("john@doe.com", "wrong");
+        assertNull(user);
+    }
+
+    @Test
+    public void testUpdateLastPlayed() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+        userTest.updateLastPlayed("test@example.com", "Game1");
+        verify(mockStatement).setString(1, "Game1");
+        verify(mockStatement).setString(2, "test@example.com");
+        verify(mockStatement).executeUpdate();
+    }
+
+    @Test
+    public void testUpdateLastPlayedThrowsException() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("Error"));
+        assertThrows(SQLException.class, () -> {
+            userTest.updateLastPlayed("test@example.com", "Game1");
+        });
+    }
+
+    @Test
+    public void testStoreActivity() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+        when(mockStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true);
+        when(mockResultSet.getInt("streak")).thenReturn(5);
+
+        userTest.storeActivity("test@example.com");
+        verify(mockUser).setActivity(5);
+    }
+
+    @Test
+    public void testStoreLastPlayed() throws SQLException {
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+        when(mockStatement.executeQuery()).thenReturn(mockResultSet);
+        when(mockResultSet.next()).thenReturn(true);
+        when(mockResultSet.getString("lastPlayed")).thenReturn("GameX");
+
+        userTest.storeLastPlayed("test@example.com");
+        verify(mockUser).setLastPlayed("GameX");
     }
 }
