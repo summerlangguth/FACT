@@ -55,7 +55,7 @@ public class GameEngine {
 
     public String progress() {
         int position = index + 1;
-        int total = shortcuts.size();
+        int total = currentShortcuts.size();
         return position + "/" + total;
     }
 
