@@ -83,17 +83,17 @@ public class GameEngine {
     public boolean checkAndAdvance(KeyEvent e) {
         KeyCombination expected = current().getCombo();
         boolean currentInput = expected.match(e);
-
         if (currentInput) {
             index++;
-            CurrentUser.incrementStreak();
-            CurrentUser.incrementCorrect();
             return true;
         }
         else {
-            CurrentUser.setStreak(0);
-            CurrentUser.incrementIncorrect();
+            index++;
             return false;
         }
+    }
+
+    public void skipSet(){
+        index++;
     }
 }

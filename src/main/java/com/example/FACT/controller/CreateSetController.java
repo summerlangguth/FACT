@@ -286,10 +286,10 @@ public class CreateSetController {
         // mac friendly now!
         if (System.getProperty("os.name").toLowerCase().contains("mac")) {
             keyBind = keyBind
-                    .replace("⌘", "Ctrl")
-                    .replace("⌥", "Alt")
-                    .replace("⇧", "Shift")
-                    .replace("⌃", "Ctrl");
+                    .replace("⌘", "Ctrl+")
+                    .replace("⌥", "Alt+")
+                    .replace("⇧", "Shift+")
+                    .replace("⌃", "Ctrl+");
         }
 
         KeySets keySets = new KeySets(application, Category, difficulty, description, keyBind);

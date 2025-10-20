@@ -39,5 +39,15 @@ public class KeySets {
     public void setDescription(String description) { this.description = description; }
 
     public String getKeyBind() { return keyBind; }
-    public void setKeyBind(String keyBind) { this.keyBind = keyBind; }
+    public void setKeyBind(String keyBind) {
+        // mac friendly now!
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            keyBind = keyBind
+                    .replace("⌘", "Ctrl+")
+                    .replace("⌥", "Alt+")
+                    .replace("⇧", "Shift+")
+                    .replace("⌃", "Ctrl+");
+        }
+        this.keyBind = keyBind;
+    }
 }

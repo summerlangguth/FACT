@@ -1,10 +1,7 @@
 package com.example.FACT.controller;
 
-import com.example.FACT.HelloApplication;
 import com.example.FACT.model.GameEngine;
 import com.example.FACT.model.Shortcut;
-import com.example.FACT.model.User;
-import com.example.FACT.model.UserManager;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -15,17 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -43,12 +37,15 @@ public class GameplayController {
     @FXML private Label statusLabel;
     @FXML private Label progress;
     @FXML private Label streak;
-    @FXML private Button exit;
+    @FXML private Label keysToPress;
+    @FXML private Button exitButton;
+    @FXML private Button skipButton;
     private Stage stage;
     private Scene scene;
     private GameEngine engine;
     private Integer streakNumber;
     private Integer maxStreakNumber; //stored as a local variable
+    private Integer skippedShortCuts;
 
     /**
      * Method that attaches a new GameEngine instance to the GameplayController.
@@ -66,6 +63,7 @@ public class GameplayController {
     private void initialize() {
         streakNumber = 0;
         maxStreakNumber = 0;
+        skippedShortCuts = 0;
         Platform.runLater(() -> {
             root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
         });
@@ -147,6 +145,8 @@ public class GameplayController {
         if (currentShortcut == null) {
             shortcutDescText.setText("All shortcuts complete!");
             streak.setText("Maximum streak: " + maxStreakNumber);
+            statusLabel.setText("Skipped ShortCuts: " + skippedShortCuts);
+            keysToPress.setText("");
             keysPane.getChildren().clear();
             return;
         }
@@ -155,6 +155,7 @@ public class GameplayController {
         keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
         progress.setText(engine.progress());
         streak.setText("Streak: " + streakNumber);
+        keysToPress.setText("Keys to Press:");
     }
 
     /**
@@ -173,7 +174,7 @@ public class GameplayController {
 
         if (combo instanceof KeyCodeCombination k) {
             if (k.getShortcut() == KeyCombination.ModifierValue.DOWN)
-                out.add(cap(isMac ? "⌘" : "Ctrl"));
+                out.add(cap( isMac ? "⌘": "Ctrl"));
             if (k.getShift() == KeyCombination.ModifierValue.DOWN)
                 out.add(cap(isMac ? "⇧" : "Shift"));
             if (k.getAlt() == KeyCombination.ModifierValue.DOWN)
@@ -196,7 +197,12 @@ public class GameplayController {
         l.setStyle("-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;");
         return l;
     }
+    public void skipShortcut(){
+        skippedShortCuts = skippedShortCuts + 1;
+        engine.skipSet();
+        refreshUI();
 
+    }
     public void exitGameplay(ActionEvent event) throws IOException {
         try{
             // Load base shell
@@ -209,7 +215,7 @@ public class GameplayController {
             baseController.setContent("/com/example/FACT/setSelector.fxml");
 
             // Reuse the current stage
-            Stage stage = (Stage) exit.getScene().getWindow();
+            Stage stage = (Stage) exitButton.getScene().getWindow();
             stage.setScene(new Scene(baseRoot));
             stage.show();
         }
