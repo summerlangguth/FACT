@@ -4,11 +4,10 @@ import com.example.FACT.HelloApplication;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.User;
 import com.example.FACT.model.UserManager;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,18 +15,25 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.Parent;
+
+import java.net.URL;
+import java.util.Objects;
 
 import java.io.File;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     @FXML
     private Label welcomeText;
-
+    @FXML
+    private BorderPane root;
     @FXML
     private Label loginMessageLabel;
 
@@ -56,32 +62,41 @@ public class LoginController implements Initializable {
         File brandingfile = new File("images/logo.png");
         Image brandingImage = new Image(brandingfile.toURI().toString());
         brandingImageView.setImage(brandingImage);
+        Platform.runLater(() -> {
+                root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
+        });
 
+    }
+
+    private void onKeyPressed(KeyEvent e){
+        if(e.getCode() == KeyCode.ENTER){
+            loginButtonOnAction();
+        }
     }
 
     /**
      * creates the registration form
-     * @param event signup button click
      */
-    public void signButtonOnAction(ActionEvent event){
+    public void signButtonOnAction(){
         createAccountForm();
     }
 
     /**
      * validates user credentials and calls isLogin to check.
-     * @param event login bytton click
      */
-    public void loginButtonOnAction(ActionEvent event){
+    public void loginButtonOnAction(){
         loginMessageLabel.setText("");
         if(!emailTextField.getText().isBlank() && !passwordField.getText().isBlank()){
             try{
                 String email = emailTextField.getText();
                 String password = passwordField.getText();
-                if(model.isLogin(email, password)){
+                if(model.validateLogin(email, password)){
                     //loginMessageLabel.setText("valid login");
                     User loggedInUser = model.createUserObject(email, password);
                     UserManager.getInstance().setLoggedInUser(loggedInUser);
-                    loadHomePage();
+                    model.storeActivity(email);
+                    model.storeLastPlayed(email);
+                    loadHomePage(loginButton);
                 }
                else {
                     loginMessageLabel.setText("Email or password is incorrect");
@@ -106,43 +121,19 @@ public class LoginController implements Initializable {
         stage.close();
     }
 
-//    public void validateLogin(){
-//        DatabaseConnection connectNow = new DatabaseConnection();
-//        Connection connectDB = connectNow.getConnection();
-//        String verifyLogin = "SELECT count(1) FROM user_account WHERE email = '" + emailTextField.getText() + "' AND password = '"+ passwordField.getText() + "'";
-//
-//        try{
-//            Statement statement = connectDB.createStatement();
-//            ResultSet queryResult = statement.executeQuery(verifyLogin);
-//
-//            while(queryResult.next()){
-//                if(queryResult.getInt(1) == 1) {
-//                    loginMessageLabel.setText("Correct Login");
-//                }
-//                else{
-//                    loginMessageLabel.setText("Invalid Login. Try again or sign up");
-//                }
-//            }
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//            e.getCause();
-//        }
-//    }
-
-    /**
-     * closes the current stage and loads a new stage with the registration content
-     */
     public void createAccountForm(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register.fxml"));
-            Stage registerStage = new Stage();
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));
+            Parent root = baseLoader.load();
+            Stage logoutStage = new Stage();
+            AuthBaseController baseController = baseLoader.getController();
+            baseController.setContent("/com/example/FACT/register.fxml");
             Stage currentStage = (Stage) signButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            registerStage.initStyle(StageStyle.UNDECORATED);
-            registerStage.setTitle("Create Account");
-            registerStage.setScene(scene);
-            registerStage.show();
+            Scene scene = new Scene(root);
+            logoutStage.initStyle(StageStyle.UNDECORATED);
+            logoutStage.setTitle("Register");
+            logoutStage.setScene(scene);
+            logoutStage.show();
             currentStage.hide();
         }
         catch(Exception e){
@@ -152,32 +143,25 @@ public class LoginController implements Initializable {
 
     }
 
-    public void loadHomePage(){
-        try{
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
+    public void loadHomePage(Button loginButton) {
+        try {
+            // Load base shell
+            URL baseUrl = getClass().getResource("/com/example/FACT/homebase.fxml");
+            FXMLLoader baseLoader = new FXMLLoader(Objects.requireNonNull(baseUrl, "homebase.fxml not found"));
+            Parent baseRoot = baseLoader.load();
 
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
+            // Ask BaseController to show Home inside the center
+            com.example.FACT.controller.BaseController baseController = baseLoader.getController();
             baseController.setContent("/com/example/FACT/homepage.fxml");
 
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) loginButton.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
+            // Reuse the current stage
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene(baseRoot));
+            stage.show();
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
+
 }

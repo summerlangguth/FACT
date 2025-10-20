@@ -1,5 +1,7 @@
 package com.example.FACT.model;
 
+import java.sql.Connection;
+
 public class UserManager {
     private static UserManager instance;
     private User loggedInUser;
@@ -9,6 +11,14 @@ public class UserManager {
             instance = new UserManager();
         }
         return instance;
+    }
+
+    /**
+     * used for testing
+     * @param instance
+     */
+    public static void setInstance(UserManager instance) {
+        UserManager.instance = instance;
     }
     public void setLoggedInUser(User user){this.loggedInUser = user;}
     public User getLoggedInUser(){return this.loggedInUser;}

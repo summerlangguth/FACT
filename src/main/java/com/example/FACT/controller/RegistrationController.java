@@ -1,13 +1,15 @@
 package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
-import com.example.FACT.model.IUserDAO;
 import com.example.FACT.model.SqliteUserDAO;
+import com.example.FACT.model.IUserDAO;
 import com.example.FACT.model.User;
-import javafx.event.ActionEvent;
+import com.example.FACT.model.UserManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,11 +17,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -37,6 +43,8 @@ public class RegistrationController implements Initializable {
     @FXML
     private Button closeButton;
     @FXML
+    private BorderPane root;
+    @FXML
     private Label registerMessageLabel;
     @FXML
     private Label confirmPasswordLabel;
@@ -51,28 +59,68 @@ public class RegistrationController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     public IUserDAO model = new SqliteUserDAO();
+    public SqliteUserDAO modelOne = new SqliteUserDAO();
+    public LoginController loginController = new LoginController();
+    /// kept as a global variable for testing purposes
     private String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+    /// used to change login to properly log the user in
+    private Boolean validUser = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         File brandingfile = new File("images/logo.png");
         Image brandingImage = new Image(brandingfile.toURI().toString());
         brandingImageView.setImage(brandingImage);
+        Platform.runLater(() -> {
+            root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
+        });
+    }
 
+    private void onKeyPressed(KeyEvent e){
+        if(e.getCode() == KeyCode.ENTER){
+            signUpButtonOnAction();
+        }
     }
 
     /**
      * loads the login page
      */
     public void loginButtonOnAction(){
-        loadLogin();
+        if(validUser){
+            if(!emailTextField.getText().isBlank() && !confirmPasswordField.getText().isBlank()){
+                try{
+                    String email = emailTextField.getText();
+                    String password = confirmPasswordField.getText();
+                    if(modelOne.validateLogin(email, password)){
+                        //loginMessageLabel.setText("valid login");
+                        User loggedInUser = modelOne.createUserObject(email, password);
+                        UserManager.getInstance().setLoggedInUser(loggedInUser);
+                        modelOne.storeActivity(email);
+                        loginController.loadHomePage(loginButton);
+                    }
+                    else {
+                        registerMessageLabel.setText("Email or password is incorrect");
+                    }
+                }
+                catch(SQLException e){
+                    registerMessageLabel.setText("Email or password is incorrect");
+                    e.printStackTrace();
+                }
+
+            }
+            else{
+                registerMessageLabel.setText("Please enter both email and password");
+            }
+        }
+        else{
+            loadLogin(loginButton);
+        }
     }
 
     /**
      * validates user data and returns relevant message
-     * @param event click of the signup button
      */
-    public void signUpButtonOnAction(ActionEvent event){
+    public void signUpButtonOnAction(){
         registerMessageLabel.setText("");
         confirmPasswordLabel.setText("");
         if(!emailTextField.getText().isBlank() && !setPasswordField.getText().isBlank() && !firstNameTextField.getText().isBlank() && !lastNameTextField.getText().isBlank()){
@@ -113,8 +161,10 @@ public class RegistrationController implements Initializable {
         String password = setPasswordField.getText();
         User user = new User(firstname, lastname, email, password);
         try{
-            if (model.addUser(user)) {
+            if (model.createUser(user)) {
                 registerMessageLabel.setText("Sign up successful");
+                loginButton.setText("LOGIN NOW");
+                validUser = true;
             }
             else{
                 registerMessageLabel.setText("Please ensure all details are valid");
@@ -128,16 +178,19 @@ public class RegistrationController implements Initializable {
     /**
      * closes the current stage and opens a new one with the login content
      */
-    public void loadLogin(){
+    public void loadLogin(Button loginButton){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));
+            Parent root = baseLoader.load();
+            Stage logoutStage = new Stage();
+            AuthBaseController baseController = baseLoader.getController();
+            baseController.setContent("/com/example/FACT/login.fxml");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
-            Stage stage = new Stage();
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("Login");
-            stage.setScene(scene);
-            stage.show();
+            Scene scene = new Scene(root);
+            logoutStage.initStyle(StageStyle.UNDECORATED);
+            logoutStage.setTitle("Login");
+            logoutStage.setScene(scene);
+            logoutStage.show();
             currentStage.hide();
         }
         catch(Exception e){

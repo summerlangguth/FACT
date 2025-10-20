@@ -33,110 +33,34 @@ public class HomePageController {
     @FXML
     private Label welcomeMessage;
     @FXML
-    private Button homepagePracButton;
-    @FXML
     private Label activityStreak;
     @FXML
-    private Button logoutButton;
-
+    private Label lastPlayed;
     @FXML
-    private Button createButton;
+    private Button logoutButton;
+    @FXML
+    private ImageView brandingImageView;
+    private final RegistrationController registrationController = new RegistrationController();
+
 
 
     @FXML
     private void initialize(){
+        File brandingfile = new File("images/logo.png");
+        Image brandingImage = new Image(brandingfile.toURI().toString());
+        brandingImageView.setImage(brandingImage);
         String userName = UserManager.getInstance().getLoggedInUser().getFirstName();
-        welcomeMessage.setText("Welcome," + userName);
+        Integer active = UserManager.getInstance().getLoggedInUser().getActivity();
+        String set = UserManager.getInstance().getLoggedInUser().getLastPlayed();
+        welcomeMessage.setText("Welcome, " + userName);
+        activityStreak.setText("Daily Streak: " + active);
+        if(set == null){
+            lastPlayed.setText("Start Practicing Now!");
+        }
+        else{
+            lastPlayed.setText("Last Set Played: " + set);
+        }
     }
 
-    public void onHomePracButton(){
-        try{
-
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            FXMLLoader gameLoader = new FXMLLoader(HelloApplication.class.getResource("gameplay.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml and get the controller
-            GameplayController gameController = baseController.setDemoContent("/com/example/FACT/gameplay.fxml");
-
-            List<Shortcut> demoShortcuts = List.of(
-                    new Shortcut("Copy", new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN)),
-                    new Shortcut("Paste", new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN))
-            );
-
-            // Load homepage.fxml into the content area
-            GameEngine engine = new GameEngine(demoShortcuts);
-            gameController.setEngine(engine);
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) homepagePracButton.getScene().getWindow();
-
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-
-    }
-
-    public void onLogout(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
-            Stage logoutStage = new Stage();
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            Scene scene = new Scene(fxmlLoader.load());
-            logoutStage.initStyle(StageStyle.UNDECORATED);
-            logoutStage.setTitle("Login");
-            logoutStage.setScene(scene);
-            logoutStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-
-    }
-
-    public void onCreateButton(){
-        try{
-            // Load homebase layout
-            FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("homebase.fxml"));
-            Parent root = baseLoader.load();
-
-            // Get controller of homebase
-            HomeBaseController baseController = baseLoader.getController();
-
-            // Load homepage.fxml into the content area
-            baseController.setContent("/com/example/FACT/createSet.fxml");
-
-            // Get current stage from the login button
-            Stage newStage = new Stage();
-            Stage currentStage = (Stage) createButton.getScene().getWindow();
-            // Set the new scene with the base layout
-            Scene scene = new Scene(root);
-            newStage.setScene(scene);
-            newStage.initStyle(StageStyle.UNDECORATED);
-            newStage.show();
-            currentStage.hide();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            e.getCause();
-        }
-
-    }
-
+    @FXML private void onLogout() {registrationController.loadLogin(logoutButton);}
 }

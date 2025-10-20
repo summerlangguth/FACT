@@ -1,6 +1,5 @@
 package com.example.FACT.model;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import java.util.Collections;
@@ -8,46 +7,50 @@ import java.util.List;
 
 public class GameEngine {
 
-
-    //private User CurrentUser = UserManager.getInstance().getLoggedInUser();
-
     /**
-     * List containing shortcut objects. Initialises an empty list.
+     * Retrieves current user.
      */
-    private List<Shortcut> shortcuts = Collections.emptyList();
+    private User CurrentUser = UserManager.getInstance().getLoggedInUser();
+
     /**
-     * An integer representing the shortcut we are on. This can be used at the end to also identify how many were answered wrongly.
+     * Empty shortcut list.
+     */
+    private List<Shortcut> currentShortcuts = Collections.emptyList();
+
+    /**
+     * Progress integer.
      */
     private int index = 0;
 
     public GameEngine(List<Shortcut> shortcuts) {
-        setShortcuts(shortcuts);
+        setCurrentShortcuts(shortcuts);
     }
 
     /**
-     * Copies a list of shortcuts and pastes into the GameEngine.
+     * Updates the current list of shortcuts. If the provided list is null, an empty list is assigned.
+     * Resets the progress index after updating the shortcuts.
      *
-     * @param list shortcut list to be used for Gameplay.
+     * @param list the new list of Shortcut objects to be set. If null, the current list will be set
+     *             to an empty list.
      */
-    public final void setShortcuts(List<Shortcut> list) {
-        this.shortcuts = (list != null) ? List.copyOf(list) : Collections.emptyList();
+    public final void setCurrentShortcuts(List<Shortcut> list) {
+        this.currentShortcuts = (list != null) ? List.copyOf(list) : Collections.emptyList();
         reset();
     }
 
     /**
-     * Reset index and correct to 0.
+     * Resets index to 0.
      */
     public void reset() {
         index = 0;
     }
 
     /**
-     * Returns which position the current shortcut is in the list.
-     *
-     * @return Integer for index position, or null if finished.
+     * Retrieves the current shortcut from the list based on the index.
+     * @return the current Shortcut object at the specified index, or null if the index exceeds the list size.
      */
     public Shortcut current() {
-        return (index < shortcuts.size()) ? shortcuts.get(index) : null;
+        return (index < currentShortcuts.size()) ? currentShortcuts.get(index) : null;
     }
 
     public String progress() {
@@ -58,19 +61,20 @@ public class GameEngine {
 
     /**
      * Compares shortcut number to size of list, if equal or bigger, the course is finished.
-     *
-     * @return boolean value.
+     * @return Boolean True if finished, otherwise False.
      */
     public boolean isFinished() {
-        return index >= shortcuts.size();
+        return index >= currentShortcuts.size();
     }
 
     /**
-     * Checks to see if user input matches the expected key event combo. If able to move on, will increase correct
-     * and index respectively.
+     * Validates the provided key event against the current shortcut's key combination. If the key
+     * event matches the expected combination, the progress index is incremented, and the user's streak
+     * and correct answer count are updated. If the key event does not match, the user's streak is reset,
+     * and their incorrect answer count is incremented.
      *
-     * @param e key combination entered
-     *          // @return returns boolean value to see if the next shortcut can be loaded,
+     * @param e the KeyEvent to be validated against the current shortcut's key combination
+     * @return true if the provided key event matches the current shortcut's key combination, false otherwise
      */
 
     public boolean checkAndAdvance(KeyEvent e) {

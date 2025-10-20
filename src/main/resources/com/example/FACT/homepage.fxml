@@ -1,57 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomePageController">
+<VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" stylesheets="@../css/modern.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomePageController">
     <children>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-         <padding>
-            <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
-         </padding>
+        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <padding>
+                <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
+            </padding>
          <top>
             <AnchorPane BorderPane.alignment="TOP_CENTER">
                <children>
-                    <Label fx:id="welcomeMessage" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0">
+                       <ImageView fx:id="brandingImageView" fitHeight="140.0" fitWidth="500.0" layoutX="360.0" layoutY="10.0" pickOnBounds="true">
+                           <viewport>
+                               <Rectangle2D />
+                           </viewport>
+                           <Image url="@../../../images/logo.png" />
+                       </ImageView>
+                    <Label fx:id="welcomeMessage" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0">
                         <font>
                             <Font name="Helvetica Neue Light" size="96.0" />
                         </font>
+                     <padding>
+                        <Insets top="200.0" />
+                     </padding>
                     </Label>
-                    <Label fx:id="activityStreak" alignment="CENTER" contentDisplay="CENTER" layoutX="452.0" layoutY="152.0" AnchorPane.leftAnchor="452.0" AnchorPane.topAnchor="152.0">
-                        <font>
-                            <Font name="Helvetica Neue Light" size="72.0" />
-                        </font>
-                    </Label>
+                  <HBox layoutY="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                          <Label fx:id="activityStreak">
+                              <font>
+                                  <Font size="60.0" />
+                              </font>
+                           <padding>
+                              <Insets left="60.0" />
+                           </padding>
+                          </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lastPlayed" alignment="CENTER_RIGHT" contentDisplay="RIGHT">
+                           <font>
+                              <Font size="60.0" />
+                           </font>
+                           <padding>
+                              <Insets right="60.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                      <padding>
+                          <Insets top="30.0" />
+                      </padding>
+                  </HBox>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="1200.0">
                      <font>
                         <Font name="Helvetica Neue Bold" size="36.0" />
                      </font>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="318.0" textFill="RED">
-                     <font>
-                        <Font name="Helvetica Neue Light" size="25.0" />
-                     </font>
-                  </Label>
-                    <Button fx:id="homepagePracButton" layoutX="432.0" layoutY="437.0" onAction="#onHomePracButton" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="PRACTICE" textFill="WHITE">
+                    <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" styleClass="button-primary,button-solid,button-xl" text="LOGOUT" textFill="WHITE">
                         <font>
                             <Font name="Helvetica Bold" size="30.0" />
                         </font>
                     </Button>
-                    <Button fx:id="logoutButton" layoutX="432.0" layoutY="589.0" onAction="#onLogout" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="LOGOUT" textFill="WHITE">
-                        <font>
-                            <Font name="Helvetica Bold" size="30.0" />
-                        </font>
-                    </Button>
-                   <Button fx:id="createButton" layoutX="432.0" layoutY="511.0" onAction="#onCreateButton" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: #3578C9;" text="CREATE" textFill="WHITE">
-                       <font>
-                           <Font name="Helvetica Bold" size="30.0" />
-                       </font>
-                   </Button>
                </children>
                <padding>
                   <Insets bottom="25.0" />

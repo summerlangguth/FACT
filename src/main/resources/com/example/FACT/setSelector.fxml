@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.SetSelectorController" stylesheets="@../css/modern.css" styleClass="scene-root content">
+    <VBox alignment="CENTER" spacing="16" style="-fx-padding: 24;">
+        <Label text="Choose a shortcut set to practice" styleClass="page-title, label-bold"/>
+        <VBox spacing="8" alignment="CENTER">
+            <Label text="Shortcut set" styleClass="form-label"/>
+            <ComboBox fx:id="setCombo" promptText="Select a set…" prefWidth="420"/>
+        </VBox>
+        <Button fx:id="startBtn" text="PLAY!" onAction="#onStart" defaultButton="true"/>
+        <Label fx:id="errorLabel" textFill="red"/>
+    </VBox>
+</StackPane>
