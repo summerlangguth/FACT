@@ -47,6 +47,8 @@ public class GameplayController {
     private Stage stage;
     private Scene scene;
     private GameEngine engine;
+    private Integer streakNumber;
+    private Integer maxStreakNumber; //stored as a local variable
 
     /**
      * Method that attaches a new GameEngine instance to the GameplayController.
@@ -62,6 +64,8 @@ public class GameplayController {
      */
     @FXML
     private void initialize() {
+        streakNumber = 0;
+        maxStreakNumber = 0;
         Platform.runLater(() -> {
             root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
         });
@@ -103,12 +107,16 @@ public class GameplayController {
             return;
         }
 
-        if ((e.getCode() == KeyCode.CONTROL)||(e.getCode() == KeyCode.SHIFT)||(e.getCode() == KeyCode.ALT)||(e.getCode() == KeyCode.TAB)){
+        if ((e.getCode() == KeyCode.CONTROL)||(e.getCode() == KeyCode.SHIFT)||(e.getCode() == KeyCode.ALT)||(e.getCode() == KeyCode.TAB)||(e.getCode() == KeyCode.COMMAND)){
             showStatus(" ", "#c62828");
         }
         else {
             boolean inputStatus = engine.checkAndAdvance(e);
             if (inputStatus) {
+                streakNumber = streakNumber + 1;
+                if(streakNumber > maxStreakNumber){
+                    maxStreakNumber = streakNumber;
+                }
                 showStatus("CORRECT", "#2e7d32");
                 PauseTransition pause = new PauseTransition(Duration.seconds(2));
                 pause.setOnFinished(ev -> {
@@ -118,6 +126,7 @@ public class GameplayController {
                 pause.play();
             }
             else{
+                streakNumber = 0;
                 showStatus("INCORRECT", "ED2A00");
                 PauseTransition pause = new PauseTransition(Duration.seconds(2));
                 pause.setOnFinished(ev -> {
@@ -137,6 +146,7 @@ public class GameplayController {
         Shortcut currentShortcut = engine.current();
         if (currentShortcut == null) {
             shortcutDescText.setText("All shortcuts complete!");
+            streak.setText("Maximum streak: " + maxStreakNumber);
             keysPane.getChildren().clear();
             return;
         }
@@ -144,8 +154,7 @@ public class GameplayController {
         shortcutDescText.setText(currentShortcut.getDescription());
         keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
         progress.setText(engine.progress());
-        streak.setText("Streak: poop");
-        // streak.setText("Streak: " + Integer.toString(CurrentUser.getStreak()));
+        streak.setText("Streak: " + streakNumber);
     }
 
     /**
