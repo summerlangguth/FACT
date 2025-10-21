@@ -1,6 +1,7 @@
 package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
+import com.example.FACT.model.PasswordUtils;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.User;
 import com.example.FACT.model.UserManager;
@@ -92,7 +93,7 @@ public class LoginController implements Initializable {
                 String password = passwordField.getText();
                 if(model.validateLogin(email, password)){
                     //loginMessageLabel.setText("valid login");
-                    User loggedInUser = model.createUserObject(email, password);
+                    User loggedInUser = model.createUserObject(email, PasswordUtils.getInstance().getPasswordHash());
                     UserManager.getInstance().setLoggedInUser(loggedInUser);
                     model.storeActivity(email);
                     model.storeLastPlayed(email);

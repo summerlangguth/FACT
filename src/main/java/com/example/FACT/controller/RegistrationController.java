@@ -1,10 +1,7 @@
 package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
-import com.example.FACT.model.SqliteUserDAO;
-import com.example.FACT.model.IUserDAO;
-import com.example.FACT.model.User;
-import com.example.FACT.model.UserManager;
+import com.example.FACT.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -93,8 +90,6 @@ public class RegistrationController implements Initializable {
                     String password = confirmPasswordField.getText();
                     if(modelOne.validateLogin(email, password)){
                         //loginMessageLabel.setText("valid login");
-                        User loggedInUser = modelOne.createUserObject(email, password);
-                        UserManager.getInstance().setLoggedInUser(loggedInUser);
                         modelOne.storeActivity(email);
                         loginController.loadHomePage(loginButton);
                     }
@@ -158,8 +153,8 @@ public class RegistrationController implements Initializable {
         String firstname = firstNameTextField.getText();
         String lastname = lastNameTextField.getText();
         String email = emailTextField.getText();
-        String password = setPasswordField.getText();
-        User user = new User(firstname, lastname, email, password);
+        String hashedPassword = PasswordUtils.hashPassword(setPasswordField.getText());
+        User user = new User(firstname, lastname, email, hashedPassword);
         try{
             if (model.createUser(user)) {
                 registerMessageLabel.setText("Sign up successful");

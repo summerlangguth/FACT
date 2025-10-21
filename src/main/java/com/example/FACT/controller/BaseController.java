@@ -1,6 +1,7 @@
 package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
+import com.example.FACT.model.PasswordUtils;
 import com.example.FACT.model.SqliteUserDAO;
 import com.example.FACT.model.UserManager;
 import javafx.application.Platform;
@@ -104,7 +105,10 @@ public class BaseController {
         String email = UserManager.getInstance().getLoggedInUser().getEmail();
         String lastPlayed = UserManager.getInstance().getLoggedInUser().getLastPlayed();
         model.updateLastPlayed(email, lastPlayed);
-        registrationController.loadLogin(logoutButton);}
+        UserManager.setInstance(null);
+        PasswordUtils.setInstance(null);
+        registrationController.loadLogin(logoutButton);
+    }
 
     @FXML
     private void onClose() {

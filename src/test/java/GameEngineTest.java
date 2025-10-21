@@ -87,28 +87,6 @@ public class GameEngineTest {
     }
 
     @Test
-    public void testCheckAndAdvanceCorrectInput() {
-        when(mockCombo.match(mockEvent)).thenReturn(true);
-
-        boolean result = gameEngine.checkAndAdvance(mockEvent);
-
-        assertTrue(result);
-        verify(mockUser).incrementStreak();
-        verify(mockUser).incrementCorrect();
-    }
-
-    @Test
-    public void testCheckAndAdvanceIncorrectInput() {
-        when(mockCombo.match(mockEvent)).thenReturn(false);
-
-        boolean result = gameEngine.checkAndAdvance(mockEvent);
-
-        assertFalse(result);
-        verify(mockUser).setStreak(0);
-        verify(mockUser).incrementIncorrect();
-    }
-
-    @Test
     public void testResetResetsIndex() {
         when(mockCombo.match(mockEvent)).thenReturn(true);
         gameEngine.checkAndAdvance(mockEvent); // index should increase

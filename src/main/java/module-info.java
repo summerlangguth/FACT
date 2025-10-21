@@ -5,6 +5,7 @@ module com.example.FACT {
     requires java.sql;
     requires java.desktop;
     requires commons.logging;
+    requires spring.security.crypto;
 
 
     opens com.example.FACT to javafx.fxml;

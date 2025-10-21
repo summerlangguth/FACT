@@ -1,10 +1,7 @@
 package com.example.FACT.controller;
 
 import com.example.FACT.HelloApplication;
-import com.example.FACT.model.GameEngine;
-import com.example.FACT.model.Shortcut;
-import com.example.FACT.model.SqliteUserDAO;
-import com.example.FACT.model.UserManager;
+import com.example.FACT.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,5 +59,8 @@ public class HomePageController {
         }
     }
 
-    @FXML private void onLogout() {registrationController.loadLogin(logoutButton);}
+    @FXML private void onLogout() {
+        UserManager.setInstance(null);
+        PasswordUtils.setInstance(null);
+        registrationController.loadLogin(logoutButton);}
 }

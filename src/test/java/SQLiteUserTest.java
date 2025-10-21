@@ -42,6 +42,8 @@ public class SQLiteUserTest {
         when(mockResultSet.getTimestamp("lastActive")).thenReturn(Timestamp.from(Instant.now()));
         when(mockResultSet.getInt("streak")).thenReturn(0); /// mock the set activity
         when(mockStatement.executeUpdate()).thenReturn(0); /// allow the update to happen
+        String hashed = PasswordUtils.hashPassword("Correct");
+        when(mockResultSet.getString("password")).thenReturn(hashed); ///allow mocked hashing
         boolean testLogin = userTest.validateLogin("test@example.com","Correct");
         assertTrue(testLogin);
     }

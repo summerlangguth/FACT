@@ -33,7 +33,7 @@ public class SqliteUserDAO implements IUserDAO{
                     + "firstName VARCHAR NOT NULL,"
                     + "lastName VARCHAR NOT NULL,"
                     + "email VARCHAR NOT NULL UNIQUE,"
-                    + "password VARCHAR NOT NULL,"
+                    + "passwordHash TEXT NOT NULL,"
                     + "lastActive TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
                     + "streak INTEGER"
                     + "lastPlayed VARCHAR"
@@ -54,17 +54,22 @@ public class SqliteUserDAO implements IUserDAO{
     public boolean validateLogin(String email, String password) throws SQLException {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
-        String query = "SELECT * FROM userDetails WHERE email = ? AND password = ?";
+        String query = "SELECT * FROM userDetails WHERE email = ?";
         try{
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                Timestamp lastActive = resultSet.getTimestamp("lastActive");
-                Integer streak = resultSet.getInt("streak");
-                updateDailyActivity(lastActive, streak, email);
-                return true;
+                String hashpassword = resultSet.getString("hashPassword");
+                if(PasswordUtils.verifyPassword(password, hashpassword))
+                {
+                    Timestamp lastActive = resultSet.getTimestamp("lastActive");
+                    Integer streak = resultSet.getInt("streak");
+                    updateDailyActivity(lastActive, streak, email);
+                    PasswordUtils.getInstance().setPasswordHash(hashpassword);
+                    return true;
+                }
+                return false;
             }
             else{
                 return false;
@@ -158,7 +163,7 @@ public class SqliteUserDAO implements IUserDAO{
     public boolean createUser(User user){
         PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("INSERT INTO userDetails (firstName, lastName, email, password) VALUES (?, ?, ?, ?)");
+            statement = connection.prepareStatement("INSERT INTO userDetails (firstName, lastName, email, hashPassword) VALUES (?, ?, ?, ?)");
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
@@ -176,7 +181,7 @@ public class SqliteUserDAO implements IUserDAO{
     public User createUserObject(String email, String password) throws SQLException{
         PreparedStatement preparedStatement;
         ResultSet resultSet;
-        String query = "SELECT * FROM userDetails WHERE email = ? AND password = ?";
+        String query = "SELECT * FROM userDetails WHERE email = ? AND hashPassword = ?";
         try{
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, email);
