@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.StackPane?>
 <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #fff;" stylesheets="@../css/modern.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.HomePageController">
     <children>
         <BorderPane>
@@ -22,13 +23,18 @@
          <top>
             <AnchorPane BorderPane.alignment="TOP_CENTER">
                <children>
-                       <ImageView fx:id="brandingImageView" fitHeight="140.0" fitWidth="500.0" layoutX="360.0" layoutY="10.0" pickOnBounds="true">
+                   <StackPane AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="0.0"
+                              AnchorPane.bottomAnchor="0.0"
+                              alignment="TOP_CENTER">
+                       <ImageView fx:id="brandingImageView" fitHeight="140.0" fitWidth="500.0" pickOnBounds="true">
                            <viewport>
                                <Rectangle2D />
                            </viewport>
                            <Image url="@../../../images/logo.png" />
                        </ImageView>
-
+                   </StackPane>
                     <Label fx:id="welcomeMessage" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" alignment="CENTER" contentDisplay="CENTER" styleClass="main-heading">
                         <padding>
                             <Insets top="200.0" />
