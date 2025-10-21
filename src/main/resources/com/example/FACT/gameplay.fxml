@@ -11,15 +11,14 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <!-- When UI loads, the FXML is linked to the GamePlay Controller -->
 
-<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="-1.0" stylesheets="@../css/modern.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.GameplayController">
+<BorderPane fx:id="root" styleClass="scene-root content" stylesheets="@../css/modern.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.GameplayController">
     <!-- This holds the description of the shortcut and shortcut buttons required. -->
     <center>
-        <VBox alignment="TOP_CENTER">
+        <VBox alignment="CENTER" spacing="40">
             <padding>
             <Insets top="50" />
          </padding>
@@ -28,49 +27,45 @@
                     <ColumnConstraints hgrow="ALWAYS" percentWidth="100" />
                 </columnConstraints>
 
-                <VBox alignment="CENTER" minHeight="-Infinity" prefHeight="216.0" prefWidth="820.0" spacing="12.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER" minHeight="-Infinity" spacing="12.0" GridPane.columnIndex="0">
                     <!-- STREAK COUNT -->
-                    <Label fx:id="streak" styleClass="label-bold" />
+                    <Label fx:id="streak" styleClass="form-label" />
                     <!-- KEYS TO PRESS -->
-                    <Label fx:id="keysToPress" contentDisplay="CENTER" prefHeight="51.0" prefWidth="222.0" styleClass="label-bold" text="">
-                  <font>
-                     <Font size="22.0" />
-                  </font></Label>
-                    <FlowPane fx:id="keysPane" alignment="CENTER" columnHalignment="CENTER" hgap="8" vgap="8">
-                        <Label prefHeight="32.0" prefWidth="20.0" style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;" />
-                        <Label style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;" />
-                        <Label style="-fx-padding: 8 12; -fx-background-color: #e9edf3; -fx-background-radius: 6; -fx-font-weight: bold;" />
+                    <Label fx:id="keysToPress" alignment="CENTER" styleClass="form-header" />
+                    <FlowPane fx:id="keysPane" alignment="CENTER" columnHalignment="CENTER" hgap="8" style="-fx-font-size: 28px" vgap="8">
+                        <Label styleClass="keybind-display" />
+                        <Label styleClass="keybind-display" />
+                        <Label styleClass="keybind-display" />
                     </FlowPane>
                     <!-- SHORTCUT DESCRIPTION-->
-                    <Text fx:id="shortcutDescText" text="Brief description of what this shortcut does and when to use it." textAlignment="CENTER" wrappingWidth="700.0">
-                  <font>
-                     <Font size="17.0" />
-                  </font></Text>
-               <Button fx:id="skipButton" onAction="#skipShortcut" text="SKIP" />
+                    <Text fx:id="shortcutDescText" styleClass="form-label" text="Brief description of what this shortcut does and when to use it." textAlignment="CENTER" wrappingWidth="700.0">
+                        <VBox.margin>
+                            <Insets top="8" />
+                        </VBox.margin>
+                    </Text>
+
                 </VBox>
                 <rowConstraints>
                     <RowConstraints />
                 </rowConstraints>
             </GridPane>
+            <Button fx:id="skipButton" onAction="#skipShortcut" style="-fx-font-size: 15px" text="SKIP"/>
         </VBox>
     </center>
    <bottom>
       <BorderPane prefHeight="69.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <right>
-            <Label fx:id="progress" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="52.0" styleClass="label-bold" textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT" />
+            <Label fx:id="progress" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="label-bold" textAlignment="RIGHT" BorderPane.alignment="CENTER_RIGHT" />
          </right>
          <center>
-             <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="20.0" prefWidth="367.0" style="-fx-font-size: 16px;" BorderPane.alignment="CENTER">
+             <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" styleClass="form-label" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="20.0" />
                </BorderPane.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
             </Label>
          </center>
          <padding>
-            <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+            <Insets bottom="15" left="16.0" right="16.0" top="8.0" />
          </padding>
       </BorderPane>
    </bottom>
@@ -78,12 +73,12 @@
       <HBox alignment="CENTER" prefHeight="52.0" prefWidth="880.0" style="-fx-background-color: #dedfe0;" BorderPane.alignment="CENTER">
          <children>
                <!-- APPLICATION TITLE -->
-               <Label fx:id="appTitleLabel" prefHeight="33.0" prefWidth="183.0" styleClass="label-bold">
+               <Label fx:id="appTitleLabel" styleClass="label-bold">
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" right="20.0" />
                </padding>
             </Label>
-            <Button fx:id="exitButton" onAction="#exitGameplay" prefHeight="33.0" styleClass="button,button-primary,button-solid" text="EXIT" />
+            <Button fx:id="exitButton" onAction="#exitGameplay" prefHeight="33.0" style="-fx-font-size: 16px" styleClass="button,button-primary" text="EXIT" />
             <Region prefHeight="38.0" prefWidth="503.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>

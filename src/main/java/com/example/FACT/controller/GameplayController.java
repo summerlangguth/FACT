@@ -145,8 +145,8 @@ public class GameplayController {
         if (currentShortcut == null) {
             shortcutDescText.setText("All shortcuts complete!");
             streak.setText("Maximum streak: " + maxStreakNumber);
-            statusLabel.setText("Skipped ShortCuts: " + skippedShortCuts);
-            keysToPress.setText("");
+            keysToPress.setText("Skipped ShortCuts: " + skippedShortCuts);
+            skipButton.setVisible(false);
             keysPane.getChildren().clear();
             return;
         }
@@ -155,7 +155,7 @@ public class GameplayController {
         keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
         progress.setText(engine.progress());
         streak.setText("Streak: " + streakNumber);
-        keysToPress.setText("Keys to Press:");
+        keysToPress.setText("Keys to Press");
     }
 
     /**

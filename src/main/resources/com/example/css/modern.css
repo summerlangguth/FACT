@@ -215,10 +215,36 @@
 .label-bold{
     -fx-font-family: Helvetica, "Helvetica", sans-serif;
     -fx-font-weight: 700;
+    -fx-font-size: 20px;
 
 }
 .form-label{
     -fx-font-size: 20px;
+}
+
+
+.form-header{
+    -fx-font-family: Helvetica, "Helvetica", sans-serif;
+    -fx-font-weight: 700;
+    -fx-font-size: 35px;
+    -fx-padding: 20 0 20;
+}
+
+.keybind-display{
+    -fx-padding: 8 14;
+    -fx-background-color: #e9edf3;
+    -fx-background-radius: 6;
+    -fx-font-family: Helvetica, "Helvetica", sans-serif;
+}
+.label-overflow {
+  display: block; /* Labels are inline by default, make it block to control width */
+  width: 100%; /* Take full width of parent container */
+  overflow-wrap: break-word; /* Allow long words to break and wrap */
+}
+.main-heading{
+    -fx-font-family: Helvetica, "Helvetica", sans-serif;
+    -fx-font-size: 80px;
+    -fx-text-align: center;
 }
 
 .page-title{
