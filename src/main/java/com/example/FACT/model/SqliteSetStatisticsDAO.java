@@ -5,6 +5,10 @@ import java.sql.*;
 public class SqliteSetStatisticsDAO {
 
     private final Connection connection;
+
+    /**
+     * initialises with the instance connection
+     */
     public SqliteSetStatisticsDAO() {
         connection = SqliteConnection.getInstance();
         initSchema();
@@ -34,6 +38,12 @@ public class SqliteSetStatisticsDAO {
         }
     }
 
+    /**
+     * returns the user's maximum score for the application set
+     * @param email user's email (unique id)
+     * @param setName application name (combined PK)
+     * @return
+     */
     public int getMaxScore(String email, String setName){
         String query = "SELECT maxScore FROM userScores WHERE userEmail = ? AND setName = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -50,6 +60,12 @@ public class SqliteSetStatisticsDAO {
         return -1;
     }
 
+    /**
+     * checks to see if the new score is a maximum or if there is no score stored and updates accordingly
+     * @param email user's email
+     * @param setName application name (combo PK)
+     * @param score score of most recent game
+     */
     public void updateMaxscore(String email, String setName, Integer score){
         PreparedStatement preparedStatement;
         ResultSet resultSet;

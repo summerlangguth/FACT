@@ -144,15 +144,7 @@ public class GameplayController {
     private void refreshUI() {
         Shortcut currentShortcut = engine.current();
         if (currentShortcut == null) {
-            finalScore.setVisible(true);
-            Integer score = (correctScore / engine.size()) * 100;
-            finalScore.setText("Final Score: " + score + " %");
-            streak.setText("Maximum streak: " + maxStreakNumber);
-            keysToPress.setText("All shortcuts complete!");
-            shortcutDescText.setText("Skipped ShortCuts: " + skippedShortCuts);
-            skipButton.setVisible(false);
-            keysPane.getChildren().clear();
-            storeScore(score);
+            setFinishedValues();
             return;
         }
         appTitleLabel.setText(storedAppTitle);
@@ -173,10 +165,31 @@ public class GameplayController {
         statusLabel.setStyle("-fx-font-size: 30px; -fx-font-family: Helvetica; -fx-font-weight:bold; -fx-text-fill: " + colorHex + ";");
     }
 
+    private void setFinishedValues(){
+        finalScore.setVisible(true);
+        Integer score = (correctScore / engine.size()) * 100;
+        finalScore.setText("Final Score: " + score + " %");
+        streak.setText("Maximum streak: " + maxStreakNumber);
+        keysToPress.setText("All shortcuts complete!");
+        shortcutDescText.setText("Skipped ShortCuts: " + skippedShortCuts);
+        skipButton.setVisible(false);
+        keysPane.getChildren().clear();
+        storeScore(score);
+    }
+
+    /**
+     * used to check if the score is a maximum
+     * @param score user's percentage correct
+     */
     private void storeScore(Integer score){
         String email = UserManager.getInstance().getLoggedInUser().getEmail();
         model.updateMaxscore(email,storedAppTitle, score);
     }
+
+    /**
+     * updates score totals
+     * @param correct if the keybind was correct
+     */
     private void updateStats(boolean correct){
         if(correct){
             streakNumber = streakNumber + 1;
