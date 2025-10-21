@@ -63,7 +63,7 @@ public class SetSelectorController {
         Integer maxScore = model.getMaxScore(email, selectedSet);
 
         if (maxScore >= 0) {
-            setScore.setText("Previous Max Score: " + maxScore + " %");
+            setScore.setText("Max Score: " + maxScore + " %");
         } else {
             setScore.setText("");
         }
