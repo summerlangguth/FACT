@@ -393,7 +393,11 @@ GridPane.card {
     -fx-padding: 6 10;
 }
 
-
+.form-spacing{
+    -fx-font-size: 14px; /* closed state text */
+    -fx-min-height: 36px;
+    -fx-padding: 6 0;
+}
 /* === Enforce uniform popup item sizing & font across all ComboBox popups === */
 .combo-box-popup .list-view {
     -fx-font-size: 14px;
