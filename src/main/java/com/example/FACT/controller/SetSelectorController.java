@@ -25,11 +25,13 @@ public class SetSelectorController {
     @FXML private Button startBtn;
     @FXML private ComboBox<String> setCombo;
     @FXML private Label errorLabel;
+    @FXML private Label setScore;
 
 
 
     // Sets up DataBase connection
     private final ICreateSetDAO dao = new SqliteCreateSetDAO();
+    private final SqliteSetStatisticsDAO model = new SqliteSetStatisticsDAO();
 
 
 
@@ -38,12 +40,34 @@ public class SetSelectorController {
     private void initialize() {
         var apps = dao.listApplications();
         setCombo.getItems().setAll(apps);
-        if (!apps.isEmpty()) setCombo.getSelectionModel().select(0);
+        if (!apps.isEmpty()){
+            setCombo.getSelectionModel().select(0);
+            updateMaxScoreForSelectedSet();
+        }
         errorLabel.setText("");
+
+        //listen for change in the selected set
+        setCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldSet, newSet) -> {
+            updateMaxScoreForSelectedSet();
+        });
     }
 
+    private void updateMaxScoreForSelectedSet() {
+        String selectedSet = setCombo.getSelectionModel().getSelectedItem();
+        if (selectedSet == null || selectedSet.isBlank()) {
+            setScore.setText("");
+            return;
+        }
 
+        String email = UserManager.getInstance().getLoggedInUser().getEmail();
+        Integer maxScore = model.getMaxScore(email, selectedSet);
 
+        if (maxScore >= 0) {
+            setScore.setText("Previous Max Score: " + maxScore + " %");
+        } else {
+            setScore.setText("");
+        }
+    }
     @FXML
     private void onStart() throws IOException, SQLException {
 

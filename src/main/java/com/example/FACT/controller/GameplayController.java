@@ -1,7 +1,6 @@
 package com.example.FACT.controller;
 
-import com.example.FACT.model.GameEngine;
-import com.example.FACT.model.Shortcut;
+import com.example.FACT.model.*;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -37,6 +36,7 @@ public class GameplayController {
     @FXML private Label statusLabel;
     @FXML private Label progress;
     @FXML private Label streak;
+    @FXML private Label finalScore;
     @FXML private Label keysToPress;
     @FXML private Button exitButton;
     @FXML private Button skipButton;
@@ -44,9 +44,11 @@ public class GameplayController {
     private Scene scene;
     private GameEngine engine;
     private Integer streakNumber;
-    private Integer maxStreakNumber; //stored as a local variable
+    private Integer maxStreakNumber;//stored as a local variable
+    private Integer correctScore;
     private Integer skippedShortCuts;
-
+    private String storedAppTitle;
+    public SqliteSetStatisticsDAO model = new SqliteSetStatisticsDAO();
     /**
      * Method that attaches a new GameEngine instance to the GameplayController.
      * @param engine New GameEngine instance.
@@ -64,6 +66,8 @@ public class GameplayController {
         streakNumber = 0;
         maxStreakNumber = 0;
         skippedShortCuts = 0;
+        correctScore = 0;
+        finalScore.setVisible(false);
         Platform.runLater(() -> {
             root.getScene().addEventFilter((KeyEvent.KEY_PRESSED), this::onKeyPressed);
         });
@@ -111,10 +115,7 @@ public class GameplayController {
         else {
             boolean inputStatus = engine.checkAndAdvance(e);
             if (inputStatus) {
-                streakNumber = streakNumber + 1;
-                if(streakNumber > maxStreakNumber){
-                    maxStreakNumber = streakNumber;
-                }
+                updateStats(true);
                 showStatus("CORRECT", "#2e7d32");
                 PauseTransition pause = new PauseTransition(Duration.seconds(2));
                 pause.setOnFinished(ev -> {
@@ -124,7 +125,7 @@ public class GameplayController {
                 pause.play();
             }
             else{
-                streakNumber = 0;
+                updateStats(false);
                 showStatus("INCORRECT", "ED2A00");
                 PauseTransition pause = new PauseTransition(Duration.seconds(2));
                 pause.setOnFinished(ev -> {
@@ -143,14 +144,18 @@ public class GameplayController {
     private void refreshUI() {
         Shortcut currentShortcut = engine.current();
         if (currentShortcut == null) {
-            shortcutDescText.setText("All shortcuts complete!");
+            finalScore.setVisible(true);
+            Integer score = (correctScore / engine.size()) * 100;
+            finalScore.setText("Final Score: " + score + " %");
             streak.setText("Maximum streak: " + maxStreakNumber);
-            keysToPress.setText("Skipped ShortCuts: " + skippedShortCuts);
+            keysToPress.setText("All shortcuts complete!");
+            shortcutDescText.setText("Skipped ShortCuts: " + skippedShortCuts);
             skipButton.setVisible(false);
             keysPane.getChildren().clear();
+            storeScore(score);
             return;
         }
-        appTitleLabel.setText(currentShortcut.getApplication());
+        appTitleLabel.setText(storedAppTitle);
         shortcutDescText.setText(currentShortcut.getDescription());
         keysPane.getChildren().setAll(makeKeycaps(currentShortcut.getCombo()));
         progress.setText(engine.progress());
@@ -166,6 +171,23 @@ public class GameplayController {
     private void showStatus(String text, String colorHex) {
         statusLabel.setText(text);
         statusLabel.setStyle("-fx-font-size: 30px; -fx-font-family: Helvetica; -fx-font-weight:bold; -fx-text-fill: " + colorHex + ";");
+    }
+
+    private void storeScore(Integer score){
+        String email = UserManager.getInstance().getLoggedInUser().getEmail();
+        model.updateMaxscore(email,storedAppTitle, score);
+    }
+    private void updateStats(boolean correct){
+        if(correct){
+            streakNumber = streakNumber + 1;
+            correctScore = correctScore + 1;
+            if(streakNumber > maxStreakNumber){
+                maxStreakNumber = streakNumber;
+            }
+        }
+        else{
+            streakNumber = 0;
+        }
     }
 
     private List<Label> makeKeycaps(KeyCombination combo) {
@@ -229,6 +251,7 @@ public class GameplayController {
         GameEngine engine = new GameEngine(shortcuts);
         setEngine(engine);
         if (appTitleLabel != null && appTitle != null && !appTitle.isBlank()) {
+            storedAppTitle = appTitle;
             appTitleLabel.setText(appTitle);
         }
     }

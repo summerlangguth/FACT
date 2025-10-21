@@ -37,7 +37,9 @@ public class GameEngine {
         this.currentShortcuts = (list != null) ? List.copyOf(list) : Collections.emptyList();
         reset();
     }
-
+    public int size(){
+        return currentShortcuts.size();
+    }
     /**
      * Resets index to 0.
      */

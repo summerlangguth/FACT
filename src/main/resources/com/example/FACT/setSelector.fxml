@@ -9,6 +9,7 @@
             <Label text="Shortcut set" styleClass="form-label"/>
             <ComboBox fx:id="setCombo" promptText="Select a set…" prefWidth="420"/>
         </VBox>
+        <Label fx:id="setScore" styleClass="label-bold"/>
         <Button fx:id="startBtn" text="PLAY!" onAction="#onStart" defaultButton="true"/>
         <Label fx:id="errorLabel" textFill="red"/>
     </VBox>

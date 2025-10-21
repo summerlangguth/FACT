@@ -13,7 +13,7 @@ public class SqliteUserDAO implements IUserDAO{
      */
     public SqliteUserDAO() {
         connection = SqliteConnection.getInstance();
-        initTable();
+        initSchema();
 
     }
 
@@ -24,7 +24,7 @@ public class SqliteUserDAO implements IUserDAO{
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    private void initTable() {
+    private void initSchema() {
         // Create table if not exists
         try {
             Statement statement = connection.createStatement();
