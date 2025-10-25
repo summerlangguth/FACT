@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -40,7 +41,7 @@ public class RegistrationController implements Initializable {
     @FXML
     private Button closeButton;
     @FXML
-    private BorderPane root;
+    private GridPane root;
     @FXML
     private Label registerMessageLabel;
     @FXML

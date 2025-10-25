@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Parent;
@@ -34,7 +35,7 @@ public class LoginController implements Initializable {
     @FXML
     private Label welcomeText;
     @FXML
-    private BorderPane root;
+    private GridPane root;
     @FXML
     private Label loginMessageLabel;
 
@@ -122,6 +123,9 @@ public class LoginController implements Initializable {
         stage.close();
     }
 
+    /**
+     * loads registration
+     */
     public void createAccountForm(){
         try{
             FXMLLoader baseLoader = new FXMLLoader(HelloApplication.class.getResource("authbase.fxml"));

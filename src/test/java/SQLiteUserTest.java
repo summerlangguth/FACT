@@ -35,16 +35,17 @@ public class SQLiteUserTest {
     }
     @Test
     public void testLoginSuccessful() throws SQLException {
-        /// ensure running the test uses the mock information
+        // Mock setup
         when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
         when(mockStatement.executeQuery()).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(true); /// want to pass
+        when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getTimestamp("lastActive")).thenReturn(Timestamp.from(Instant.now()));
-        when(mockResultSet.getInt("streak")).thenReturn(0); /// mock the set activity
-        when(mockStatement.executeUpdate()).thenReturn(0); /// allow the update to happen
+        when(mockResultSet.getInt("streak")).thenReturn(0);
+        when(mockStatement.executeUpdate()).thenReturn(0);
         String hashed = PasswordUtils.hashPassword("Correct");
-        when(mockResultSet.getString("password")).thenReturn(hashed); ///allow mocked hashing
-        boolean testLogin = userTest.validateLogin("test@example.com","Correct");
+        when(mockResultSet.getString("hashPassword")).thenReturn(hashed);
+        boolean testLogin = userTest.validateLogin("test@example.com", "Correct");
+
         assertTrue(testLogin);
     }
 

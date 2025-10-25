@@ -1,115 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+        <?import javafx.geometry.*?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.image.*?>
+        <?import javafx.scene.layout.*?>
+        <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="scene-root content" stylesheets="@../css/modern.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.FACT.controller.RegistrationController">
-   <children>
-      <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: ffffffff;" styleClass="card auth-card">
-         <children>
-            <BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-               <top>
-                  <AnchorPane BorderPane.alignment="CENTER">
-                     <children>
-                        <ImageView fx:id="brandingImageView" fitHeight="175.0" fitWidth="600.0" layoutX="310.0" layoutY="-81.0" pickOnBounds="true">
-                           <viewport>
-                              <Rectangle2D />
-                           </viewport>
-                           <Image url="@../../../images/logo.png" />
-                        </ImageView>
-                     </children>
-                     <padding>
-                        <Insets bottom="25.0" />
-                     </padding>
-                  </AnchorPane>
-               </top>
-               <bottom>
-                  <AnchorPane BorderPane.alignment="CENTER">
-                     <children>
-                        <Label layoutX="125.0" layoutY="13.0" text="First Name">
-                           <font>
-                              <Font name="Helvetica Neue Light" size="36.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="firstNameTextField" layoutX="500.0" layoutY="8.0" minHeight="50.0" minWidth="700.0" promptText="Jane">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </TextField>
-                        <Label layoutX="125.0" layoutY="97.0" text="Last Name">
-                           <font>
-                              <Font name="Helvetica Neue Light" size="36.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="lastNameTextField" layoutX="500.0" layoutY="94.0" minHeight="50.0" minWidth="700.0" promptText="Smith">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </TextField>
-                        <Label layoutX="125.0" layoutY="192.0" text="Email">
-                           <font>
-                              <Font name="Helvetica Neue Light" size="36.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="emailTextField" layoutX="500.0" layoutY="182.0" minHeight="50.0" minWidth="700.0" promptText="user@company.com">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </TextField>
-                        <Label layoutX="125.0" layoutY="279.0" text="Password">
-                           <font>
-                              <Font name="Helvetica Neue Light" size="36.0" />
-                           </font>
-                        </Label>
-                        <PasswordField fx:id="setPasswordField" layoutX="500.0" layoutY="269.0" minHeight="50.0" minWidth="700.0" promptText="Password">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </PasswordField>
-                        <Label layoutX="125.0" layoutY="363.0" text="Confirm Password">
-                           <font>
-                              <Font name="Helvetica Neue Light" size="36.0" />
-                           </font>
-                        </Label>
-                        <PasswordField fx:id="confirmPasswordField" layoutX="500.0" layoutY="361.0" minHeight="50.0" minWidth="700.0" promptText="Password">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </PasswordField>
-                        <Button fx:id="signUpButton" layoutX="429.0" layoutY="511.0" mnemonicParsing="false" onAction="#signUpButtonOnAction" prefHeight="60.0" prefWidth="350.0" styleClass="button-primary,button-solid,button-xl" text="SIGN UP" textFill="WHITE">
-                           <font>
-                              <Font name="Helvetica Bold" size="25.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="loginButton" layoutX="432.0" layoutY="589.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="60.0" prefWidth="350.0" styleClass="button-primary,button-solid,button-xl" text="LOG IN" textFill="WHITE">
-                           <font>
-                              <Font name="Helvetica Bold" size="25.0" />
-                           </font>
-                        </Button>
-                        <Label fx:id="registerMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="447.0" prefWidth="1200.0">
-                           <font>
-                              <Font name="Helvetica Neue Bold" size="36.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="confirmPasswordLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="500.0" layoutY="418.0" textFill="RED">
-                           <font>
-                              <Font name="Helvetica Neue Light" size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="25.0" />
-                     </padding>
-                  </AnchorPane>
-               </bottom>
-               <padding>
-                  <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
-               </padding>
-            </BorderPane>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+<VBox xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.FACT.controller.RegistrationController"
+      alignment="CENTER"
+      spacing="30"
+      style="-fx-background-color: white;"
+      styleClass="scene-root content card auth-card"
+      stylesheets="@../css/modern.css"
+      prefWidth="900"
+      prefHeight="800">
+
+   <!-- Logo -->
+   <HBox alignment="CENTER">
+      <ImageView fx:id="brandingImageView"
+                 fitHeight="175"
+                 preserveRatio="true"
+                 smooth="true">
+         <Image url="@../../../images/logo.png" />
+      </ImageView>
+   </HBox>
+
+   <!-- Registration Form -->
+   <GridPane hgap="20" vgap="25" alignment="CENTER">
+      <columnConstraints>
+         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" percentWidth="30"/>
+         <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" percentWidth="70"/>
+      </columnConstraints>
+
+      <!-- First Name -->
+      <Label text="First Name" GridPane.rowIndex="0" GridPane.columnIndex="0">
+         <font>
+            <Font name="Helvetica Neue Light" size="28"/>
+         </font>
+      </Label>
+      <TextField fx:id="firstNameTextField"
+                 promptText="Jane"
+                 GridPane.rowIndex="0"
+                 GridPane.columnIndex="1"
+                 GridPane.hgrow="ALWAYS"
+                 maxWidth="Infinity">
+         <font>
+            <Font size="20"/>
+         </font>
+      </TextField>
+
+      <!-- Last Name -->
+      <Label text="Last Name" GridPane.rowIndex="1" GridPane.columnIndex="0">
+         <font>
+            <Font name="Helvetica Neue Light" size="28"/>
+         </font>
+      </Label>
+      <TextField fx:id="lastNameTextField"
+                 promptText="Smith"
+                 GridPane.rowIndex="1"
+                 GridPane.columnIndex="1"
+                 GridPane.hgrow="ALWAYS"
+                 maxWidth="Infinity">
+         <font>
+            <Font size="20"/>
+         </font>
+      </TextField>
+
+      <!-- Email -->
+      <Label text="Email" GridPane.rowIndex="2" GridPane.columnIndex="0">
+         <font>
+            <Font name="Helvetica Neue Light" size="28"/>
+         </font>
+      </Label>
+      <TextField fx:id="emailTextField"
+                 promptText="user@company.com"
+                 GridPane.rowIndex="2"
+                 GridPane.columnIndex="1"
+                 GridPane.hgrow="ALWAYS"
+                 maxWidth="Infinity">
+         <font>
+            <Font size="20"/>
+         </font>
+      </TextField>
+
+      <!-- Password -->
+      <Label text="Password" GridPane.rowIndex="3" GridPane.columnIndex="0">
+         <font>
+            <Font name="Helvetica Neue Light" size="28"/>
+         </font>
+      </Label>
+      <PasswordField fx:id="setPasswordField"
+                     promptText="Password"
+                     GridPane.rowIndex="3"
+                     GridPane.columnIndex="1"
+                     GridPane.hgrow="ALWAYS"
+                     maxWidth="Infinity">
+         <font>
+            <Font size="20"/>
+         </font>
+      </PasswordField>
+
+      <!-- Confirm Password -->
+      <Label text="Confirm Password" GridPane.rowIndex="4" GridPane.columnIndex="0">
+         <font>
+            <Font name="Helvetica Neue Light" size="28"/>
+         </font>
+      </Label>
+      <PasswordField fx:id="confirmPasswordField"
+                     promptText="Password"
+                     GridPane.rowIndex="4"
+                     GridPane.columnIndex="1"
+                     GridPane.hgrow="ALWAYS"
+                     maxWidth="Infinity">
+         <font>
+            <Font size="20"/>
+         </font>
+      </PasswordField>
+
+      <!-- Error / Status Label -->
+      <Label fx:id="registerMessageLabel"
+             GridPane.rowIndex="5"
+             GridPane.columnIndex="0"
+             GridPane.columnSpan="2"
+             alignment="CENTER"
+             textFill="red"
+             wrapText="true"
+             style="-fx-font-size: 22;">
+      </Label>
+
+      <!-- Password Confirmation Message -->
+      <Label fx:id="confirmPasswordLabel"
+             GridPane.rowIndex="6"
+             GridPane.columnIndex="0"
+             GridPane.columnSpan="2"
+             alignment="CENTER"
+             textFill="RED"
+             wrapText="true"
+             style="-fx-font-size: 18;"/>
+
+      <!-- Buttons -->
+      <HBox spacing="20"
+            alignment="CENTER"
+            GridPane.rowIndex="7"
+            GridPane.columnIndex="0"
+            GridPane.columnSpan="2">
+         <Button fx:id="signUpButton"
+                 text="SIGN UP"
+                 onAction="#signUpButtonOnAction"
+                 prefHeight="60"
+                 maxWidth="300"
+                 styleClass="button-primary,button-solid,button-xl"/>
+         <Button fx:id="loginButton"
+                 text="LOG IN"
+                 onAction="#loginButtonOnAction"
+                 prefHeight="60"
+                 maxWidth="300"
+                 styleClass="button-primary,button-solid,button-xl"/>
+      </HBox>
+   </GridPane>
+
+   <padding>
+      <Insets top="40" right="60" bottom="40" left="60"/>
+   </padding>
+</VBox>
