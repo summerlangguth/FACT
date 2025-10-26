@@ -36,7 +36,7 @@
             <Font name="Helvetica Neue Light" size="32"/>
          </font>
       </Label>
-      <TextField fx:id="emailTextField" promptText="user@company.com" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" maxWidth="Infinity">
+      <TextField fx:id="emailTextField" promptText="user@company.com" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" maxWidth="700">
          <font>
             <Font size="20"/>
          </font>
@@ -48,14 +48,14 @@
             <Font name="Helvetica Neue Light" size="32"/>
          </font>
       </Label>
-      <PasswordField fx:id="passwordField" promptText="Password" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"  maxWidth="Infinity">
+      <PasswordField fx:id="passwordField" promptText="Password" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"  maxWidth="700">
          <font>
             <Font size="20"/>
          </font>
       </PasswordField>
 
       <!-- Message Label -->
-      <Label fx:id="loginMessageLabel" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER" textFill="red" wrapText="true"/>
+      <Label fx:id="loginMessageLabel" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" textFill="red" wrapText="true"/>
 
       <!-- Buttons -->
       <HBox spacing="20" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2">

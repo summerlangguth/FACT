@@ -167,7 +167,7 @@ public class GameplayController {
 
     private void setFinishedValues(){
         finalScore.setVisible(true);
-        Integer score = (correctScore / engine.size()) * 100;
+        Integer score = (int) Math.round(((double) correctScore / engine.size()) * 100);
         finalScore.setText("Final Score: " + score + " %");
         streak.setText("Maximum streak: " + maxStreakNumber);
         keysToPress.setText("All shortcuts complete!");

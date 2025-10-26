@@ -90,8 +90,10 @@ public class RegistrationController implements Initializable {
                     String email = emailTextField.getText();
                     String password = confirmPasswordField.getText();
                     if(modelOne.validateLogin(email, password)){
-                        //loginMessageLabel.setText("valid login");
+                        User loggedInUser = modelOne.createUserObject(email, PasswordUtils.getInstance().getPasswordHash());
+                        UserManager.getInstance().setLoggedInUser(loggedInUser);
                         modelOne.storeActivity(email);
+                        modelOne.storeLastPlayed(email);
                         loginController.loadHomePage(loginButton);
                     }
                     else {

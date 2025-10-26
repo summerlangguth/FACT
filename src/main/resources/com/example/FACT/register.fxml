@@ -45,7 +45,7 @@
                  GridPane.rowIndex="0"
                  GridPane.columnIndex="1"
                  GridPane.hgrow="ALWAYS"
-                 maxWidth="Infinity">
+                 maxWidth="700">
          <font>
             <Font size="20"/>
          </font>
@@ -62,7 +62,7 @@
                  GridPane.rowIndex="1"
                  GridPane.columnIndex="1"
                  GridPane.hgrow="ALWAYS"
-                 maxWidth="Infinity">
+                 maxWidth="700">
          <font>
             <Font size="20"/>
          </font>
@@ -79,7 +79,7 @@
                  GridPane.rowIndex="2"
                  GridPane.columnIndex="1"
                  GridPane.hgrow="ALWAYS"
-                 maxWidth="Infinity">
+                 maxWidth="700">
          <font>
             <Font size="20"/>
          </font>
@@ -96,7 +96,7 @@
                      GridPane.rowIndex="3"
                      GridPane.columnIndex="1"
                      GridPane.hgrow="ALWAYS"
-                     maxWidth="Infinity">
+                     maxWidth="700">
          <font>
             <Font size="20"/>
          </font>
@@ -113,7 +113,7 @@
                      GridPane.rowIndex="4"
                      GridPane.columnIndex="1"
                      GridPane.hgrow="ALWAYS"
-                     maxWidth="Infinity">
+                     maxWidth="700">
          <font>
             <Font size="20"/>
          </font>
@@ -124,8 +124,7 @@
              GridPane.rowIndex="5"
              GridPane.columnIndex="0"
              GridPane.columnSpan="2"
-             alignment="CENTER"
-             textFill="red"
+             GridPane.halignment="CENTER"
              wrapText="true"
              style="-fx-font-size: 22;">
       </Label>
@@ -135,10 +134,10 @@
              GridPane.rowIndex="6"
              GridPane.columnIndex="0"
              GridPane.columnSpan="2"
-             alignment="CENTER"
-             textFill="RED"
+             GridPane.halignment="CENTER"
+             textFill="red"
              wrapText="true"
-             style="-fx-font-size: 18;"/>
+             style="-fx-font-size: 18;" />
 
       <!-- Buttons -->
       <HBox spacing="20"
